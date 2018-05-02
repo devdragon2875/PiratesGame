@@ -50,3 +50,11 @@ Allows for exiting the game
 - Variety of different starting ships
 - Upgrades including adding new sections to ship
 - Some sort of crew system, crew members can boost certain sections 
+
+### Responsibilities 
+- Anantajit Subrahmanya
+    - Networking
+- Devansh Mishra
+    - Boat Sections and Weapons
+- Blake Randle
+    - Trading and Cargo
