@@ -28,9 +28,6 @@ public class DrawingSurface extends PApplet {
 	private boolean zoom; // whether screen is zoomed or not(by scalefactor)
 	public float scaleFactor; // scales screen
 	
-	
-	
-	
 	//MOUSE VAR(adjusted for the translations and scale)
 	public static float xCoord;
 	public static float yCoord;
@@ -63,9 +60,10 @@ public class DrawingSurface extends PApplet {
 		xCoord = this.mouseX;
 		yCoord = this.mouseY;
 		
-		//IF SCREEN ZOOMED IN AND BY HOW MUCH
+		//IF SCREEN ZOOMED IN, BY HOW MUCH, AND ROTATION
 		zoom = true;
 		scaleFactor = 7;
+		angle = (float) (Math.PI/2.0);
 		
 		//ARRAYLISTS FOR STUFF
 		playerBullets = new ArrayList<Bullet>();
@@ -173,25 +171,34 @@ public class DrawingSurface extends PApplet {
 			background(100, 150, 230);
 			
 			//CHECK FOR INPUT AND CHANGES PLAYER VALUES 
-			if (keys[0])
-				player.changeYV(-1);
-			if (keys[1])
-				player.changeYV(1);
-			if (keys[2])
-				player.changeXV(-1);
-				//angle+= Math.PI/10;
-			if (keys[3])
-				player.changeXV(1);
-				//angle -= Math.PI/10;
+			if (keys[0]) {
+				player.changeYV((float)-0.05);
+			} else {
+				//player.setYV(0);
+			}
+			if (keys[1]) {
+				player.changeYV((float)0.05);
+			} else {
+				//player.setYV(0);
+			}
+			if (keys[2]) {
+				//player.changeXV(-1);
+				angle-= Math.PI/100;
+			}
+			if (keys[3]) {
+				//player.changeXV(1);
+				angle += Math.PI/100;
+			} 
 			
 			//ZOOMS WORLD TO PLAYER BY ZOOM FACTOR
 			if (zoom) {
 				//ADJUST MOUSE COORD(translate for scale)
 				xCoord -= this.width/2 + player.getWidth()/2;
 				yCoord -= this.height / 2 + player.getHeight()/2;
-				
+				player.setAngle(angle);
 				//SCALES MAP BASED ON PLAYER LOCATION
 				translate(this.width/2 + player.getWidth()/2, this.height / 2 + player.getHeight()/2);
+				
 				scale((float) scaleFactor);
 				
 				//ADJUSTS MOUSE VALUES BY SCALING

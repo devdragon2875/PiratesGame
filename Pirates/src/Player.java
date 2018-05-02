@@ -8,8 +8,8 @@ public class Player extends Block{
 	
 	protected float xV,yV,maxXV, maxYV, friction;
 	//private PImage image;
-	public static final float DEFAULT_MAX_VELOCITY = 0.3f;
-	public static final float DEFAULT_FRICTION = 0.1f;
+	public static final float DEFAULT_MAX_VELOCITY = 0.5f;
+	public static final float DEFAULT_FRICTION = 0.99f;
 	private int health, maxHealth;
 	private ArrayList<WeaponSection> weapons = new ArrayList<WeaponSection>();
 	private SteerSection steer;
@@ -30,7 +30,7 @@ public class Player extends Block{
 		//x-=width/2;
 		//y-=height/2;
 		//splash = new Animation("Splash/splash_",4,parent,5);
-		angle = (float) (Math.PI/2);
+		angle = (float)(Math.PI/2.0);
 		this.maxHealth = maxHealth;
 		health = maxHealth;
 		weapons.add(new WeaponSection(x, y+height/4, weaponWidth, weaponHeight, true, parent));
@@ -52,8 +52,9 @@ public class Player extends Block{
 	}
 	
 	public void show() {
-		
-		
+		parent.translate((float)(this.getX()+this.getWidth()/2.0), (float)(this.getY()+this.getHeight()/2.0));
+		parent.rotate((float)(angle - Math.PI/2.0));
+		parent.translate((float)(-this.getX()-this.getWidth()/2.0), (float)(-this.getY()-this.getHeight()/2.0));
 		this.draw();
 		for(int i = 0; i < weapons.size(); i++) {
 			weapons.get(i).draw();
@@ -68,8 +69,8 @@ public class Player extends Block{
 	
 	public void update(Block[] b) {
 		
-//		x+= maxXV * Math.cos(angle);
-//		y+= maxYV * Math.sin(angle);
+		x += (float) (yV * Math.cos(angle));
+		y += (float) (yV * Math.sin(angle));
 		if(xV > maxXV) {
 			xV = maxXV;
 		}else if(xV < -1*maxXV) {
@@ -82,7 +83,7 @@ public class Player extends Block{
 		}
 		
 		//moving x
-		x += xV;
+		
 		
 		for(int i = 0; i < b.length; i++) {
 			if(this.isTouching(b[i])) { 
@@ -98,7 +99,7 @@ public class Player extends Block{
 		
 		
 		//moving y
-		y += yV;
+		
 		
 		for(int i = 0; i < b.length; i++) {
 			if(this.isTouching(b[i])) { 
@@ -113,9 +114,9 @@ public class Player extends Block{
 		}
 		
 		//friction
-		xV *= 1-friction;
+		xV *= friction;
 		
-		yV *= 1-friction;
+		yV *= friction;
 		
 		for(int i = 0; i < weapons.size(); i++) {
 			weapons.get(i).update();
@@ -211,6 +212,11 @@ public class Player extends Block{
 		// TODO Auto-generated method stub
 		this.angle = angle;
 	}
+
+//	public void setYV(int i) {
+//		// TODO Auto-generated method stub
+//		yV = i;
+//	}
 	
 	
 	
