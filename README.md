@@ -52,6 +52,9 @@ Allows for exiting the game
 - Some sort of crew system, crew members can boost certain sections 
 
 ### Responsibilities 
-- Anantajit Subrahmanya - Networking
-- Devansh Mishra - Boat Sections and Weapons
-- Blake Randle - Trading and Cargo
+- Anantajit Subrahmanya
+    - Networking
+- Devansh Mishra
+    - Boat Sections and Weapons
+- Blake Randle
+    - Trading and Cargo
