@@ -2,7 +2,7 @@
 Anantajit Subrahmanya, Devansh Mishra, and Blake Randle
 
 ## Introduction
-There isn't really a story to this one; the name really explains it all.
+Do you enjoy games that make you filthy rich, but have no effect on the real world? Do you get sadistic pleasure when you destroy something someone has been upgrading for hours? Well, Pirates will provide just that. Starting off with some basic supplies, you must venture out into a new world and cleverly trade items with the local merchants in order to gain gold. But be careful! There are others, those who are as bloodthirsty and ruthless as you are, who want to trade with the local merchants. You must fight your way through enemy ships and utilize your gold to upgrade your ship in order to survive the ruthless seas. Welcome to the world of Pirates…
 
 ## Instructions
 
