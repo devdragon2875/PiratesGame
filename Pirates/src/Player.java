@@ -12,11 +12,13 @@ public class Player extends Block{
 	public static final float DEFAULT_FRICTION = 0.99f;
 	private int health, maxHealth;
 	private ArrayList<WeaponSection> weapons = new ArrayList<WeaponSection>();
+	private ArrayList<Button> buttonsW = new ArrayList<Button>();
 	private SteerSection steer;
 	private LookoutSection lookout;
 	private float weaponWidth;
 	private float weaponHeight;
 	private float angle;
+	
 	Animation splash;
 	public Player(PApplet parent, float x, float y, float width, float height, int maxHealth) {
 		super(parent, x, y, width, height);
@@ -37,6 +39,12 @@ public class Player extends Block{
 		weapons.add(new WeaponSection(x+weaponWidth, y+height/4, weaponWidth, weaponHeight, false, parent));
 		weapons.add(new WeaponSection(x+weaponWidth, y+height/4+weaponHeight, weaponWidth, weaponHeight, false, parent));
 		weapons.add(new WeaponSection(x, y+height/4+weaponHeight, weaponWidth, weaponHeight, true, parent));
+		
+		buttonsW.add(new Button(parent, x-500/7, y, weaponWidth, weaponHeight, "Can1"));
+		buttonsW.add(new Button(parent, x-500/7+weaponWidth, y, weaponWidth, weaponHeight, "Can1"));
+		buttonsW.add(new Button(parent, x-500/7+weaponWidth, y+weaponHeight, weaponWidth, weaponHeight, "Can1"));
+		buttonsW.add(new Button(parent, x-500/7, y+weaponHeight, weaponWidth, weaponHeight, "Can1"));
+		
 		steer = new SteerSection(parent, x+width/2 -width/6, y+height/4+height, width/3, width/3);
 		lookout = new LookoutSection(parent, x+width/6, y, width/3, width/3);
 		//image = parent.loadImage("playerStill.png");
@@ -64,6 +72,7 @@ public class Player extends Block{
 		//splash.update();
 		//super.show();
 		//parent.image(image, x, y,size,size);
+		
 		
 	}
 	
@@ -121,6 +130,9 @@ public class Player extends Block{
 		for(int i = 0; i < weapons.size(); i++) {
 			weapons.get(i).update();
 		}
+		//for(int i = 0; i < buttonsW.size(); i++) {
+		//	buttonsW.get(i).update();
+		//}
 		weapons.get(0).setX(x);
 		weapons.get(1).setX(x+weaponWidth);
 		weapons.get(2).setX(x+weaponWidth);
@@ -136,7 +148,9 @@ public class Player extends Block{
 	}
 	public void draw() {
 		
-		
+		//for(int i = 0; i < buttonsW.size(); i++) {
+			//buttonsW.get(i).show();
+		//}
 		parent.stroke(0);
 		parent.strokeWeight((float) 0.5);
 		parent.fill(new Color(139,69,19).getRGB());

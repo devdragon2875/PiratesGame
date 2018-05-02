@@ -198,7 +198,7 @@ public class DrawingSurface extends PApplet {
 				player.setAngle(angle);
 				//SCALES MAP BASED ON PLAYER LOCATION
 				translate(this.width/2 + player.getWidth()/2, this.height / 2 + player.getHeight()/2);
-				
+				rotate((float)(-angle + Math.PI/2.0));
 				scale((float) scaleFactor);
 				
 				//ADJUSTS MOUSE VALUES BY SCALING
@@ -282,7 +282,7 @@ public class DrawingSurface extends PApplet {
 			
 			//DISPLAYS THE BLOCKS
 			for (Block w : walls) {
-				if(zoom && w.isTouching(player.getX()-600/scaleFactor, player.getY()-400/scaleFactor, 1400/scaleFactor, 950/scaleFactor)) {
+				if(zoom && w.isTouching(player.getX()-700/scaleFactor, player.getY()-500/scaleFactor, 1500/scaleFactor, 1050/scaleFactor)) {
 					w.show();
 				} else if(!zoom) {
 					w.showNoImage();
@@ -292,7 +292,7 @@ public class DrawingSurface extends PApplet {
 			
 			//DISPLAYS THE WATER TILES
 			for(Block w : waterBlocks) {
-				if(zoom && w.isTouching(player.getX()-this.width/(2*scaleFactor), player.getY()-this.height/(2*scaleFactor), this.width/scaleFactor, this.height/scaleFactor)) {
+				if(zoom && w.isTouching(player.getX()-(this.width+200)/(2*scaleFactor), player.getY()-(this.height+200)/(2*scaleFactor), (this.width+200)/scaleFactor, (this.height+200)/scaleFactor)) {
 					w.show();
 				} else if(!zoom) {
 					w.showNoImage();
