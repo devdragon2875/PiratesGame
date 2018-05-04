@@ -25,6 +25,7 @@ public class DrawingSurface extends PApplet {
 	
 	//SCREEN ADJUSTMENTS
 	private float angle; // rotates screen(not functional yet)
+	private float angleVel; // angle velocity, how fast the angle is changing
 	private boolean zoom; // whether screen is zoomed or not(by scalefactor)
 	public float scaleFactor; // scales screen
 	
@@ -64,6 +65,7 @@ public class DrawingSurface extends PApplet {
 		zoom = true;
 		scaleFactor = 7;
 		angle = (float) (Math.PI/2.0);
+		angleVel = 0;
 		
 		//ARRAYLISTS FOR STUFF
 		playerBullets = new ArrayList<Bullet>();
@@ -183,11 +185,11 @@ public class DrawingSurface extends PApplet {
 			}
 			if (keys[2]) {
 				//player.changeXV(-1);
-				angle-= Math.PI/100;
+				angleVel -= Math.PI/1000;
 			}
 			if (keys[3]) {
 				//player.changeXV(1);
-				angle += Math.PI/100;
+				angleVel += Math.PI/1000;
 			} 
 			
 			//ZOOMS WORLD TO PLAYER BY ZOOM FACTOR
@@ -195,6 +197,10 @@ public class DrawingSurface extends PApplet {
 				//ADJUST MOUSE COORD(translate for scale)
 				xCoord -= this.width/2 + player.getWidth()/2;
 				yCoord -= this.height / 2 + player.getHeight()/2;
+				
+				angle += angleVel;
+				angleVel *= 0.9;
+				
 				player.setAngle(angle);
 				//SCALES MAP BASED ON PLAYER LOCATION
 				translate(this.width/2 + player.getWidth()/2, this.height / 2 + player.getHeight()/2);
