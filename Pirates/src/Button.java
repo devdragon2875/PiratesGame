@@ -8,6 +8,7 @@ public class Button{
 	private float x,y,width,height;
 	private PApplet parent;
 	private Color fillColor, borderColor, textColor;
+	private boolean clicked; // boolean so that it will only register clicking once when holding down the mouse
 	
 	public Button(PApplet parent, float x, float y, float width, float height, String text) {
 		this.x = x;
@@ -19,6 +20,7 @@ public class Button{
 		fillColor = new Color(255,255,255);
 		borderColor = new Color(0,0,0);
 		textColor = new Color(0,0,0);
+		clicked = false;
 	}
 
 	public boolean isPointInside(float x, float y){
@@ -30,7 +32,16 @@ public class Button{
 	}
 	
 	public boolean isClicked(){
-		return isMouseHovering() && parent.mousePressed;
+		if(isMouseHovering() && parent.mousePressed) {
+			if(!clicked) {
+				clicked = true;
+				System.out.println("clicked");
+				return true;
+			}
+		} else {
+			clicked = false;
+		}
+		return false;
 	}
 	
 	public void show(){

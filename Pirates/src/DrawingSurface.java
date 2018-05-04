@@ -288,7 +288,7 @@ public class DrawingSurface extends PApplet {
 			
 			//DISPLAYS THE BLOCKS
 			for (Block w : walls) {
-				if(zoom && w.isTouching(player.getX()-700/scaleFactor, player.getY()-500/scaleFactor, 1500/scaleFactor, 1050/scaleFactor)) {
+				if(zoom/* && w.isTouching(player.getX()-700/scaleFactor, player.getY()-500/scaleFactor, 1500/scaleFactor, 1050/scaleFactor)*/) {
 					w.show();
 				} else if(!zoom) {
 					w.showNoImage();
@@ -298,7 +298,7 @@ public class DrawingSurface extends PApplet {
 			
 			//DISPLAYS THE WATER TILES
 			for(Block w : waterBlocks) {
-				if(zoom && w.isTouching(player.getX()-(this.width+200)/(2*scaleFactor), player.getY()-(this.height+200)/(2*scaleFactor), (this.width+200)/scaleFactor, (this.height+200)/scaleFactor)) {
+				if(zoom/* && w.isTouching(player.getX()-(this.width+200)/(2*scaleFactor), player.getY()-(this.height+200)/(2*scaleFactor), (this.width+200)/scaleFactor, (this.height+200)/scaleFactor)*/) {
 					w.show();
 				} else if(!zoom) {
 					w.showNoImage();
