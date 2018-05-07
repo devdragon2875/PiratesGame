@@ -18,7 +18,9 @@ public class Player extends Block{
 	private float weaponWidth;
 	private float weaponHeight;
 	private float angle;
-	
+
+	private Boat boat;
+
 	Animation splash;
 	public Player(PApplet parent, float x, float y, float width, float height, int maxHealth) {
 		super(parent, x, y, width, height);
@@ -57,6 +59,8 @@ public class Player extends Block{
 //		}
 //		steer.upgrade();
 //		steer.upgrade();
+
+		boat = new Boat(x, y, angle);
 	}
 	
 	public void show() {
@@ -69,6 +73,12 @@ public class Player extends Block{
 		}
 		steer.draw();
 		lookout.draw();
+
+		boat.setX(x);
+		boat.setY(y);
+		boat.setAngle(angle);
+
+
 		//splash.update();
 		//super.show();
 		//parent.image(image, x, y,size,size);
@@ -231,7 +241,9 @@ public class Player extends Block{
 //		// TODO Auto-generated method stub
 //		yV = i;
 //	}
-	
-	
-	
+
+
+	public Boat getBoat() {
+		return boat;
+	}
 }
