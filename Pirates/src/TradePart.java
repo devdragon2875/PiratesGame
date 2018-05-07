@@ -41,7 +41,7 @@ public class TradePart {
 		parent.textAlign(parent.CENTER);
 		parent.textSize(40);
 		parent.text(name, x+width/2, y+height/15);
-		
+		parent.text((int)price + "G", x+width/2, y+height/2);
 		buy1.show();
 		buy10.show();
 		sell1.show();
@@ -58,11 +58,27 @@ public class TradePart {
 		parent.popMatrix();
 		parent.popStyle();
 	}
-	
+	/*
 	public void update(){
 		buy1.update();
 		buy10.update();
 		sell1.update();
 		sellAll.update();
+	}
+	*/
+	public void updateTrade(Cargo cargo) {
+		if(buy1.update()) {
+			System.out.println(name + " buy1 was clicked.");
+			//if(cargo.getGold() >= price && cargo.getMaxSpace()) {
+			//	cargo.setGold(cargo.getGold() - (int)price);
+			//	cargo.set
+			//}
+		} else if(buy10.update()) {
+			System.out.println(name + " buy10 was clicked.");
+		} else if(sell1.update()) {
+			System.out.println(name + " sell1 was clicked.");
+		} else if(sellAll.update()) {
+			System.out.println(name + " sellAll was clicked.");
+		}
 	}
 }

@@ -77,7 +77,7 @@ public class DrawingSurface extends PApplet {
 		waterBlocks = new ArrayList<Block>();
 		
 		//SCREEN VAR
-		screen = GAME;
+		screen = TRADE;
 		menuScreen = new Menu(this);
 		ts = new TradeScreen(this);
 		
@@ -329,7 +329,7 @@ public class DrawingSurface extends PApplet {
 		
 		//IF TRADE SCREEN
 		else if(screen == TRADE) {
-			ts.update();
+			ts.update(player);
 			ts.show();
 		} 
 		

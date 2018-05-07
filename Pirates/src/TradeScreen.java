@@ -26,8 +26,10 @@ public class TradeScreen {
 		}
 	}
 	
-	public void update(){
-		for(TradePart p : parts)
-			p.update();
+	public void update(Player player){
+		for(TradePart p : parts) {
+			//p.update();
+			p.updateTrade(player.getCargo());
+		}
 	}
 }

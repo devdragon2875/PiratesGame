@@ -35,7 +35,7 @@ public class Button{
 		if(isMouseHovering() && parent.mousePressed) {
 			if(!clicked) {
 				clicked = true;
-				System.out.println("clicked");
+				//System.out.println("clicked");
 				return true;
 			}
 		} else {
@@ -61,13 +61,15 @@ public class Button{
 		parent.popMatrix();
 	}
 	
-	public void update(){
+	public boolean update(){ // returns true if it is clicked
 		if(isClicked()){
 			fillColor = new Color(100,255,100);
-		} else if(isMouseHovering())
+			return true;
+		} else if(isMouseHovering()) {
 			fillColor = new Color(255,255,100);
-		else
+		} else {
 			fillColor = new Color(255,235,200);
-		
+		}
+		return false;
 	}
 }

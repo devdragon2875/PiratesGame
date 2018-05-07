@@ -18,6 +18,7 @@ public class Player extends Block{
 	private float weaponWidth;
 	private float weaponHeight;
 	private float angle;
+	private Cargo cargo; // this keeps track of gold and how much of each trade good the player is carrying
 	
 	Animation splash;
 	public Player(PApplet parent, float x, float y, float width, float height, int maxHealth) {
@@ -57,6 +58,8 @@ public class Player extends Block{
 //		}
 //		steer.upgrade();
 //		steer.upgrade();
+		
+		cargo = new Cargo(100); //DEFAULT can hold 100 cargo
 	}
 	
 	public void show() {
@@ -232,6 +235,9 @@ public class Player extends Block{
 //		yV = i;
 //	}
 	
+	public Cargo getCargo() {
+		return cargo;
+	}
 	
 	
 }
