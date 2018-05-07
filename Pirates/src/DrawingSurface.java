@@ -2,7 +2,9 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DrawingSurface extends PApplet {
 
@@ -293,13 +295,14 @@ public class DrawingSurface extends PApplet {
             for (Particle p : particles)
                 p.show();
 
-            client.writeBoat(player.getBoat());
-            boats = client.readAllBoats();
-
             if (boats != null) {
                 for (Boat b :
                         boats) {
-                    new Block(this, b.getX(), b.getY(), 10, 10);
+                    if (b != null) {
+                        Block bx = new Block(this, b.getX(), b.getY(), 10, 10);
+                        bx.setColor(0, 0, 0);
+                        bx.show();
+                    }
                 }
             }
 
@@ -320,6 +323,10 @@ public class DrawingSurface extends PApplet {
             frameRate(10);
             menuScreen.draw();
         }
+
+        Boat b = player.getBoat();
+        client.writeBoat(b);
+        boats = client.readAllBoats();
     }
 
     public void keyPressed() {

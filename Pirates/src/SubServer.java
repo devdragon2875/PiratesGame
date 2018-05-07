@@ -1,9 +1,10 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class SubServer extends Thread {
 
-    protected Socket socket;
     private CentralServer centralServer;
     private int UID;
 
@@ -12,7 +13,7 @@ public class SubServer extends Thread {
 
     public SubServer(Socket clientSocket, CentralServer centralServer, int UID) throws IOException {
 
-        this.socket = clientSocket;
+        Socket socket = clientSocket;
         this.centralServer = centralServer;
         this.UID = UID;
 
@@ -27,12 +28,14 @@ public class SubServer extends Thread {
     public void run() {
         while (true) {
             try {
+                Boat b = (Boat) inObject.readObject();
+                centralServer.setBoat(UID, b);
                 outObject.writeObject(centralServer.getBoats());
-                centralServer.setBoats((Boat)inObject.readObject(), UID);
+                outObject.reset();
             } catch (IOException e) {
-                e.printStackTrace();
+                break;
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                break;
             }
         }
     }

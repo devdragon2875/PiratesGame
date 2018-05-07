@@ -35,4 +35,9 @@ public class Boat implements Serializable {
     public void setAngle(float angle) {
         this.angle = angle;
     }
+
+    @Override
+    public String toString() {
+        return "X: " + x + ", + Y: " + y + "; ANGLE:" + angle;
+    }
 }

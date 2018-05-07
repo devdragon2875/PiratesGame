@@ -7,7 +7,7 @@ public class CentralServer {
     public static final int MAX_PLAYERS = 8;
 
     private ArrayList<SubServer> users;
-    private Boat[] boats;
+    public volatile Boat[] boats;
     private int userID;
 
     public CentralServer(int port) throws IOException {
@@ -30,11 +30,11 @@ public class CentralServer {
         CentralServer server = new CentralServer(4444);
     }
 
-    public Boat[] getBoats() {
+    public synchronized Boat[] getBoats() {
         return boats;
     }
 
-    public void setBoats(Boat boat, int index) {
+    public synchronized void setBoat(int index, Boat boat){
         boats[index] = boat;
     }
 }

@@ -61,9 +61,12 @@ public class Client {
         if (outObject != null) {
             try {
                 outObject.writeObject(boat);
+                outObject.reset();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else{
+            System.out.println("PUSH TO SERVER FAILED - NO OUTPUT STREAM");
         }
     }
 

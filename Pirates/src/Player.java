@@ -49,21 +49,15 @@ public class Player extends Block{
 		
 		steer = new SteerSection(parent, x+width/2 -width/6, y+height/4+height, width/3, width/3);
 		lookout = new LookoutSection(parent, x+width/6, y, width/3, width/3);
-		//image = parent.loadImage("playerStill.png");
-		//movingImage = parent.loadImage("playerMoving.gif"); // doesnt work with gifs
-//		for(int i = 0; i < weapons.size(); i++) {
-//			weapons.get(i).upgrade();
-//		}
-//		for(int i = 0; i < weapons.size(); i++) {
-//			weapons.get(i).upgrade();
-//		}
-//		steer.upgrade();
-//		steer.upgrade();
 
 		boat = new Boat(x, y, angle);
 	}
 	
 	public void show() {
+		boat.setX(x);
+		boat.setY(y);
+		boat.setAngle(angle);
+
 		parent.translate((float)(this.getX()+this.getWidth()/2.0), (float)(this.getY()+this.getHeight()/2.0));
 		parent.rotate((float)(angle - Math.PI/2.0));
 		parent.translate((float)(-this.getX()-this.getWidth()/2.0), (float)(-this.getY()-this.getHeight()/2.0));
@@ -74,10 +68,6 @@ public class Player extends Block{
 		steer.draw();
 		lookout.draw();
 
-		boat.setX(x);
-		boat.setY(y);
-		boat.setAngle(angle);
-
 
 		//splash.update();
 		//super.show();
@@ -87,7 +77,6 @@ public class Player extends Block{
 	}
 	
 	public void update(Block[] b) {
-		
 		x += (float) (yV * Math.cos(angle));
 		y += (float) (yV * Math.sin(angle));
 		if(xV > maxXV) {
