@@ -60,6 +60,7 @@ public class Player extends Block{
 //		steer.upgrade();
 		
 		cargo = new Cargo(100); //DEFAULT can hold 100 cargo
+		cargo.setGold(100);
 	}
 	
 	public void show() {

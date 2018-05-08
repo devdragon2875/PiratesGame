@@ -3,6 +3,7 @@
 /Block.class
 /Bullet.class
 /Button.class
+/Cargo.class
 /Cayenne.class
 /Dock.class
 /DrawingSurface.class
@@ -22,4 +23,3 @@
 /TradePart.class
 /TradeScreen.class
 /WeaponSection.class
-/Cargo.class

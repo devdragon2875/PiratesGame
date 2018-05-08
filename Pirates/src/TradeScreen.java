@@ -6,16 +6,16 @@ public class TradeScreen {
 	private PApplet parent;
 	
 	public TradeScreen(PApplet parent){
-		this(parent,(float)(Math.random()*0.5 + 1),(float)(Math.random()*0.5 + 1),(float)(Math.random()*0.5 + 1),(float)(Math.random()*0.5 + 1));
+		this(parent,(float)(Math.random()*5 + 10),(float)(Math.random()*5 + 10),(float)(Math.random()*5 + 10),(float)(Math.random()*5 + 10));
 	}
 	
 	public TradeScreen(PApplet parent, float aPrice, float bPrice, float cPrice, float dPrice){
 		this.parent = parent;
 		parts = new TradePart[4];
-		parts[0] = new TradePart(parent,aPrice,0,0,parent.width/4,parent.height,parent.loadImage("Cloth.png"),"Cloth");
-		parts[1] = new TradePart(parent,bPrice,parent.width/4,0,parent.width/4,parent.height,parent.loadImage("Spices.png"),"Spices");
-		parts[2] = new TradePart(parent,cPrice,parent.width/2,0,parent.width/4,parent.height,parent.loadImage("Jewelry.png"),"Jewelry");
-		parts[3] = new TradePart(parent,dPrice,parent.width*3/4,0,parent.width/4,parent.height,parent.loadImage("Beards.png"),"Beards");
+		parts[0] = new TradePart(parent,aPrice,0,0,parent.width/4,parent.height,parent.loadImage("Cloth.png"),"Cloth",Cargo.CLOTH);
+		parts[1] = new TradePart(parent,bPrice,parent.width/4,0,parent.width/4,parent.height,parent.loadImage("Spices.png"),"Spices",Cargo.SPICES);
+		parts[2] = new TradePart(parent,cPrice,parent.width/2,0,parent.width/4,parent.height,parent.loadImage("Jewelry.png"),"Jewelry",Cargo.JEWELRY);
+		parts[3] = new TradePart(parent,dPrice,parent.width*3/4,0,parent.width/4,parent.height,parent.loadImage("Beards.png"),"Beards",Cargo.BEARDS);
 	}
 	
 	public void show(){
@@ -31,5 +31,10 @@ public class TradeScreen {
 			//p.update();
 			p.updateTrade(player.getCargo());
 		}
+		String s = "";
+		for(int i = 1; i <= 4; i++)
+			s += player.getCargo().getMaterial(i) + "|";
+		s += ", Gold : " + player.getCargo().getGold();
+		System.out.println(s);
 	}
 }
