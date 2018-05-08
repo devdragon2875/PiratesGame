@@ -26,6 +26,13 @@ public class SubServer extends Thread {
     }
 
     public void run() {
+        try {
+            outObject.writeObject(centralServer.getBlocks());
+            outObject.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         while (true) {
             try {
                 Boat b = (Boat) inObject.readObject();

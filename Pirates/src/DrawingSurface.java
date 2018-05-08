@@ -87,13 +87,8 @@ public class DrawingSurface extends PApplet {
         menuScreen = new Menu(this);
         ts = new TradeScreen(this);
 
-        //MAP GENERATOR(creates a new random map and puts into a text file)
-        MapGenerator mg = new MapGenerator();
-        mg.GenerateMap(this);
 
-        //READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
-        TextReader reader = new TextReader("output.txt");
-        String[][] blocks = reader.get2DArray();
+        String[][] blocks = client.readArray();
         int blockSize = width / blocks.length;
 
         //LOADING TEXTURES

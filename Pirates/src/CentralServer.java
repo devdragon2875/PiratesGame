@@ -9,11 +9,21 @@ public class CentralServer {
     private ArrayList<SubServer> users;
     public volatile Boat[] boats;
     private int userID;
+    private String[][] blocks;
 
     public CentralServer(int port) throws IOException {
         users = new ArrayList<>();
         boats = new Boat[MAX_PLAYERS];
         Socket socket = null;
+
+
+        //MAP GENERATOR(creates a new random map and puts into a text file)
+        MapGenerator mg = new MapGenerator();
+        mg.GenerateMap(new DrawingSurface());
+
+        //READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
+        TextReader reader = new TextReader("output.txt");
+        blocks = reader.get2DArray();
 
         ServerSocket serverSocket = new ServerSocket(port);
 
@@ -34,7 +44,11 @@ public class CentralServer {
         return boats;
     }
 
-    public synchronized void setBoat(int index, Boat boat){
+    public synchronized void setBoat(int index, Boat boat) {
         boats[index] = boat;
+    }
+
+    public String[][] getBlocks() {
+        return blocks;
     }
 }
