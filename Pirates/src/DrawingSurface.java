@@ -77,7 +77,7 @@ public class DrawingSurface extends PApplet {
 		waterBlocks = new ArrayList<Block>();
 		
 		//SCREEN VAR
-		screen = TRADE;
+		screen = GAME;
 		menuScreen = new Menu(this);
 		ts = new TradeScreen(this);
 		
