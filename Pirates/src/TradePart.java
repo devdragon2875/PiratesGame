@@ -14,8 +14,9 @@ public class TradePart {
 	private PApplet parent;
 	private PImage image;
 	private String name;
+	private int materialType;
 	
-	public TradePart(PApplet parent, float price, float x, float y, float width, float height, PImage image, String name){
+	public TradePart(PApplet parent, float price, float x, float y, float width, float height, PImage image, String name, int materialType){
 		this.parent = parent;
 		this.price = price;
 		this.x = x;
@@ -24,6 +25,7 @@ public class TradePart {
 		this.height = height;
 		this.image = image;
 		this.name = name;
+		this.materialType = materialType;
 		
 		float xBorder = width/30;
 		float yBorder = height/300;
@@ -74,16 +76,47 @@ public class TradePart {
 	public void updateTrade(Cargo cargo) {
 		if(buy1.update()) {
 			System.out.println(name + " buy1 was clicked.");
-			//if(cargo.getGold() >= price && cargo.getMaxSpace()) {
-			//	cargo.setGold(cargo.getGold() - (int)price);
-			//	cargo.set
-			//}
+			if(cargo.getGold() >= price && cargo.getEmptySpace() >= 1) {
+				cargo.setGold(cargo.getGold() - (int)price);
+				cargo.changeMaterial(materialType, 1);
+				updatePrice(1);
+			}
 		} else if(buy10.update()) {
 			System.out.println(name + " buy10 was clicked.");
+			if(cargo.getGold() >= price*10 && cargo.getEmptySpace() >= 10) {
+				cargo.setGold(cargo.getGold() - (int)(price)*10);
+				cargo.changeMaterial(materialType, 10);
+				updatePrice(10);
+			}
 		} else if(sell1.update()) {
 			System.out.println(name + " sell1 was clicked.");
+			if(cargo.getMaterial(materialType) >= 1) {
+				cargo.setGold(cargo.getGold() + (int)price);
+				cargo.changeMaterial(materialType, -1);
+				updatePrice(-1);
+			}
 		} else if(sellAll.update()) {
 			System.out.println(name + " sellAll was clicked.");
+			if(cargo.getMaterial(materialType) > 0) {
+				int numMaterial = cargo.getMaterial(materialType);
+				cargo.setGold(cargo.getGold() + (int)price*numMaterial);
+				cargo.setMaterial(materialType, 0);
+				updatePrice(-numMaterial);
+			}
+		}
+	}
+	
+	private void updatePrice(int n) { // updates the price of the good assuming n items were bought (n can be negative, which will assume n items were sold)
+		if(n == 0)
+			return;
+		double factor = 1.01; // should be tweaked
+		if(n < 0) {
+			n *= -1;
+			factor = 0.98; // should be tweaked
+		}
+		
+		for(int i = 0; i < n; i++) {
+			price *= factor;
 		}
 	}
 }

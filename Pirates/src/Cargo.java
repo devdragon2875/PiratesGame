@@ -9,6 +9,11 @@ public class Cargo {
 	private int gold;
 	private int maxSpace;
 	private int numCloth, numSpices, numJewelry, numBeards;
+	public static final int CLOTH = 1;
+	public static final int SPICES = 2;
+	public static final int JEWELRY = 3;
+	public static final int BEARDS = 4;
+
 	
 	public Cargo(int maxSpace) {
 		this.maxSpace = maxSpace;
@@ -19,9 +24,62 @@ public class Cargo {
 		numBeards = 0;
 	}
 	
-	//public int getSpaceUsed() {
-	//	return 
-	//}
+	public void setMaterial(int type, int newAmount) {
+		switch(type) {
+		case CLOTH:
+			numCloth = newAmount;
+			break;
+		case SPICES:
+			numSpices = newAmount;
+			break;
+		case JEWELRY:
+			numJewelry = newAmount;
+			break;
+		case BEARDS:
+			numBeards = newAmount;
+			break;
+		}
+	}
+	
+	public int getMaterial(int type) {
+		switch(type) {
+		case CLOTH:
+			return numCloth;
+		case SPICES:
+			return numSpices;
+		case JEWELRY:
+			return numJewelry;
+		case BEARDS:
+			return numBeards;
+		default:
+			return -1;
+		}
+	}
+	
+	public void changeMaterial(int type, int changeBy) {
+		switch(type) {
+		case CLOTH:
+			numCloth += changeBy;
+			break;
+		case SPICES:
+			numSpices += changeBy;
+			break;
+		case JEWELRY:
+			numJewelry += changeBy;
+			break;
+		case BEARDS:
+			numBeards += changeBy;
+			break;
+		}
+	}
+	
+	public int getEmptySpace() {
+		return maxSpace - getSpaceUsed();
+	}
+	
+	public int getSpaceUsed() {
+		return numCloth + numSpices + numJewelry + numBeards;
+	}
 
 	public int getGold() {
 		return gold;
