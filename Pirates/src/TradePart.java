@@ -1,6 +1,11 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class is used to represent one material's part of the trade screen.
+ * @author Blake
+ *
+ */
 public class TradePart {
 
 	private float price;

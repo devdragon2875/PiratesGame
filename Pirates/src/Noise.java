@@ -4,6 +4,11 @@ import java.util.Vector;
 
 import processing.core.PApplet;
 
+/**
+ * This class is used to help randomly generate the map.
+ * @author Devansh
+ *
+ */
 public class Noise {
 	public static double[][] generateMap(int mapWidth, int mapHeight, int seed, double scale, int octaves, double persistance, double lacunarity, Vector<Double> offset, PApplet drawer){
 		double[][] noiseMap = new double[mapWidth][mapHeight];

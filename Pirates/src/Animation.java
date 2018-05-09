@@ -1,6 +1,11 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class is used to display gif files.
+ * @author Devansh
+ *
+ */
 public class Animation {
   PImage[] images;
   int imageCount;

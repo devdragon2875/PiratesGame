@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class is used to represent the user's ship.
+ * @author Blake and Devansh
+ *
+ */
 public class Player extends Block{
 	
 	protected float xV,yV,maxXV, maxYV, friction;

@@ -6,6 +6,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class is used to read from text files.
+ * @author Mr. Shelby
+ *
+ */
 public class TextReader {
 	private String str = System.getProperty("line.separator");
 	char lineSep = str.charAt(0);

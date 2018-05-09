@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * This is a superclass used by the different sections of the player's ship.
+ * @author Devansh
+ *
+ */
 public class Section {
 	
 	

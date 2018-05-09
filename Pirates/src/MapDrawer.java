@@ -2,6 +2,11 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
+/**
+ * This class is used to debug draw the current map.
+ * @author Devansh
+ *
+ */
 public class MapDrawer {
 	public void drawNoiseMap(double[][] noiseMap, PApplet drawer) {
 		int width = noiseMap.length;

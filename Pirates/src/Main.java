@@ -5,6 +5,11 @@ import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * This class is used to launch the program.
+ * @author Blake
+ *
+ */
 public class Main { 
 
 	public static void main(String[] args) {

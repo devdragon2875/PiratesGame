@@ -1,6 +1,11 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class is the start menu and is used to inform the user about how to play the game.
+ * @author Devansh
+ *
+ */
 public class Menu {
 	private PImage back;
 	private PApplet drawer;

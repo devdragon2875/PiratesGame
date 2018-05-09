@@ -2,6 +2,11 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
+/**
+ * This class is used to detect if the user is clicking on a rectangular area.
+ * @author Blake
+ *
+ */
 public class Button{
 
 	private String text;

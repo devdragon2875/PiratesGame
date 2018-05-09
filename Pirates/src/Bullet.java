@@ -2,6 +2,11 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 
+/**
+ * This class is used to represent a bullet, as it can move through the screen and collide with players or enemies.
+ * @author Blake
+ *
+ */
 public class Bullet extends Block{
 	
 	private float xV, yV;

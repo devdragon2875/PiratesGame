@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * This class is used to represent the trade screen the player will see when at a dock.
+ * @author Blake
+ *
+ */
 public class TradeScreen {
 
 	private TradePart[] parts;

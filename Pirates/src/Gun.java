@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * This class is used to store statistics about a gun and is used to generate bullets.
+ * @author Blake
+ *
+ */
 public class Gun {
 
 	public static final int DEFAULT_DELAY = 10;

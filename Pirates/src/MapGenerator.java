@@ -6,6 +6,11 @@ import java.util.Vector;
 
 import processing.core.PApplet;
 
+/**
+ * This class is used to randomly generate a map with noise, will write the map to a file.
+ * @author Devansh
+ *
+ */
 public class MapGenerator {
 	public int mapWidth = 100;
 	public int mapHeight = 100;

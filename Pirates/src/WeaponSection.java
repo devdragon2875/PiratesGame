@@ -2,6 +2,11 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
+/**
+ * This class is used to represent the cannons the player has on the ship.
+ * @author Devansh
+ *
+ */
 public class WeaponSection extends Section{
 	Gun cannon;
 	boolean left;

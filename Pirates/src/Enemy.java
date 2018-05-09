@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * This class is used to represent an enemy a player can fight.
+ * @author Blake
+ *
+ */
 public class Enemy extends Player{
 	
 	public Enemy(PApplet parent, float x, float y, float width,float height, int health) {

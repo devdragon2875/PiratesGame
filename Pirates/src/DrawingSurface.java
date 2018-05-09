@@ -4,6 +4,11 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
+/**
+ * This class is used to manage and draw all of the objects on the screen.
+ * @author Blake and Devansh
+ *
+ */
 public class DrawingSurface extends PApplet {
 
 	//KEYS
@@ -77,7 +82,7 @@ public class DrawingSurface extends PApplet {
 		waterBlocks = new ArrayList<Block>();
 		
 		//SCREEN VAR
-		screen = TRADE;
+		screen = GAME;
 		menuScreen = new Menu(this);
 		ts = new TradeScreen(this);
 		

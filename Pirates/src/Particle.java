@@ -1,5 +1,10 @@
 import processing.core.PApplet;
 
+/**
+ * This class is used to represent small particle effects which do not affect the game but look nice.
+ * @author Blake
+ *
+ */
 public class Particle extends Block{
 	
 	private int timeLeft;

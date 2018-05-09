@@ -2,6 +2,11 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
+/**
+ * This class is a part of the ship which is used to display the map.
+ * @author Devansh
+ *
+ */
 public class LookoutSection extends Section{
 	private PApplet drawer;
 	public LookoutSection(PApplet drawer, float x, float y, float width, float height) {

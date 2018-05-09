@@ -1,6 +1,11 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class is used to store the location and size of rectangular objects.
+ * @author Blake
+ *
+ */
 public class Block {
 	
 	protected float x, y, width, height;

@@ -1,4 +1,9 @@
 
+/**
+ * This class is used to store statistics about what the player is currently carrying and the player's gold.
+ * @author Blake
+ *
+ */
 public class Cargo {
 
 	private int gold;

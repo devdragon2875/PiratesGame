@@ -2,6 +2,11 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
+/**
+ * This class is used to manage how the ship steers and how fast it moves.
+ * @author Devansh
+ *
+ */
 public class SteerSection extends Section {
 	
 
