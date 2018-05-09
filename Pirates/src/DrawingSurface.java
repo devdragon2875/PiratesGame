@@ -335,7 +335,7 @@ public class DrawingSurface extends PApplet {
 		//IF TRADE SCREEN
 		else if(screen == TRADE) {
 			ts.update(player);
-			ts.show();
+			ts.show(player);
 		} 
 		
 		//IF MENU SCREEN

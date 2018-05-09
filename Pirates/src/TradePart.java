@@ -46,9 +46,9 @@ public class TradePart {
 		
 		parent.fill(0);
 		parent.textAlign(parent.CENTER);
-		parent.textSize(40);
+		parent.textSize(38);
 		parent.text(name, x+width/2, y+height/15);
-		parent.text((int)price + "G", x+width/2, y+height/2);
+		parent.text("Price:\n"+(int)price + "G", x+width/2, y+height*7/16);
 		buy1.show();
 		buy10.show();
 		sell1.show();
