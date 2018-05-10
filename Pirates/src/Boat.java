@@ -3,12 +3,13 @@ import java.io.Serializable;
 public class Boat implements Serializable {
     private float x;
     private float y;
+    private float v;
     private float angle;
 
-    public Boat(float x, float y, float angle) {
-
+    public Boat(float x, float y, float v, float angle) {
         this.x = x;
         this.y = y;
+        this.v = v;
         this.angle = angle;
     }
 
@@ -39,5 +40,13 @@ public class Boat implements Serializable {
     @Override
     public String toString() {
         return "X: " + x + ", + Y: " + y + "; ANGLE:" + angle;
+    }
+
+    public float getV() {
+        return v;
+    }
+
+    public void setV(float v) {
+        this.v = v;
     }
 }

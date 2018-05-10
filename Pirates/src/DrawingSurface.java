@@ -296,12 +296,11 @@ public class DrawingSurface extends PApplet {
             if (boats != null) {
                 for (Boat b :
                         boats) {
+                    b.setX((float) (b.getX() + b.getV()*Math.cos(b.getAngle()));
+                    b.setY((float) (b.getY() + b.getV()*Math.sin(b.getAngle())));
                     if (b != null) {
                         Block bx = new Block(this, b.getX(), b.getY(), 10, 10);
                         bx.setColor(0, 0, 0);
-                        //this.translate((float) (b.getX() + 5), (float) (b.getY() + 5));
-                        //this.rotate((float) (angle - Math.PI / 2.0));
-                        //this.translate((float) (-b.getX() - 5), (float) (-b.getY() - 5));
                         bx.show();
                     }
                 }

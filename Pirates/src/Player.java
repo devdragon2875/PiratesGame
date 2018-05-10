@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public class Player extends Block{
 	
@@ -50,13 +49,14 @@ public class Player extends Block{
 		steer = new SteerSection(parent, x+width/2 -width/6, y+height/4+height, width/3, width/3);
 		lookout = new LookoutSection(parent, x+width/6, y, width/3, width/3);
 
-		boat = new Boat(x, y, angle);
+		boat = new Boat(x, y,yV, angle);
 	}
 	
 	public void show() {
 		boat.setX(x);
 		boat.setY(y);
 		boat.setAngle(angle);
+		boat.setV(yV);
 
 		parent.translate((float)(this.getX()+this.getWidth()/2.0), (float)(this.getY()+this.getHeight()/2.0));
 		parent.rotate((float)(angle - Math.PI/2.0));
