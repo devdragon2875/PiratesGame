@@ -2,17 +2,20 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DrawingSurface extends PApplet {
+    private volatile Boat[] boats;
 
     //KEYS
     private boolean[] keys; // 0 - up, 1 - down, 2 - left, 3 - right
 
+
     //PLAYER
     private Player player;
+    private Client client;
+
+    private ClientLoop clientThread;
 
 
     //ARRAYLISTS FOR BLOCKS
@@ -23,9 +26,6 @@ public class DrawingSurface extends PApplet {
     //ARRAYLISTS FOR OTHERS
     private ArrayList<Bullet> playerBullets;
     private ArrayList<Particle> particles;
-    private Boat[] boats;
-
-    private Client client;
 
     //SCREEN ADJUSTMENTS
     private float angle; // rotates screen(not functional yet)
@@ -152,6 +152,9 @@ public class DrawingSurface extends PApplet {
             }
         }
 
+
+        clientThread = new ClientLoop(this, client, player);
+        clientThread.start();
 
         //player.setGun(new Gun(100,10,15,10));
     }
@@ -296,6 +299,9 @@ public class DrawingSurface extends PApplet {
                     if (b != null) {
                         Block bx = new Block(this, b.getX(), b.getY(), 10, 10);
                         bx.setColor(0, 0, 0);
+                        //this.translate((float) (b.getX() + 5), (float) (b.getY() + 5));
+                        //this.rotate((float) (angle - Math.PI / 2.0));
+                        //this.translate((float) (-b.getX() - 5), (float) (-b.getY() - 5));
                         bx.show();
                     }
                 }
@@ -318,10 +324,6 @@ public class DrawingSurface extends PApplet {
             frameRate(10);
             menuScreen.draw();
         }
-
-        Boat b = player.getBoat();
-        client.writeBoat(b);
-        boats = client.readAllBoats();
     }
 
     public void keyPressed() {
@@ -349,5 +351,13 @@ public class DrawingSurface extends PApplet {
             keys[3] = false;
         else if (key == 'm' || key == 'M')
             zoom = true;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setBoats(Boat[] boats) {
+        this.boats = boats;
     }
 }

@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class CentralServer {
-    public static final int MAX_PLAYERS = 8;
+    public static final int MAX_PLAYERS = 50;
 
     private ArrayList<SubServer> users;
     public volatile Boat[] boats;
