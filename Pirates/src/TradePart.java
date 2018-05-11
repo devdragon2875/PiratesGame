@@ -9,7 +9,8 @@ import processing.core.PImage;
 public class TradePart {
 
 	private float price;
-	private Button buy1, buy10, sell1, sellAll;
+	//private Button buy1, buy10, sell1, sellAll;
+	private Button buy1, sell1;
 	private float x, y, width, height;
 	private PApplet parent;
 	private PImage image;
@@ -29,10 +30,14 @@ public class TradePart {
 		
 		float xBorder = width/30;
 		float yBorder = height/300;
+		/*
 		buy1 = new Button(parent,x+xBorder,y + height/2+yBorder, width/2-xBorder*2, height/8-yBorder*2, "Buy 1");
 		buy10 = new Button(parent,x+width/2+xBorder,y + height/2+yBorder, width/2-xBorder*2, height/8-yBorder*2, "Buy 10");
 		sell1 = new Button(parent,x+xBorder,y + height/2 + height/4+yBorder, width/2-xBorder*2, height/8-yBorder*2, "Sell 1");
 		sellAll = new Button(parent,x + width/2+xBorder,y + height/2 + height/4+yBorder, width/2-xBorder*2, height/8-yBorder*2, "Sell All");
+		*/
+		buy1 = new Button(parent,x+xBorder,y + height/2+yBorder, width-xBorder*2, height/8-yBorder*2, "Buy 1");
+		sell1 = new Button(parent,x+xBorder,y + height/2 + height/4+yBorder, width-xBorder*2, height/8-yBorder*2, "Sell 1");
 	}
 	
 	public void show(){
@@ -50,9 +55,9 @@ public class TradePart {
 		parent.text(name, x+width/2, y+height/15);
 		parent.text("Price:\n"+(int)price + "G", x+width/2, y+height*7/16);
 		buy1.show();
-		buy10.show();
+		//buy10.show();
 		sell1.show();
-		sellAll.show();
+		//sellAll.show();
 		
 		
 		float xBorder = width/10;
@@ -81,21 +86,21 @@ public class TradePart {
 				cargo.changeMaterial(materialType, 1);
 				updatePrice(1);
 			}
-		} else if(buy10.update()) {
+		} /*else if(buy10.update()) {
 			System.out.println(name + " buy10 was clicked.");
 			if(cargo.getGold() >= price*10 && cargo.getEmptySpace() >= 10) {
 				cargo.setGold(cargo.getGold() - (int)(price)*10);
 				cargo.changeMaterial(materialType, 10);
 				updatePrice(10);
 			}
-		} else if(sell1.update()) {
+		} */else if(sell1.update()) {
 			System.out.println(name + " sell1 was clicked.");
 			if(cargo.getMaterial(materialType) >= 1) {
 				cargo.setGold(cargo.getGold() + (int)price);
 				cargo.changeMaterial(materialType, -1);
 				updatePrice(-1);
 			}
-		} else if(sellAll.update()) {
+		} /*else if(sellAll.update()) {
 			System.out.println(name + " sellAll was clicked.");
 			if(cargo.getMaterial(materialType) > 0) {
 				int numMaterial = cargo.getMaterial(materialType);
@@ -103,7 +108,7 @@ public class TradePart {
 				cargo.setMaterial(materialType, 0);
 				updatePrice(-numMaterial);
 			}
-		}
+		}*/
 	}
 	
 	private void updatePrice(int n) { // updates the price of the good assuming n items were bought (n can be negative, which will assume n items were sold)
@@ -112,7 +117,7 @@ public class TradePart {
 		double factor = 1.01; // should be tweaked
 		if(n < 0) {
 			n *= -1;
-			factor = 0.98; // should be tweaked
+			factor = 0.995; // should be tweaked
 		}
 		
 		for(int i = 0; i < n; i++) {

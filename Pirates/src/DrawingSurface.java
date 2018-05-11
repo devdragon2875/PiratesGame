@@ -21,6 +21,7 @@ public class DrawingSurface extends PApplet {
 	//ARRAYLISTS FOR BLOCKS
 	private ArrayList<Block> walls;
 	private ArrayList<Block> waterBlocks;
+	
 	//private Block[] walls;
 	
 	//ARRAYLISTS FOR OTHERS
@@ -45,6 +46,11 @@ public class DrawingSurface extends PApplet {
 	private static final int MENU = 0;
 	private static final int GAME = 1;
 	private static final int TRADE = 2;
+	
+	//DOCKS AND TRADING
+	private ArrayList<Dock> docks;
+	private Dock currentDock;
+	private int dockTimer; //timer so player doesn't go back into the dock they just exited
 	
 	//Sets window to 1200, 800 and makes smooth animation
 	public void settings() {
@@ -85,6 +91,10 @@ public class DrawingSurface extends PApplet {
 		screen = GAME;
 		menuScreen = new Menu(this);
 		ts = new TradeScreen(this);
+		
+		//DOCKS AND TRADING
+		docks = new ArrayList<Dock>();
+		currentDock = null;
 		
 		//MAP GENERATOR(creates a new random map and puts into a text file)
 		MapGenerator mg = new MapGenerator();
@@ -138,8 +148,8 @@ public class DrawingSurface extends PApplet {
 				//DRAWS A DOCK
 				else if(blocks[j][i].equals("d")) {
 					noStroke();
-					walls.add(new Block(this,i*blockSize,j*blockSize,blockSize, blockSize));
-					walls.get(walls.size()-1).setColor(219, 0, 209);
+					docks.add(new Dock(this,i*blockSize,j*blockSize,blockSize, blockSize));
+					docks.get(docks.size()-1).setColor(219, 0, 209);
 				}
 				
 				//DRAWS A PLAYER AT FIRST WATER TILE
@@ -291,6 +301,19 @@ public class DrawingSurface extends PApplet {
 				}
 			}
 			
+			//UPDATES DOCKS
+			if(dockTimer <= 0) {
+				for(Dock d : docks) {
+					if(player.isTouching(d)) {
+						screen = TRADE;
+						currentDock = d;
+						break;
+					}
+				}
+			} else {
+				dockTimer--;
+			}
+			
 			//DISPLAYS THE BLOCKS
 			for (Block w : walls) {
 				if(zoom/* && w.isTouching(player.getX()-700/scaleFactor, player.getY()-500/scaleFactor, 1500/scaleFactor, 1050/scaleFactor)*/) {
@@ -309,6 +332,14 @@ public class DrawingSurface extends PApplet {
 					w.showNoImage();
 				}
 				
+			}
+			
+			//DISPLAYS THE DOCKS
+			for(Dock d : docks) {
+				if(zoom)
+					d.show();
+				else
+					d.showNoImage();
 			}
 			
 			//UPDATES ANIMATION
@@ -334,8 +365,22 @@ public class DrawingSurface extends PApplet {
 		
 		//IF TRADE SCREEN
 		else if(screen == TRADE) {
+			/*
 			ts.update(player);
 			ts.show(player);
+			
+			if(ts.checkExitButton())
+				screen = GAME;
+			*/
+			
+			currentDock.updateTradeScreen(player);
+			currentDock.showTradeScreen(player);
+			if(currentDock.checkTradeExitButton()) {
+				screen = GAME;
+				currentDock = null;
+				dockTimer = 60;
+			}
+			
 		} 
 		
 		//IF MENU SCREEN
