@@ -33,10 +33,12 @@ public class Player extends Block{
 	private Polygon hitbox;
 	
 	Animation splash;
+	private double angleVel;
 	public Player(PApplet parent, float x, float y, float width, float height, int maxHealth) {
 		super(parent, x, y, width, height);
 		xV = 0;
 		yV = 0;
+		angleVel = 0;
 		weaponWidth = width/2;
 		weaponHeight = height/4;
 		maxXV = DEFAULT_MAX_VELOCITY;
@@ -113,7 +115,9 @@ public class Player extends Block{
 	}
 	
 	
-	public void update(Block[] b) {		
+	public void update(Block[] b) {	
+		angle += angleVel;
+		angleVel *= 0.9;
 		x += (float) (yV * Math.cos(angle));
 		y += (float) (yV * Math.sin(angle));
 		
@@ -179,15 +183,28 @@ public class Player extends Block{
 				
 		}
 		*/
+		
 		boolean forward = yV > 0;
+		boolean left =  angleVel > 0; 
+		
 		for(int i = 0; i < b.length; i++) {
 			if(hitbox.intersects(b[i].getHitbox())) {
 				System.out.println("touching");
+				//top left
 				if(forward) {
 					yV += -2;
+					
 				} else {
 					yV += 2;
+					
 				}
+				System.out.println(angleVel);
+				angleVel = -angleVel*2;
+				System.out.println(angleVel);
+				
+				
+				
+				
 			}
 		}
 		
@@ -202,16 +219,23 @@ public class Player extends Block{
 		//for(int i = 0; i < buttonsW.size(); i++) {
 		//	buttonsW.get(i).update();
 		//}
+		
 		weapons.get(0).setX(x);
 		weapons.get(1).setX(x+weaponWidth);
 		weapons.get(2).setX(x+weaponWidth);
 		weapons.get(3).setX(x);
+		
+		
 		weapons.get(0).setY(y+height/4);
 		weapons.get(1).setY(y+height/4);
 		weapons.get(2).setY(y+height/4+weaponHeight);
 		weapons.get(3).setY(y+height/4+weaponHeight);
+		
+		
 		steer.setX(x+width/2 - width/6);
 		steer.setY( y+height/4+height/2);
+		
+		
 		lookout.setX(x+width/3);
 		lookout.setY(y);
 		
@@ -223,13 +247,16 @@ public class Player extends Block{
 		//for(int i = 0; i < buttonsW.size(); i++) {
 			//buttonsW.get(i).show();
 		//}
+		
 		parent.stroke(0);
 		parent.strokeWeight((float) 0.5);
 		parent.fill(new Color(139,69,19).getRGB());
-		parent.rect(x, y, width, height, 2);
 		
+		parent.rect(x, y, width, height, 2);
 		parent.triangle(x+width/40, y+height/25, x+width/2, y-height/3, x+width-width/40, y+height/25);
+		
 		parent.noStroke();
+		
 		parent.rect(x+width/16, y, width-width/8, height/10, 2);
 		
 	}
@@ -306,6 +333,21 @@ public class Player extends Block{
 	
 	public Cargo getCargo() {
 		return cargo;
+	}
+
+	public double getAngleVel() {
+		// TODO Auto-generated method stub
+		return angleVel;
+	}
+
+	public float getAngle() {
+		// TODO Auto-generated method stub
+		return angle;
+	}
+
+	public void setAngleVel(double d) {
+		// TODO Auto-generated method stub
+		angleVel = d;
 	}
 	
 	

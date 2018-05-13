@@ -200,11 +200,13 @@ public class DrawingSurface extends PApplet {
 			}
 			if (keys[2]) {
 				//player.changeXV(-1);
-				angleVel -= Math.PI/1000;
+				player.setAngleVel(player.getAngleVel()- Math.PI/1000);
+				//angleVel -= Math.PI/1000;
 			}
 			if (keys[3]) {
 				//player.changeXV(1);
-				angleVel += Math.PI/1000;
+				player.setAngleVel(player.getAngleVel()+ Math.PI/1000);
+				//angleVel += Math.PI/1000;
 			} 
 			
 			//ZOOMS WORLD TO PLAYER BY ZOOM FACTOR
@@ -213,10 +215,10 @@ public class DrawingSurface extends PApplet {
 				xCoord -= this.width/2 + player.getWidth()/2;
 				yCoord -= this.height / 2 + player.getHeight()/2;
 				
-				angle += angleVel;
-				angleVel *= 0.9;
 				
-				player.setAngle(angle);
+				//angle += angleVel;
+				//angleVel *= 0.9;
+				angle = player.getAngle();
 				//SCALES MAP BASED ON PLAYER LOCATION
 				translate(this.width/2 + player.getWidth()/2, this.height / 2 + player.getHeight()/2);
 				rotate((float)(-angle + Math.PI/2.0));
@@ -392,6 +394,12 @@ public class DrawingSurface extends PApplet {
 		
 		
 		
+	}
+	public float getAngleVel() {
+		return angleVel;
+	}
+	public void setAngleVel(float f) {
+		angleVel = f;;
 	}
 
 	public void keyPressed() {
