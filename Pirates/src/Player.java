@@ -7,7 +7,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 
 /**
  * This class is used to represent the user's ship.
@@ -32,6 +31,9 @@ public class Player extends Block{
 	
 	private Polygon hitbox;
 	
+
+	private Boat boat;
+
 	Animation splash;
 	private double angleVel;
 	public Player(PApplet parent, float x, float y, float width, float height, int maxHealth) {
@@ -84,15 +86,16 @@ public class Player extends Block{
 		
 		
 
+
+		boat = new Boat(x, y,yV, angle);
 	}
 	
 	public void show() {
-		
-		//Rectangle2D rect2d = hitbox.getBounds2D();
-		//parent.rect((float)rect2d.getX(), (float)rect2d.getY(), (float)rect2d.getWidth(), (float)rect2d.getHeight());
-		
-		
-		
+		boat.setX(x);
+		boat.setY(y);
+		boat.setAngle(angle);
+		boat.setV(yV);
+
 		parent.translate((float)(this.getX()+this.getWidth()/2.0), (float)(this.getY()+this.getHeight()/2.0));
 		parent.rotate((float)(angle - Math.PI/2.0));
 		parent.translate((float)(-this.getX()-this.getWidth()/2.0), (float)(-this.getY()-this.getHeight()/2.0));
@@ -102,11 +105,8 @@ public class Player extends Block{
 		}
 		steer.draw();
 		lookout.draw();
-		
-		
-		
-		
-		
+
+
 		//splash.update();
 		//super.show();
 		//parent.image(image, x, y,size,size);
@@ -351,4 +351,9 @@ public class Player extends Block{
 	}
 	
 	
+
+
+	public Boat getBoat() {
+		return boat;
+	}
 }

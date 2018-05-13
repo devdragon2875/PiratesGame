@@ -1,8 +1,9 @@
-import java.util.ArrayList;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
+ * @author Blake, Devansh, Anantajit
+ * @author Anantajit, Blake and Devansh
+import java.util.ArrayList;
 
 /**
  * This class is used to manage and draw all of the objects on the screen.
@@ -10,12 +11,15 @@ import processing.core.PImage;
  *
  */
 public class DrawingSurface extends PApplet {
+    private volatile Boat[] boats;
 
 	//KEYS
 	private boolean[] keys; // 0 - up, 1 - down, 2 - left, 3 - right
 	
 	//PLAYER
 	private Player player;
+	private Client client;
+	private ClientLoop clientThread;
 	
 	
 	//ARRAYLISTS FOR BLOCKS
@@ -27,7 +31,6 @@ public class DrawingSurface extends PApplet {
 	//ARRAYLISTS FOR OTHERS
 	private ArrayList<Bullet> playerBullets;
 	private ArrayList<Particle> particles;
-	private ArrayList<Enemy> enemies;
 	
 	//SCREEN ADJUSTMENTS
 	private float angle; // rotates screen(not functional yet)
@@ -60,6 +63,9 @@ public class DrawingSurface extends PApplet {
 
 	public void setup() {
 		//SETTING NO STROKE, FRAMERATE, AND FONT TYPE
+		client = new Client("127.0.0.1", 4444);
+		client.connect();
+		
 		noStroke();
 		frameRate(60);
 		PFont font = createFont("PressStart2P.ttf",20);
@@ -81,7 +87,6 @@ public class DrawingSurface extends PApplet {
 		//ARRAYLISTS FOR STUFF
 		playerBullets = new ArrayList<Bullet>();
 		particles = new ArrayList<Particle>();
-		enemies = new ArrayList<Enemy>();
 		
 		//ARRAYLISTS FOR BLOCKS
 		walls = new ArrayList<Block>();
@@ -96,13 +101,9 @@ public class DrawingSurface extends PApplet {
 		docks = new ArrayList<Dock>();
 		currentDock = null;
 		
-		//MAP GENERATOR(creates a new random map and puts into a text file)
-		MapGenerator mg = new MapGenerator();
-		mg.GenerateMap(this);
-		
 		//READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
 		TextReader reader = new TextReader("output.txt");
-		String[][] blocks = reader.get2DArray();
+		String[][] blocks = client.readArray();
 		int blockSize = width/blocks.length;
 		
 		//LOADING TEXTURES
@@ -158,12 +159,6 @@ public class DrawingSurface extends PApplet {
 					player.setColor(255, 100, 10);
 				}
 				
-				//DRAWS AN ENEMY(no enemies currently)
-				else if(blocks[j][i].equals("e")) {
-					enemies.add(new Enemy(this,i*blockSize,j*blockSize,blockSize,blockSize,15));
-					enemies.get(enemies.size()-1).setColor(200, 100, 255);
-				}
-				
 				//DRAWS A WATER TILE
 				else if(blocks[j][i].equals("w")) {
 					waterBlocks.add(new Block(this,i*blockSize,j*blockSize,blockSize, blockSize,water));
@@ -173,10 +168,12 @@ public class DrawingSurface extends PApplet {
 		}
 		
 		
-		
+		clientThread = new ClientLoop(this, client, player);
+    clientThread.start();
 		//player.setGun(new Gun(100,10,15,10));
 	}
 
+       
 	public void draw() {
 		//UPDATING MOUSE LOCATION
 		xCoord = mouseX;
@@ -290,18 +287,6 @@ public class DrawingSurface extends PApplet {
 				}
 			}
 			
-			//UPDATES ENEMIES(not needed rn)
-			for (int i = 0; i < enemies.size(); i++) {
-				enemies.get(i).act(player);
-				enemies.get(i).update(walls);
-				if (enemies.get(i).shouldBeDead()) {
-					enemies.remove(i);
-					if (i > 0)
-						i--;
-				} else if (enemies.get(i).isTouching(player)) {
-					player.changeHealth(-1);
-				}
-			}
 			
 			//UPDATES DOCKS
 			if(dockTimer <= 0) {
@@ -356,9 +341,18 @@ public class DrawingSurface extends PApplet {
 			for (Particle p : particles)
 				p.show();
 			
-			//DISPLAYS ENEMIES(not needed rn)
-			for (Enemy e : enemies)
-				e.show();
+			if (boats != null) {
+                for (Boat b :
+                        boats) {
+                    b.setX((float) (b.getX() + b.getV()*Math.cos(b.getAngle()));
+                    b.setY((float) (b.getY() + b.getV()*Math.sin(b.getAngle())));
+                    if (b != null) {
+                        Block bx = new Block(this, b.getX(), b.getY(), 10, 10);
+                        bx.setColor(0, 0, 0);
+                        bx.show();
+                    }
+                }
+            }
 			
 			//DISPLAYS PLAYER
 			player.show();
@@ -402,30 +396,116 @@ public class DrawingSurface extends PApplet {
 		angleVel = f;;
 	}
 
-	public void keyPressed() {
-		if (key == 'w' || keyCode == UP || key == 'W')
-			keys[0] = true;
-		else if (key == 's' || keyCode == DOWN || key == 'S')
-			keys[1] = true;
-		else if (key == 'a' || keyCode == LEFT || key == 'A')
-			keys[2] = true;
-		else if (key == 'd' || keyCode == RIGHT || key == 'D')
-			keys[3] = true;
-		else if (key == 'm' || key == 'M')
-			zoom = false;
-		
-	}
+                //SIMPLE FILLER FOR SHOOTING
+                System.out.println("Kerchow!");
+            }
 
-	public void keyReleased() {
-		if (key == 'w' || keyCode == UP || key == 'W')
-			keys[0] = false;
-		else if (key == 's' || keyCode == DOWN || key == 'S')
-			keys[1] = false;
-		else if (key == 'a' || keyCode == LEFT || key == 'A')
-			keys[2] = false;
-		else if (key == 'd' || keyCode == RIGHT || key == 'D')
-			keys[3] = false;
-		else if (key == 'm' || key == 'M')
-			zoom = true;
-	}
+            //UPDATES PARTICLES(not needed rn)
+            for (int i = 0; i < particles.size(); i++) {
+                particles.get(i).update();
+                if (particles.get(i).shouldBeDead()) {
+                    particles.remove(i);
+                    if (i > 0)
+                        i--;
+                }
+            }
+
+            //DISPLAYS THE BLOCKS
+            for (Block w : walls) {
+                if (zoom/* && w.isTouching(player.getX()-700/scaleFactor, player.getY()-500/scaleFactor, 1500/scaleFactor, 1050/scaleFactor)*/) {
+                    w.show();
+                } else if (!zoom) {
+                    w.showNoImage();
+                }
+
+            }
+
+            //DISPLAYS THE WATER TILES
+            for (Block w : waterBlocks) {
+                if (zoom/* && w.isTouching(player.getX()-(this.width+200)/(2*scaleFactor), player.getY()-(this.height+200)/(2*scaleFactor), (this.width+200)/scaleFactor, (this.height+200)/scaleFactor)*/) {
+                    w.show();
+                } else if (!zoom) {
+                    w.showNoImage();
+                }
+
+            }
+
+            //UPDATES ANIMATION
+            waterBlocks.get(0).updateGif();
+
+            //DISPLAYS BULLETS(not needed rn)
+            for (Bullet b : playerBullets) {
+                b.show();
+            }
+
+            //DISPLAYS PARTICLES(not needed rn)
+            for (Particle p : particles)
+                p.show();
+
+            if (boats != null) {
+                for (Boat b :
+                        boats) {
+                    b.setX((float) (b.getX() + b.getV()*Math.cos(b.getAngle()));
+                    b.setY((float) (b.getY() + b.getV()*Math.sin(b.getAngle())));
+                    if (b != null) {
+                        Block bx = new Block(this, b.getX(), b.getY(), 10, 10);
+                        bx.setColor(0, 0, 0);
+                        bx.show();
+                    }
+                }
+            }
+
+            //DISPLAYS PLAYER
+            player.show();
+
+        }
+
+        //IF TRADE SCREEN
+        else if (screen == TRADE) {
+            ts.update();
+            ts.show();
+        }
+
+        //IF MENU SCREEN
+        else if (screen == MENU) {
+            //SLOWS DOWN FRAMERATE FOR COOL GIF(can be changed)
+            frameRate(10);
+            menuScreen.draw();
+        }
+    }
+
+    public void keyPressed() {
+        if (key == 'w' || keyCode == UP || key == 'W')
+            keys[0] = true;
+        else if (key == 's' || keyCode == DOWN || key == 'S')
+            keys[1] = true;
+        else if (key == 'a' || keyCode == LEFT || key == 'A')
+            keys[2] = true;
+        else if (key == 'd' || keyCode == RIGHT || key == 'D')
+            keys[3] = true;
+        else if (key == 'm' || key == 'M')
+            zoom = false;
+
+    }
+
+    public void keyReleased() {
+        if (key == 'w' || keyCode == UP || key == 'W')
+            keys[0] = false;
+        else if (key == 's' || keyCode == DOWN || key == 'S')
+            keys[1] = false;
+        else if (key == 'a' || keyCode == LEFT || key == 'A')
+            keys[2] = false;
+        else if (key == 'd' || keyCode == RIGHT || key == 'D')
+            keys[3] = false;
+        else if (key == 'm' || key == 'M')
+            zoom = true;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setBoats(Boat[] boats) {
+        this.boats = boats;
+    }
 }
