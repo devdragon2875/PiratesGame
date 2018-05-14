@@ -3,6 +3,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * A "mini-server" that handles communication on a separate thread from the CentralServer.
+ * Each SubServer communicates with a single client via Peer to Peer
+ * @author Anantajit
+ */
 public class SubServer extends Thread {
 
     private CentralServer centralServer;

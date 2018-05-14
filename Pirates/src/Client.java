@@ -3,6 +3,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * The Client that lives in the main thread (everything but updating data)
+ * @author Anantajit
+ */
 public class Client {
     private int port;
     private String ip;

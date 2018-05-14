@@ -1,5 +1,9 @@
 import java.io.Serializable;
 
+/**
+ * A simplified version of the player class, with the things that NEED to be sent over the network
+ * @author Anantajit
+ */
 public class Boat implements Serializable {
     private float x;
     private float y;

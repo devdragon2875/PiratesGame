@@ -1,3 +1,7 @@
+/**
+ * A looping thread that updates data in the DrawingSurface class
+ * @author Anantajit
+ */
 public class ClientLoop extends Thread {
     private DrawingSurface parent;
     private Client client;
