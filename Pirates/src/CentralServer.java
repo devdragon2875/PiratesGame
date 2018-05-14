@@ -3,6 +3,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+
+/**
+ * This class acts as a "hub" through which all other servers connect to each other
+ * @author Anantajit
+ */
 public class CentralServer {
     public static final int MAX_PLAYERS = 50;
 
