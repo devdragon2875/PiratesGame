@@ -90,8 +90,9 @@ public class Client {
         this.ip = ip;
     }
 
-    public String[][] readArray() {if (inObject == null)
-        return null;
+    public String[][] readArray() {
+    	if (inObject == null)
+    		return null;
         try {
             return (String[][]) inObject.readObject();
         } catch (IOException | ClassNotFoundException e) {
