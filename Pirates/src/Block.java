@@ -1,3 +1,6 @@
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -13,7 +16,10 @@ public class Block {
 	protected int r,g,b,alpha;
 	protected PImage image;
 	protected Animation gif;
+	private Rectangle hitbox;
 	
+	//private boolean imbad;
+
 	public Block(PApplet parent, float x, float y, float width, float height, Animation gif) {
 		this.parent = parent;
 		this.x = x;
@@ -23,8 +29,12 @@ public class Block {
 		alpha = 255;
 		this.gif = gif;
 		image = null;
+		
+		//imbad = false;
+		
+		hitbox = new Rectangle((int)x,(int)y,(int)width,(int)height);
 	}
-	
+
 	public Block(PApplet parent, float x, float y, float width, float height, PImage image) {
 		this.parent = parent;
 		this.x = x;
@@ -35,13 +45,19 @@ public class Block {
 		this.image = image;
 		gif = null;
 		
+		//imbad = false;
+		
+		hitbox = new Rectangle((int)x,(int)y,(int)width,(int)height);
+		
 	}
 	public Block(PApplet parent, float x, float y, float width, float height) {
 		this(parent,x,y,width,height,(PImage)null);
 	}
 	
 	public void show() {
-		
+		//if(imbad)
+		//	showNoImage();
+		//else {
 		parent.fill(r,g,b,alpha);
 		//System.out.println(x + " " + y);
 		
@@ -54,6 +70,9 @@ public class Block {
 			gif.display(x, y, width, height);
 		else
 			parent.rect(x, y, width, height);
+		
+		//parent.rect((float)hitbox.getX(), (float)hitbox.getY(), (float)hitbox.getWidth(), (float)hitbox.getHeight());
+	//	}
 		
 	}
 	
@@ -119,5 +138,13 @@ public class Block {
 	
 	public boolean isTouching(float x1, float y1, float width1, float height1) {
 		return x < x1 + width1 && x + width > x1 && y < y1 + height1 && y + height > y1;
+	}
+	
+	public Rectangle getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(Rectangle hitbox) {
+		this.hitbox = hitbox;
 	}
 }

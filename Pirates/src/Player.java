@@ -1,8 +1,12 @@
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 
 /**
  * This class is used to represent the user's ship.
@@ -25,11 +29,18 @@ public class Player extends Block{
 	private float angle;
 	private Cargo cargo; // this keeps track of gold and how much of each trade good the player is carrying
 	
+	private Polygon hitbox;
+	
+
+	private Boat boat;
+
 	Animation splash;
+	private double angleVel;
 	public Player(PApplet parent, float x, float y, float width, float height, int maxHealth) {
 		super(parent, x, y, width, height);
 		xV = 0;
 		yV = 0;
+		angleVel = 0;
 		weaponWidth = width/2;
 		weaponHeight = height/4;
 		maxXV = DEFAULT_MAX_VELOCITY;
@@ -66,9 +77,25 @@ public class Player extends Block{
 		
 		cargo = new Cargo(100); //DEFAULT can hold 100 cargo
 		cargo.setGold(100);
+		
+		hitbox = new Polygon();
+		hitbox.addPoint((int)x, (int)y);
+		hitbox.addPoint((int)(x+width), (int)y);
+		hitbox.addPoint((int)(x+width), (int)(y+height));
+		hitbox.addPoint((int)x, (int)(y+height));
+		
+		
+
+
+		boat = new Boat(x, y,yV, angle);
 	}
 	
 	public void show() {
+		boat.setX(x);
+		boat.setY(y);
+		boat.setAngle(angle);
+		boat.setV(yV);
+
 		parent.translate((float)(this.getX()+this.getWidth()/2.0), (float)(this.getY()+this.getHeight()/2.0));
 		parent.rotate((float)(angle - Math.PI/2.0));
 		parent.translate((float)(-this.getX()-this.getWidth()/2.0), (float)(-this.getY()-this.getHeight()/2.0));
@@ -78,6 +105,8 @@ public class Player extends Block{
 		}
 		steer.draw();
 		lookout.draw();
+
+
 		//splash.update();
 		//super.show();
 		//parent.image(image, x, y,size,size);
@@ -85,10 +114,32 @@ public class Player extends Block{
 		
 	}
 	
-	public void update(Block[] b) {
-		
+	
+	public void update(Block[] b) {	
+		angle += angleVel;
+		angleVel *= 0.9;
 		x += (float) (yV * Math.cos(angle));
 		y += (float) (yV * Math.sin(angle));
+		
+		//System.out.println(xV + " " + yV);
+		
+		//hitbox.translate(0, (int)(yV * Math.sin(angle)));
+		
+		
+		hitbox = new Polygon();
+		Point2D[] originalPoints = new Point2D[4];
+		
+		originalPoints[0] = new Point2D.Float(x, y);
+		originalPoints[1] = new Point2D.Float(x+width, y);
+		originalPoints[2] = new Point2D.Float(x+width, y+height);
+		originalPoints[3] = new Point2D.Float(x, y+height);
+		
+		Point2D[] newPoints = new Point2D[4];
+		AffineTransform.getRotateInstance(angle+Math.PI/2, x+width/2, y+height/2).transform(originalPoints,0,newPoints,0,4);
+		for(int i = 0; i < 4; i++) {
+			hitbox.addPoint((int)newPoints[i].getX(), (int)newPoints[i].getY());
+		}
+		
 		if(xV > maxXV) {
 			xV = maxXV;
 		}else if(xV < -1*maxXV) {
@@ -102,9 +153,9 @@ public class Player extends Block{
 		
 		//moving x
 		
-		
+		/*
 		for(int i = 0; i < b.length; i++) {
-			if(this.isTouching(b[i])) { 
+			if(hitbox.intersects(b[i].getHitbox())) { //this.isTouching(b[i])
 				if(xV > 0)
 					x = b[i].getX()-super.getWidth();
 				else
@@ -118,9 +169,10 @@ public class Player extends Block{
 		
 		//moving y
 		
+	
 		
 		for(int i = 0; i < b.length; i++) {
-			if(this.isTouching(b[i])) { 
+			if(hitbox.intersects(b[i].getHitbox())) { //this.isTouching(b[i])
 				if(yV > 0)
 					y = b[i].getY()-super.getHeight();
 				else
@@ -129,6 +181,31 @@ public class Player extends Block{
 				break;
 			}
 				
+		}
+		*/
+		
+		boolean forward = yV > 0;
+		boolean left =  angleVel > 0; 
+		
+		for(int i = 0; i < b.length; i++) {
+			if(hitbox.intersects(b[i].getHitbox())) {
+				System.out.println("touching");
+				//top left
+				if(forward) {
+					yV += -2;
+					
+				} else {
+					yV += 2;
+					
+				}
+				System.out.println(angleVel);
+				angleVel = -angleVel*2;
+				System.out.println(angleVel);
+				
+				
+				
+				
+			}
 		}
 		
 		//friction
@@ -142,31 +219,44 @@ public class Player extends Block{
 		//for(int i = 0; i < buttonsW.size(); i++) {
 		//	buttonsW.get(i).update();
 		//}
+		
 		weapons.get(0).setX(x);
 		weapons.get(1).setX(x+weaponWidth);
 		weapons.get(2).setX(x+weaponWidth);
 		weapons.get(3).setX(x);
+		
+		
 		weapons.get(0).setY(y+height/4);
 		weapons.get(1).setY(y+height/4);
 		weapons.get(2).setY(y+height/4+weaponHeight);
 		weapons.get(3).setY(y+height/4+weaponHeight);
+		
+		
 		steer.setX(x+width/2 - width/6);
 		steer.setY( y+height/4+height/2);
+		
+		
 		lookout.setX(x+width/3);
 		lookout.setY(y);
+		
+		
 	}
-	public void draw() {
+	
+	private void draw() {
 		
 		//for(int i = 0; i < buttonsW.size(); i++) {
 			//buttonsW.get(i).show();
 		//}
+		
 		parent.stroke(0);
 		parent.strokeWeight((float) 0.5);
 		parent.fill(new Color(139,69,19).getRGB());
-		parent.rect(x, y, width, height, 2);
 		
+		parent.rect(x, y, width, height, 2);
 		parent.triangle(x+width/40, y+height/25, x+width/2, y-height/3, x+width-width/40, y+height/25);
+		
 		parent.noStroke();
+		
 		parent.rect(x+width/16, y, width-width/8, height/10, 2);
 		
 	}
@@ -244,6 +334,26 @@ public class Player extends Block{
 	public Cargo getCargo() {
 		return cargo;
 	}
+
+	public double getAngleVel() {
+		// TODO Auto-generated method stub
+		return angleVel;
+	}
+
+	public float getAngle() {
+		// TODO Auto-generated method stub
+		return angle;
+	}
+
+	public void setAngleVel(double d) {
+		// TODO Auto-generated method stub
+		angleVel = d;
+	}
 	
 	
+
+
+	public Boat getBoat() {
+		return boat;
+	}
 }
