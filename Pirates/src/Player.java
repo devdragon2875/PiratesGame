@@ -358,4 +358,8 @@ public class Player extends Block{
 	public boolean isTouching(Block other) {
 		return hitbox.intersects(other.getHitbox());
 	}
+	
+	public Polygon getPolyHitbox() {
+		return hitbox;
+	}
 }
