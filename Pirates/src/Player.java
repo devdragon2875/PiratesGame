@@ -191,6 +191,7 @@ public class Player extends Block{
 			if(hitbox.intersects(b[i].getHitbox())) {
 				System.out.println("touching");
 				//top left
+				
 				if(forward) {
 					yV += -2;
 					
@@ -201,10 +202,7 @@ public class Player extends Block{
 				System.out.println(angleVel);
 				angleVel = -angleVel*2;
 				System.out.println(angleVel);
-				
-				
-				
-				
+				break;
 			}
 		}
 		
