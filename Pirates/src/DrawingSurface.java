@@ -363,7 +363,7 @@ public class DrawingSurface extends PApplet {
             if (currentDock.checkTradeExitButton()) {
                 screen = GAME;
                 currentDock = null;
-                dockTimer = 60;
+                dockTimer = 120;
             }
 
         }

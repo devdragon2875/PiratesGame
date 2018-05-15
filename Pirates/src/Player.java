@@ -356,4 +356,8 @@ public class Player extends Block{
 	public Boat getBoat() {
 		return boat;
 	}
+	
+	public boolean isTouching(Block other) {
+		return hitbox.intersects(other.getHitbox());
+	}
 }
