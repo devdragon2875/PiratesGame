@@ -174,6 +174,7 @@ public class DrawingSurface extends PApplet {
 
 
     public void draw() {
+    	
         //UPDATING MOUSE LOCATION
         xCoord = mouseX;
         yCoord = mouseY;
@@ -257,11 +258,13 @@ public class DrawingSurface extends PApplet {
 
             if (mousePressed) {
                 //CODE FOR GUN(buggy)
-//				if (player.getGun().canFire()) {
-//					playerBullets.add(player.generateBullet(mouseX, mouseY));
-//					playerBullets.get(playerBullets.size() - 1).setColor(255, 50, 0);
-//				}
-
+            	/*
+				if (player.getGun().canFire()) {
+					playerBullets.add(player.generateBullet(mouseX, mouseY));
+					playerBullets.get(playerBullets.size() - 1).setColor(255, 50, 0);
+				}
+				*/
+            	
                 //SIMPLE FILLER FOR SHOOTING
                 System.out.println("Kerchow!");
             }
@@ -350,6 +353,7 @@ public class DrawingSurface extends PApplet {
 
         //IF TRADE SCREEN
         else if (screen == TRADE) {
+        	background(255);
 			/*
 			ts.update(player);
 			ts.show(player);
@@ -358,9 +362,13 @@ public class DrawingSurface extends PApplet {
 				screen = GAME;
 			*/
 
-            currentDock.updateTradeScreen(player);
-            currentDock.showTradeScreen(player);
-            if (currentDock.checkTradeExitButton()) {
+            //currentDock.updateTradeScreen(player);
+            //currentDock.showTradeScreen(player);
+        	
+        	currentDock.checkCurrentSwitchButton(); // checks if the user clicked the button to switch to the other screen
+        	currentDock.updateCurrentScreen(player); // updates the current screen
+        	currentDock.showCurrentScreen(player); // draws the current screen
+            if (currentDock.checkCurrentExitButton()) {
                 screen = GAME;
                 currentDock = null;
                 dockTimer = 120;

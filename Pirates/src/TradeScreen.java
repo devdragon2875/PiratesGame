@@ -14,6 +14,7 @@ public class TradeScreen {
 	private PApplet parent;
 	private PImage clothImg, spicesImg, jewelryImg, beardsImg;
 	private Button exitButton;
+	private Button upgradeButton; // button to take user to upgrade screen
 	//private Player player;
 	
 	public TradeScreen(PApplet parent){
@@ -31,9 +32,12 @@ public class TradeScreen {
 		parts[1] = new TradePart(parent,bPrice,parent.width/5,0,parent.width/5,parent.height,spicesImg,"Spices",Cargo.SPICES);
 		parts[2] = new TradePart(parent,cPrice,parent.width*2/5,0,parent.width/5,parent.height,jewelryImg,"Jewelry",Cargo.JEWELRY);
 		parts[3] = new TradePart(parent,dPrice,parent.width*3/5,0,parent.width/5,parent.height,beardsImg,"Beards",Cargo.BEARDS);
+		
 		exitButton = new Button(parent,parent.width-45,0,40,40,"X");
 		exitButton.setHoverColor(new Color(255,100,100));
 		exitButton.setDefaultColor(new Color(200,0,0));
+		
+		upgradeButton = new Button(parent, parent.width*4/5,0, parent.width/5-45, 40, "Upgrades");
 	}
 	
 	public void show(Player player){
@@ -66,6 +70,7 @@ public class TradeScreen {
 		parent.text("Player:", offset+parent.width/10, 130);
 		
 		exitButton.show();
+		upgradeButton.show();
 	}
 	
 	public void update(Player player){
@@ -75,14 +80,20 @@ public class TradeScreen {
 			//p.update();
 			p.updateTrade(player.getCargo());
 		}
+		/*
 		String s = "";
 		for(int i = 1; i <= 4; i++)
 			s += player.getCargo().getMaterial(i) + "|";
 		s += ", Gold : " + player.getCargo().getGold();
 		System.out.println(s);
+		*/
 	}
 	
 	public boolean checkExitButton() {
 		return exitButton.update();
+	}
+	
+	public boolean checkUpgradeButton() {
+		return upgradeButton.update();
 	}
 }
