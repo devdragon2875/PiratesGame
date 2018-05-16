@@ -124,7 +124,7 @@ public class Player extends Block{
 		this.y = y;
 		
 		parent.translate((float)(this.getX()+this.getWidth()/2.0), (float)(this.getY()+this.getHeight()/2.0));
-		parent.scale(scale);
+		parent.scale(10);
 		parent.translate((float)(-this.getX()-this.getWidth()/2.0), (float)(-this.getY()-this.getHeight()/2.0));
 		
 		weapons.get(0).setX(x);
@@ -425,5 +425,26 @@ public class Player extends Block{
 	
 	public Polygon getPolyHitbox() {
 		return hitbox;
+	}
+	/*
+	public int[] getLevels() { // weapon, weapon, weapon, weapon, steer, lookout
+		int[] levels = new int[6];
+		for(int i = 0; i < weapons.size();i++) {
+			levels[i] = weapons.get(i).getLevel();
+		}
+		levels[4] = steer.getLevel();
+		levels[5] = lookout.getLevel();
+		return levels;
+	}
+	*/
+	public ArrayList<WeaponSection> getWeapons(){
+		return weapons;
+	}
+	
+	public LookoutSection getLookout(){
+		return lookout;
+	}
+	public SteerSection getSteer(){
+		return steer;
 	}
 }

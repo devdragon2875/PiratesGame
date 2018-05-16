@@ -69,8 +69,9 @@ public class Button{
 		parent.fill(textColor.getRed(),textColor.getGreen(),textColor.getBlue());
 		parent.textAlign(parent.CENTER);
 		parent.textSize(25);
-		parent.text(text, x+width/8, y+height/4,width*3/4,height);
+		//parent.text(text, x+width/8, y+height/4,width*3/4,height);
 		
+		parent.text(text, x, y+height/4,width,height);
 		parent.popStyle();
 		parent.popMatrix();
 	}

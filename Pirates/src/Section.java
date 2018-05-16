@@ -39,20 +39,25 @@ public class Section {
 			drawer.rect(x, y, width, height);
 			
 		} 
+		/*
 		if(isClicked()) {
 			this.upgrade();
 		}
+		*/
 	}
 	public boolean isPointInside(float x, float y){
 		return x > this.x && x < this.x + width && y > this.y && y < this.y + height;
 	}
 	
-	public boolean isMouseHovering(){
-		return isPointInside(DrawingSurface.xCoord, DrawingSurface.yCoord);
+	public boolean isMouseHovering(){		return isPointInside(DrawingSurface.xCoord, DrawingSurface.yCoord);
 	}
 	
 	public boolean isClicked(){
 		return isMouseHovering() && drawer.mousePressed && (clickCounter <=0);
+	}
+	
+	public int getLevel() {
+		return level;
 	}
 	
 }

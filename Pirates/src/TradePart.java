@@ -51,7 +51,7 @@ public class TradePart {
 		
 		parent.fill(0);
 		parent.textAlign(parent.CENTER);
-		parent.textSize(38);
+		parent.textSize(35);
 		parent.text(name, x+width/2, y+height/15);
 		parent.text("Price:\n"+(int)price + "G", x+width/2, y+height*7/16);
 		buy1.show();
@@ -114,14 +114,17 @@ public class TradePart {
 	private void updatePrice(int n) { // updates the price of the good assuming n items were bought (n can be negative, which will assume n items were sold)
 		if(n == 0)
 			return;
-		double factor = 1.01; // should be tweaked
+		//double factor = 1.01; // should be tweaked
+		double change = 0.1;
 		if(n < 0) {
 			n *= -1;
-			factor = 0.995; // should be tweaked
+			//factor = 0.99; // should be tweaked
+			change = -0.1;
 		}
 		
 		for(int i = 0; i < n; i++) {
-			price *= factor;
+			//price *= factor;
+			price += change;
 		}
 	}
 }
