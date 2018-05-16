@@ -1,20 +1,20 @@
+/* Javadoc style sheet */
 /*
-* Javadoc Stylesheet
+Overall document style
 */
+
+@import url('resources/fonts/dejavu.css');
+
 body {
-    background-color: #FFFFFF;
-    color:rgb(50,50,50);
-    font-family: sans-serif;, Arial, Helvetica, "DejaVu Sans Mono";
+    background-color:#ffffff;
+    color:#353833;
+    font-family:'DejaVu Sans', Arial, Helvetica, sans-serif;
     font-size:14px;
     margin:0;
 }
-a:link{
-    text-decoration: none;
-    color: rgb(0,10,100);
-} 
-a:visited {
+a:link, a:visited {
     text-decoration:none;
-    color: rgb(100,0,100);
+    color:#4A6782;
 }
 a:hover, a:focus {
     text-decoration:none;
@@ -57,7 +57,7 @@ h6 {
 ul {
     list-style-type:disc;
 }
-code, tt{
+code, tt {
     font-family:'DejaVu Sans Mono', monospace;
     font-size:14px;
     padding-top:4px;
@@ -97,6 +97,7 @@ Document title and Copyright styles
     margin-left:.5em;
 }
 .bar a, .bar a:link, .bar a:visited, .bar a:active {
+    color:#FFFFFF;
     text-decoration:none;
 }
 .bar a:hover, .bar a:focus {
@@ -113,16 +114,15 @@ Document title and Copyright styles
 Navigation bar styles
 */
 .bar {
-    background-color:#9999FF;
+    background-color:#4D7A97;
     color:#FFFFFF;
     padding:.8em .5em .4em .8em;
-    height: 1.2em;
-    font-size:18px;
-    margin: 0;
-    box-shadow: 0px 3px 0px #CCCCFF;
+    height:auto;/*height:1.8em;*/
+    font-size:11px;
+    margin:0;
 }
 .topNav {
-    background-color:#9999FF;
+    background-color:#4D7A97;
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -135,7 +135,7 @@ Navigation bar styles
 }
 .bottomNav {
     margin-top:10px;
-    background-color:#9999FF;
+    background-color:#4D7A97;
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -147,7 +147,7 @@ Navigation bar styles
     font-size:12px;
 }
 .subNav {
-    background-color:#CCCCFF;
+    background-color:#dee3e9;
     float:left;
     width:100%;
     overflow:hidden;
@@ -156,19 +156,18 @@ Navigation bar styles
 .subNav div {
     clear:left;
     float:left;
-    padding:0 0 7px 8px;
+    padding:0 0 5px 6px;
     text-transform:uppercase;
 }
 ul.navList, ul.subNavList {
     float:left;
     margin:0 25px 0 0;
     padding:0;
-    padding-left: 1em;
 }
 ul.navList li{
     list-style:none;
     float:left;
-    padding: 5px 10px;
+    padding: 5px 6px;
     text-transform:uppercase;
 }
 ul.subNavList li{
@@ -176,7 +175,7 @@ ul.subNavList li{
     float:left;
 }
 .topNav a:link, .topNav a:active, .topNav a:visited, .bottomNav a:link, .bottomNav a:active, .bottomNav a:visited {
-    color:#F0F0F0;
+    color:#FFFFFF;
     text-decoration:none;
     text-transform:uppercase;
 }
@@ -186,10 +185,9 @@ ul.subNavList li{
     text-transform:uppercase;
 }
 .navBarCell1Rev {
-    background-color:#AAAAFF;
-    border-radius: 1px;
+    background-color:#F8981D;
     color:#253441;
-    margin: auto 10px;
+    margin: auto 5px;
 }
 .skipNav {
     position:absolute;
@@ -216,11 +214,10 @@ Page header and footer styles
     font-size:13px;
 }
 .title {
-    color:#222222;
+    color:#2c4557;
     margin:10px 0;
 }
 .subTitle {
-    color: #999999;
     margin:5px 0 0 0;
 }
 .header ul {
@@ -238,8 +235,7 @@ Page header and footer styles
 Heading styles
 */
 div.details ul.blockList ul.blockList ul.blockList li.blockList h4, div.details ul.blockList ul.blockList ul.blockListLast li.blockList h4 {
-    background-color:#AAAAFF;
-    color:white;
+    background-color:#dee3e9;
     border:1px solid #d0d9e0;
     margin:0 0 6px -8px;
     padding:7px 5px;
@@ -250,9 +246,7 @@ ul.blockList ul.blockList ul.blockList li.blockList h3 {
     margin:0 0 6px -8px;
     padding:7px 5px;
 }
-
 ul.blockList ul.blockList li.blockList h3 {
-    color:#333333;
     padding:0;
     margin:15px 0;
 }
@@ -263,7 +257,6 @@ ul.blockList li.blockList h2 {
 Page layout container styles
 */
 .contentContainer, .sourceContainer, .classUseContainer, .serializedFormContainer, .constantValuesContainer {
-    background-color: #FAFAFF;
     clear:both;
     padding:10px 20px;
     position:relative;
@@ -271,12 +264,11 @@ Page layout container styles
 .indexContainer {
     margin:10px;
     position:relative;
-    font-size:14px;
+    font-size:12px;
 }
 .indexContainer h2 {
     font-size:13px;
     padding:0 0 3px 0;
-
 }
 .indexContainer ul {
     margin:0;
@@ -285,10 +277,9 @@ Page layout container styles
 .indexContainer ul li {
     list-style:none;
     padding-top:2px;
-    padding-bottom: 4px; 
 }
 .contentContainer .description dl dt, .contentContainer .details dl dt, .serializedFormContainer dl dt {
-    font-size:14px;
+    font-size:12px;
     font-weight:bold;
     margin:10px 0 0 0;
     color:#4E4E4E;
@@ -296,7 +287,7 @@ Page layout container styles
 .contentContainer .description dl dd, .contentContainer .details dl dd, .serializedFormContainer dl dd {
     margin:5px 0 10px 0px;
     font-size:14px;
-    font-family:'DejaVu Sans Mono', monospace;
+    font-family:'DejaVu Sans Mono',monospace;
 }
 .serializedFormContainer dl.nameValue dt {
     margin-left:1px;
@@ -318,15 +309,13 @@ ul.horizontal li {
 }
 ul.inheritance {
     margin:0;
-    padding:5px;
+    padding:0;
 }
 ul.inheritance li {
-    color:#666666;
     display:inline;
     list-style:none;
 }
 ul.inheritance li ul.inheritance {
-    color:#222222;
     margin-left:15px;
     padding-left:15px;
     padding-top:1px;
@@ -379,7 +368,6 @@ Table styles
 }
 .overviewSummary caption, .memberSummary caption, .typeSummary caption,
 .useSummary caption, .constantsSummary caption, .deprecatedSummary caption {
-    //background-color: #DDDDFF;
     position:relative;
     text-align:left;
     background-repeat:no-repeat;
@@ -414,7 +402,6 @@ Table styles
     float:left;
     background-color:#F8981D;
     border: none;
-    border-radius: 1px;
     height:16px;
 }
 .memberSummary caption span.activeTableTab span {
@@ -426,7 +413,6 @@ Table styles
     display:inline-block;
     float:left;
     background-color:#F8981D;
-    border-radius: 1px;
     height:16px;
 }
 .memberSummary caption span.tableTab span {
@@ -475,13 +461,11 @@ Table styles
 }
 .overviewSummary td, .memberSummary td, .typeSummary td,
 .useSummary td, .constantsSummary td, .deprecatedSummary td {
-    background-color: rgba(200,200,200,0.1);
     text-align:left;
     padding:0px 0px 12px 10px;
 }
 th.colOne, th.colFirst, th.colLast, .useSummary th, .constantsSummary th,
 td.colOne, td.colFirst, td.colLast, .useSummary td, .constantsSummary td{
-    background-color: rgba(200,200,255,0.1);
     vertical-align:top;
     padding-right:0px;
     padding-top:8px;
@@ -489,7 +473,6 @@ td.colOne, td.colFirst, td.colLast, .useSummary td, .constantsSummary td{
 }
 th.colFirst, th.colLast, th.colOne, .constantsSummary th {
     background:#dee3e9;
-    background-color: #AAAAFF;
     text-align:left;
     padding:8px 3px 3px 7px;
 }
@@ -516,13 +499,13 @@ td.colOne a:link, td.colOne a:active, td.colOne a:visited, td.colOne a:hover, td
     font-weight:bold;
 }
 .tableSubHeadingColor {
-    background-color:#FEFEFF;
-}
-.altColor {
     background-color:#EEEEFF;
 }
-.rowColor {
+.altColor {
     background-color:#FFFFFF;
+}
+.rowColor {
+    background-color:#EEEEEF;
 }
 /*
 Content styles
@@ -585,6 +568,7 @@ div.block div.block span.deprecationComment, div.block div.block span.emphasized
 div.block div.block span.interfaceName {
     font-style:normal;
 }
+
 div.contentContainer ul.blockList li.blockList h2{
     padding-bottom:0px;
 }

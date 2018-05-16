@@ -2,6 +2,11 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
+/**
+ * Screen in the dock in which the player can upgrade their ship.
+ * @author Blake
+ *
+ */
 public class UpgradeScreen {
 
 	private PApplet parent;
