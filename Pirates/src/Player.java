@@ -114,6 +114,70 @@ public class Player extends Block{
 		
 	}
 	
+	public void showNoRotation(float x, float y, float scale) {
+		parent.pushMatrix();
+		parent.pushStyle();
+		
+		float originalX = this.x;
+		float originalY = this.y;
+		this.x = x;
+		this.y = y;
+		
+		parent.translate((float)(this.getX()+this.getWidth()/2.0), (float)(this.getY()+this.getHeight()/2.0));
+		parent.scale(scale);
+		parent.translate((float)(-this.getX()-this.getWidth()/2.0), (float)(-this.getY()-this.getHeight()/2.0));
+		
+		weapons.get(0).setX(x);
+		weapons.get(1).setX(x+weaponWidth);
+		weapons.get(2).setX(x+weaponWidth);
+		weapons.get(3).setX(x);
+		
+		
+		weapons.get(0).setY(y+height/4);
+		weapons.get(1).setY(y+height/4);
+		weapons.get(2).setY(y+height/4+weaponHeight);
+		weapons.get(3).setY(y+height/4+weaponHeight);
+		
+		
+		steer.setX(x+width/2 - width/6);
+		steer.setY( y+height/4+height/2);
+		
+		
+		lookout.setX(x+width/3);
+		lookout.setY(y);
+		
+		this.draw();
+		for(int i = 0; i < weapons.size(); i++) {
+			weapons.get(i).draw();
+		}
+		steer.draw();
+		lookout.draw();
+		
+		this.x = originalX;
+		this.y = originalY;
+		weapons.get(0).setX(x);
+		weapons.get(1).setX(x+weaponWidth);
+		weapons.get(2).setX(x+weaponWidth);
+		weapons.get(3).setX(x);
+		
+		
+		weapons.get(0).setY(y+height/4);
+		weapons.get(1).setY(y+height/4);
+		weapons.get(2).setY(y+height/4+weaponHeight);
+		weapons.get(3).setY(y+height/4+weaponHeight);
+		
+		
+		steer.setX(x+width/2 - width/6);
+		steer.setY( y+height/4+height/2);
+		
+		
+		lookout.setX(x+width/3);
+		lookout.setY(y);
+		
+		parent.popMatrix();
+		parent.popStyle();
+	}
+	
 	
 	public void update(Block[] b) {	
 		angle += angleVel;
@@ -191,6 +255,7 @@ public class Player extends Block{
 			if(hitbox.intersects(b[i].getHitbox())) {
 				System.out.println("touching");
 				//top left
+				
 				if(forward) {
 					yV += -2;
 					
@@ -201,10 +266,7 @@ public class Player extends Block{
 				System.out.println(angleVel);
 				angleVel = -angleVel*2;
 				System.out.println(angleVel);
-				
-				
-				
-				
+				break;
 			}
 		}
 		
@@ -355,5 +417,13 @@ public class Player extends Block{
 
 	public Boat getBoat() {
 		return boat;
+	}
+	
+	public boolean isTouching(Block other) {
+		return hitbox.intersects(other.getHitbox());
+	}
+	
+	public Polygon getPolyHitbox() {
+		return hitbox;
 	}
 }

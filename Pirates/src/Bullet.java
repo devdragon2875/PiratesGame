@@ -45,6 +45,7 @@ public class Bullet extends Block{
 	}
 	
 	public boolean shouldBeDead(Block[] walls) {
+		
 		if(super.x>parent.width || super.x+super.width < 0 || super.y>parent.height || super.y+super.height < 0)
 			return true;
 		
@@ -61,6 +62,14 @@ public class Bullet extends Block{
 		for(int i = 0; i < blocks.size(); i++)
 			blockArray[i] = blocks.get(i);
 		return shouldBeDead(blockArray);
+	}
+	
+	public void show() {
+		parent.ellipse(x, y, DEFAULT_BULLET_SIZE, DEFAULT_BULLET_SIZE);
+	}
+	
+	public boolean isTouching(Player player) {
+		return player.getPolyHitbox().contains(x, y);
 	}
 
 	public float getXV() {

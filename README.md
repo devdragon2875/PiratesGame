@@ -58,10 +58,40 @@ Allows for exiting the game
     - Boat Sections and Weapons
 - Blake Randle
     - Trading and Cargo
--Feedback given by Jose Amador and Ben Leistiko
+- Feedback given by Jose Amador and Ben Leistiko
+
+### Class List
+- Animation
+- Block
+- Boat
+- Bullet
+- BulletNet
+- Button
+- Cargo
+- CentralServer
+- Client
+- ClientLoop
+- Dock
+- DockNet
+- DrawingSurface
+- Enemy
+- Gun
+- LookoutSection
+- Main
+- MapDrawer
+- MapGenerator
+- Menu
+- Noise
+- Particle
+- Player
+- Section
+- SteerSection
+- SubServer
+- TextReader
+- TradePart
+- TradeScreen
+- WeaponSection
+
 
 ### Comments
-1) Need a class list in the README.
-2) Player is an Enemy? That seem confusing. Maybe have one superclass for both player and enemy (e.x. sprite).
-3) Networking isn't in the UML diamgram.  You should figure that out if you want to have it be a main part of the game.
-4)A lot of mention of upgrading all your ships and things but no mention of saving your progress, just something to think about.
+1) Networking isn't in the UML diamgram.  You should figure that out if you want to have it be a main part of the game.
