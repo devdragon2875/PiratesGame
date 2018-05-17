@@ -367,6 +367,7 @@ public class DrawingSurface extends PApplet {
 
         //IF TRADE SCREEN
         else if (screen == TRADE) {
+        	background(255);
 			/*
 			ts.update(player);
 			ts.show(player);
@@ -375,9 +376,10 @@ public class DrawingSurface extends PApplet {
 				screen = GAME;
 			*/
 
-            currentDock.updateTradeScreen(player);
-            currentDock.showTradeScreen(player);
-            if (currentDock.checkTradeExitButton()) {
+            currentDock.updateCurrentScreen(player);
+            currentDock.showCurrentScreen(player);
+            currentDock.checkCurrentSwitchButton();
+            if (currentDock.checkCurrentExitButton()) {
                 screen = GAME;
                 currentDock = null;
                 dockTimer = 120;
