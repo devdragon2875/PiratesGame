@@ -22,8 +22,8 @@ public class Bullet extends Block{
 
 	public Bullet(PApplet parent, float x, float y, float width,float height, int angle, float speed, int damage) {
 		super(parent, x, y, width, height);
-		xV = (float)(speed * Math.cos(Math.toRadians(angle)));
-		yV = (float)(speed * Math.sin(Math.toRadians(angle)));
+		xV = (float)(speed * Math.cos((angle)));
+		yV = (float)(speed * Math.sin((angle)));
 		this.damage = damage;
 	}
 	

@@ -39,6 +39,7 @@ public class WeaponSection extends Section{
 		}
 		
 	}
+	
 	public Bullet generateBullet(int targetX, int targetY) {
 		return cannon.generateBullet(drawer, this, targetX, targetY);
 	}
@@ -51,7 +52,8 @@ public class WeaponSection extends Section{
 		drawer.strokeWeight((float) 0.5);
 		drawer.fill(new Color(206, 23, 43).getRGB());
 		drawer.rect(x, y, width, height);
-		drawer.noStroke(); 
+		drawer.noStroke();
+		
 		super.highlight();
 		
 	}
@@ -72,6 +74,7 @@ public class WeaponSection extends Section{
 	public void update() {
 		cannon.update();
 		
+		
 	}
 	public void setX(float f) {
 		this.x = f;
@@ -87,5 +90,13 @@ public class WeaponSection extends Section{
 	public void setY(float f) {
 		this.y = f;
 		
+	}
+	public boolean isLeft() {
+		// TODO Auto-generated method stub
+		return left;
+	}
+	public Gun getCannon() {
+		// TODO Auto-generated method stub
+		return cannon;
 	}
 }

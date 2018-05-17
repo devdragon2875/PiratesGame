@@ -174,7 +174,6 @@ public class DrawingSurface extends PApplet {
 
 
     public void draw() {
-    	
         //UPDATING MOUSE LOCATION
         xCoord = mouseX;
         yCoord = mouseY;
@@ -244,7 +243,24 @@ public class DrawingSurface extends PApplet {
 
             //UPDTAES THE LOCATION OF THE WALLS
             player.update(walls);
-
+            for(int i = 0; i < player.getWeapons().size(); i++) {
+    			if(player.getWeapons().get(i).isClicked()) {
+    				if(player.getWeapons().get(i).isLeft()) {
+    					int x = (int) player.getWeapons().get(i).getCannon().getX();
+    					int y = (int) player.getWeapons().get(i).getCannon().getY();
+    					System.out.println(angle);
+    					addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle+Math.PI/2)), 
+    																		y+(int)(90*Math.sin(angle+Math.PI/2))));
+    				} else {
+    					int x = (int) player.getWeapons().get(i).getX();
+    					int y = (int) player.getWeapons().get(i).getY();
+    					System.out.println(angle);
+    					addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle-Math.PI/2)), 
+																			y+(int)(90*Math.sin(angle-Math.PI/2))));
+    				}
+    			}
+    		}
+            
             //UPDATES BULLETS(not needed rn)
             for (int i = 0; i < playerBullets.size(); i++) {
                 playerBullets.get(i).updateMovement();
@@ -258,13 +274,11 @@ public class DrawingSurface extends PApplet {
 
             if (mousePressed) {
                 //CODE FOR GUN(buggy)
-            	/*
-				if (player.getGun().canFire()) {
-					playerBullets.add(player.generateBullet(mouseX, mouseY));
-					playerBullets.get(playerBullets.size() - 1).setColor(255, 50, 0);
-				}
-				*/
-            	
+//				if (player.getGun().canFire()) {
+//					playerBullets.add(player.generateBullet(mouseX, mouseY));
+//					playerBullets.get(playerBullets.size() - 1).setColor(255, 50, 0);
+//				}
+
                 //SIMPLE FILLER FOR SHOOTING
                 System.out.println("Kerchow!");
             }
@@ -353,7 +367,6 @@ public class DrawingSurface extends PApplet {
 
         //IF TRADE SCREEN
         else if (screen == TRADE) {
-        	background(255);
 			/*
 			ts.update(player);
 			ts.show(player);
@@ -362,13 +375,9 @@ public class DrawingSurface extends PApplet {
 				screen = GAME;
 			*/
 
-            //currentDock.updateTradeScreen(player);
-            //currentDock.showTradeScreen(player);
-        	
-        	currentDock.checkCurrentSwitchButton(); // checks if the user clicked the button to switch to the other screen
-        	currentDock.updateCurrentScreen(player); // updates the current screen
-        	currentDock.showCurrentScreen(player); // draws the current screen
-            if (currentDock.checkCurrentExitButton()) {
+            currentDock.updateTradeScreen(player);
+            currentDock.showTradeScreen(player);
+            if (currentDock.checkTradeExitButton()) {
                 screen = GAME;
                 currentDock = null;
                 dockTimer = 120;
@@ -427,5 +436,8 @@ public class DrawingSurface extends PApplet {
 
     public void setBoats(Boat[] boats) {
         this.boats = boats;
+    }
+    public void addBullet(Bullet b) {
+    	playerBullets.add(b);
     }
 }

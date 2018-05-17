@@ -79,4 +79,14 @@ public class Gun {
 		// TODO Auto-generated method stub
 		this.y = f;
 	}
+
+	public float getX() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+
+	public float getY() {
+		// TODO Auto-generated method stub
+		return y;
+	}
 }

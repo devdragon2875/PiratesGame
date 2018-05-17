@@ -278,9 +278,11 @@ public class Player extends Block{
 		for(int i = 0; i < weapons.size(); i++) {
 			weapons.get(i).update();
 		}
+		
 		//for(int i = 0; i < buttonsW.size(); i++) {
 		//	buttonsW.get(i).update();
 		//}
+		
 		
 		weapons.get(0).setX(x);
 		weapons.get(1).setX(x+weaponWidth);
