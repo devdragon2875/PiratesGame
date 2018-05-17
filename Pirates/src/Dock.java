@@ -66,7 +66,10 @@ public class Dock extends Block{
 		if(currentScreen == TRADE) {
 			return checkTradeExitButton();
 		} else if(currentScreen == UPGRADE) {
-			return checkUpgradeExitButton();
+			if(checkUpgradeExitButton()) {
+				currentScreen = TRADE;
+				return true;
+			}
 		}
 		
 		return false;
@@ -75,7 +78,6 @@ public class Dock extends Block{
 	public void checkCurrentSwitchButton() {
 		if(currentScreen == TRADE) {
 			if(tradeScreen.checkUpgradeButton()) {
-				
 				currentScreen = UPGRADE;
 			}
 		} else if(currentScreen == UPGRADE) {

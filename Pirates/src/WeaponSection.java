@@ -11,6 +11,7 @@ public class WeaponSection extends Section{
 	Gun cannon;
 	boolean left;
 	private PApplet drawer;
+	private float centerX, centerY;
 	public WeaponSection(float x, float y, float width, float height, boolean left, PApplet drawer) {
 		super(drawer, x, y, width, height);
 		this.drawer = drawer;
@@ -98,5 +99,18 @@ public class WeaponSection extends Section{
 	public Gun getCannon() {
 		// TODO Auto-generated method stub
 		return cannon;
+	}
+	
+	public void setCenter(float centerX, float centerY) {
+		this.centerX = centerX;
+		this.centerY = centerY;
+	}
+	
+	public float getCenterX() {
+		return centerX;
+	}
+	
+	public float getCenterY() {
+		return centerY;
 	}
 }

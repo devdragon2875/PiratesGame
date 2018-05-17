@@ -243,6 +243,8 @@ public class DrawingSurface extends PApplet {
 
             //UPDTAES THE LOCATION OF THE WALLS
             player.update(walls);
+            
+            
             for(int i = 0; i < player.getWeapons().size(); i++) {
     			if(player.getWeapons().get(i).isClicked()) {
     				if(player.getWeapons().get(i).isLeft()) {
@@ -265,7 +267,7 @@ public class DrawingSurface extends PApplet {
             for (int i = 0; i < playerBullets.size(); i++) {
                 playerBullets.get(i).updateMovement();
                 if (i != 0 && playerBullets.get(i).shouldBeDead(walls)) {
-                    particles.add(new Particle(this, playerBullets.get(i), 20)); // add a "smoke" particle
+                    particles.add(new Particle(this, playerBullets.get(i), 2)); // add a "smoke" particle
                     playerBullets.remove(i);
                     if (i > 0)
                         i--;
@@ -363,6 +365,9 @@ public class DrawingSurface extends PApplet {
             //DISPLAYS PLAYER
             player.show();
 
+            ellipseMode(CENTER);
+            for(int i = 0; i < 4; i++)
+            	ellipse(player.getWeapons().get(i).getCenterX(),player.getWeapons().get(i).getCenterY(),3,3);
         }
 
         //IF TRADE SCREEN
