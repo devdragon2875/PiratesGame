@@ -32,7 +32,7 @@ public class Button{
 		hoverColor = new Color(255,255,100);
 		defaultColor = new Color(255,235,200);
 		
-		clicked = false;
+		clicked = true;
 		
 		textSize = 25;
 	}

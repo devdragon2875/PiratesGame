@@ -12,12 +12,14 @@ public class Dock extends Block{
 	private int currentScreen;
 	public static final int TRADE = 1;
 	public static final int UPGRADE = 2;
+
 	
 	public Dock(PApplet parent, float x, float y, float width,float height) {
 		super(parent, x, y, width, height);
 		tradeScreen = new TradeScreen(parent);
 		upgradeScreen = new UpgradeScreen(parent);
 		currentScreen = TRADE;
+		
 	}
 	
 	public void showTradeScreen(Player p) {
@@ -73,10 +75,12 @@ public class Dock extends Block{
 	public void checkCurrentSwitchButton() {
 		if(currentScreen == TRADE) {
 			if(tradeScreen.checkUpgradeButton()) {
+				
 				currentScreen = UPGRADE;
 			}
 		} else if(currentScreen == UPGRADE) {
 			if(upgradeScreen.checkTradeButton()) {
+				
 				currentScreen = TRADE;
 			}
 		}
