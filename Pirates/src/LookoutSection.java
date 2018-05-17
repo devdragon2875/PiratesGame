@@ -9,13 +9,22 @@ import processing.core.PApplet;
  */
 public class LookoutSection extends Section{
 	private PApplet drawer;
+	private int renderDistance;
 	public LookoutSection(PApplet drawer, float x, float y, float width, float height) {
 		super(drawer, x, y, width, height);
 		this.drawer = drawer;
+		renderDistance = 100;
 		
 	}
 	public void upgrade() {
 		super.upgrade();
+		if(super.level == 1) {
+			renderDistance = 100;
+		} else if(super.level == 2) {
+			renderDistance = 200;
+		}else if(super.level == 3) {
+			renderDistance = 300;
+		}
 	}
 	public void draw() {
 		drawer.ellipseMode(drawer.LEFT);
@@ -34,6 +43,7 @@ public class LookoutSection extends Section{
 		drawer.noStroke();
 		super.highlight();
 	}
+	
 	public void setX(float f) {
 		// TODO Auto-generated method stub
 		this.x =f;
@@ -41,5 +51,10 @@ public class LookoutSection extends Section{
 	public void setY(float f) {
 		// TODO Auto-generated method stub
 		this.y =f;
+	}
+	public int getRenderDistance() {
+		// TODO Auto-generated method stub
+		return renderDistance;
+		
 	}
 }

@@ -11,7 +11,8 @@ import java.util.ArrayList;
  */
 public class DrawingSurface extends PApplet {
     private volatile Boat[] boats;
-
+    
+    private int mapRadius;
     //KEYS
     private boolean[] keys; // 0 - up, 1 - down, 2 - left, 3 - right
 
@@ -64,7 +65,8 @@ public class DrawingSurface extends PApplet {
         //SETTING NO STROKE, FRAMERATE, AND FONT TYPE
         client = new Client("127.0.0.1", 4444);
         client.connect();
-
+        
+        mapRadius = 100;
         noStroke();
         frameRate(60);
         PFont font = createFont("PressStart2P.ttf", 20);
@@ -181,7 +183,7 @@ public class DrawingSurface extends PApplet {
         //If GAME SCREEN
         if (screen == GAME) {
             //SETS BACKGROUND TO A BLUE COLOR
-            background(100, 150, 230);
+            background(0);
 
             //CHECK FOR INPUT AND CHANGES PLAYER VALUES
             if (keys[0]) {
@@ -245,6 +247,12 @@ public class DrawingSurface extends PApplet {
             player.update(walls);
             
             
+            
+            //Updates Render Distance
+            mapRadius = player.getLookout().getRenderDistance();
+            
+            
+            //Updates Bullets
             for(int i = 0; i < player.getWeapons().size(); i++) {
     			if(player.getWeapons().get(i).isClicked()) {
     				if(player.getWeapons().get(i).isLeft()) {
@@ -314,7 +322,10 @@ public class DrawingSurface extends PApplet {
                 if (zoom/* && w.isTouching(player.getX()-700/scaleFactor, player.getY()-500/scaleFactor, 1500/scaleFactor, 1050/scaleFactor)*/) {
                     w.show();
                 } else if (!zoom) {
-                    w.showNoImage();
+                	double distance = Math.sqrt(Math.pow(w.getX()-(player.getX()+player.getWidth()/2), 2)+Math.pow(w.getY()-(player.getY()+player.getHeight()/2), 2));
+                	if(distance <= mapRadius) {
+                		w.showNoImage();
+                	}
                 }
 
             }
@@ -324,7 +335,10 @@ public class DrawingSurface extends PApplet {
                 if (zoom/* && w.isTouching(player.getX()-(this.width+200)/(2*scaleFactor), player.getY()-(this.height+200)/(2*scaleFactor), (this.width+200)/scaleFactor, (this.height+200)/scaleFactor)*/) {
                     w.show();
                 } else if (!zoom) {
-                    w.showNoImage();
+                	double distance = Math.sqrt(Math.pow(w.getX()-(player.getX()+player.getWidth()/2), 2)+Math.pow(w.getY()-(player.getY()+player.getHeight()/2), 2));
+                	if(distance <= mapRadius) {
+                		w.showNoImage();
+                	}
                 }
 
             }
@@ -365,9 +379,6 @@ public class DrawingSurface extends PApplet {
             //DISPLAYS PLAYER
             player.show();
 
-            ellipseMode(CENTER);
-            for(int i = 0; i < 4; i++)
-            	ellipse(player.getWeapons().get(i).getCenterX(),player.getWeapons().get(i).getCenterY(),3,3);
         }
 
         //IF TRADE SCREEN
