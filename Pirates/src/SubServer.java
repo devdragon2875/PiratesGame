@@ -44,11 +44,18 @@ public class SubServer extends Thread {
                 centralServer.setBoat(UID, b);
                 outObject.writeObject(centralServer.getBoats());
                 outObject.reset();
-            } catch (IOException e) {
-                break;
-            } catch (ClassNotFoundException e) {
-                break;
+            } catch (IOException | ClassNotFoundException e) {
+            	centralServer.removeUser(this);
+            	break;
             }
         }
+    }
+    
+    public int getUID() {
+    	return UID;
+    }
+    
+    public void setUID(int newUID) {
+    	UID = newUID;
     }
 }
