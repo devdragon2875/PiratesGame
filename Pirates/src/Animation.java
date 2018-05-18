@@ -29,7 +29,21 @@ public class Animation {
     timer = 0;
   }
 
-  public void display(float xpos, float ypos, float width, float height) {
+  public Animation(String imagePrefix, int count, PApplet drawer, int delay, String suffix) {
+		imageCount = count;
+		this.drawer = drawer;
+		images = new PImage[imageCount];
+		reverse = false;
+		for (int i = 0; i < imageCount; i++) {
+			// Use nf() to number format 'i' into four digits
+			String filename = imagePrefix + i + suffix;
+			images[i] = drawer.loadImage(filename);
+		}
+		this.delay = delay;
+		timer = 0;
+  }
+
+public void display(float xpos, float ypos, float width, float height) {
     drawer.image(images[frame], xpos, ypos, width, height);
   }
   

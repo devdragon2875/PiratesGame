@@ -94,7 +94,7 @@ public class DrawingSurface extends PApplet {
         waterBlocks = new ArrayList<Block>();
 
         //SCREEN VAR
-        screen = GAME;
+        screen = MENU;
         menuScreen = new Menu(this);
         ts = new TradeScreen(this);
 
@@ -406,7 +406,13 @@ public class DrawingSurface extends PApplet {
         //IF MENU SCREEN
         else if (screen == MENU) {
             //SLOWS DOWN FRAMERATE FOR COOL GIF(can be changed)
-            frameRate(10);
+            
+            //menu
+        	menuScreen.update();
+        	if(menuScreen.getSwitchScreen()) {
+        		
+        		screen = GAME;
+        	}
             menuScreen.draw();
         }
 

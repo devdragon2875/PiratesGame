@@ -57,7 +57,23 @@ public class Button{
 		}
 		return false;
 	}
-	
+	public void showRounded(int roundFactor) {
+		parent.pushMatrix();
+		parent.pushStyle();
+		
+		parent.fill(fillColor.getRed(),fillColor.getGreen(),fillColor.getBlue());
+		parent.stroke(borderColor.getRed(),borderColor.getGreen(),borderColor.getBlue());
+		
+		parent.rect(x, y, width, height, roundFactor);
+		parent.fill(textColor.getRed(),textColor.getGreen(),textColor.getBlue());
+		parent.textAlign(parent.CENTER);
+		parent.textSize(textSize);
+		//parent.text(text, x+width/8, y+height/4,width*3/4,height);
+		
+		parent.text(text, x, y+height/4,width,height);
+		parent.popStyle();
+		parent.popMatrix();
+	}
 	public void show(){
 		parent.pushMatrix();
 		parent.pushStyle();
@@ -68,7 +84,7 @@ public class Button{
 		parent.rect(x, y, width, height);
 		parent.fill(textColor.getRed(),textColor.getGreen(),textColor.getBlue());
 		parent.textAlign(parent.CENTER);
-		parent.textSize(25);
+		parent.textSize(textSize);
 		//parent.text(text, x+width/8, y+height/4,width*3/4,height);
 		
 		parent.text(text, x, y+height/4,width,height);
@@ -102,5 +118,11 @@ public class Button{
 	
 	public void setDefaultColor(Color c) {
 		this.defaultColor = c;
+	}
+	public void setBorderColor(Color c) {
+		this.borderColor = c;
+	}
+	public void setTextColor(Color c) {
+		this.textColor = c;
 	}
 }
