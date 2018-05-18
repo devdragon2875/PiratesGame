@@ -57,4 +57,16 @@ public class LookoutSection extends Section{
 		return renderDistance;
 		
 	}
+	
+	public int getStat(int level) {
+		switch(level) {
+		case 1:
+			return 8;
+		case 2:
+			return 16;
+		case 3:
+			return 24;
+		}
+		return -1;
+	}
 }

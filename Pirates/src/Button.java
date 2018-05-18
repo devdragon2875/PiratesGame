@@ -103,4 +103,8 @@ public class Button{
 	public void setDefaultColor(Color c) {
 		this.defaultColor = c;
 	}
+	
+	public void setText(String text) {
+		this.text = text;
+	}
 }

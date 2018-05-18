@@ -156,8 +156,12 @@ public class DrawingSurface extends PApplet {
 
                 //DRAWS A PLAYER AT FIRST WATER TILE
                 else if (blocks[j][i].equals("p")) {
+                	waterBlocks.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, water));
+                    waterBlocks.get(waterBlocks.size() - 1).setColor(100, 150, 230);
+                    /*
                     player = new Player(this, i * blockSize / 2, j * blockSize / 2, 10, 20, 20);
                     player.setColor(255, 100, 10);
+                    */
                 }
 
                 //DRAWS A WATER TILE
@@ -168,7 +172,38 @@ public class DrawingSurface extends PApplet {
             }
         }
 
+        //RANDOMLY GENERATED PLAYER SPAWN SO THAT 3 BY 3 AROUND IS ALL WATER
+        int randomI;
+        int randomJ;
+        boolean playerSpawn;
+        do {
+        	randomI = (int)random(blocks.length);
+        	randomJ = (int)random(blocks[0].length);
+        	playerSpawn = true;
+        	for(int i = -1; i < 2; i++) {
+        		for(int j = -1; j < 2; j++) {
+        			if(randomI + i < 0 || randomI + i > blocks.length-1 || randomJ + j < 0 || randomJ + j > blocks[0].length-1) {
+        				playerSpawn = false;
+        				System.out.println(randomI + " " + randomJ + " wont work because bounds");
+        				break;
+        			} else if(!blocks[randomI+i][randomI+j].equals("w")) {
+        				playerSpawn = false;
+        				System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
+        				break;
+        			}
+        		}
+        		if(!playerSpawn)
+        			break;
+        	}
+        } while(!playerSpawn);
+        
+		System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
 
+
+        player = new Player(this, randomI * blockSize / 2, randomJ * blockSize / 2, 10, 20, 20);
+        player.setColor(255, 100, 10);
+        
+        
         clientThread = new ClientLoop(this, client, player);
         clientThread.start();
         //player.setGun(new Gun(100,10,15,10));
@@ -182,6 +217,8 @@ public class DrawingSurface extends PApplet {
 
         //If GAME SCREEN
         if (screen == GAME) {
+        	pushMatrix(); // pushing matrix so it can pop to draw ui
+        	
             //SETS BACKGROUND TO A BLUE COLOR
             background(0);
 
@@ -378,7 +415,16 @@ public class DrawingSurface extends PApplet {
 
             //DISPLAYS PLAYER
             player.show();
-
+            
+            popMatrix();
+            
+            fill(0); 
+            rect(0, 0, width/3, height/20);
+            
+            fill(255,50,50);
+            rect(0,0,((float)player.getHealth() / player.getMaxHealth()) * (width/3-10),height/20-10);
+            
+            
         }
 
         //IF TRADE SCREEN

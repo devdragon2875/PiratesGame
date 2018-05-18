@@ -60,4 +60,9 @@ public class Section {
 		return level;
 	}
 	
+	//OVERRIDE THIS
+	public int getStat(int level) {
+		return -1;
+	}
+	
 }
