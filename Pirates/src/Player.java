@@ -473,4 +473,8 @@ public class Player extends Block{
 		}
 		return null;
 	}
+	
+	public boolean canFire(int weapon) {
+		return weapons.get(weapon).canFire();
+	}
 }

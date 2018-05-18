@@ -291,21 +291,25 @@ public class DrawingSurface extends PApplet {
             
             //Updates Bullets
             for(int i = 0; i < player.getWeapons().size(); i++) {
-    			if(player.getWeapons().get(i).isClicked()) {
-    				if(player.getWeapons().get(i).isLeft()) {
-    					int x = (int) player.getWeapons().get(i).getCannon().getX();
-    					int y = (int) player.getWeapons().get(i).getCannon().getY();
-    					System.out.println(angle);
-    					addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle+Math.PI/2)), 
+            	if(player.getWeapons().get(i).isClicked()) {
+            		if(player.canFire(i)) {
+            			if(player.getWeapons().get(i).isLeft()) {
+            				int x = (int) player.getWeapons().get(i).getCannon().getX();
+            				int y = (int) player.getWeapons().get(i).getCannon().getY();
+            				System.out.println(angle);
+    					
+            				addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle+Math.PI/2)), 
     																		y+(int)(90*Math.sin(angle+Math.PI/2))));
-    				} else {
-    					int x = (int) player.getWeapons().get(i).getX();
-    					int y = (int) player.getWeapons().get(i).getY();
-    					System.out.println(angle);
-    					addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle-Math.PI/2)), 
+            			} else {
+            				int x = (int) player.getWeapons().get(i).getX();
+            				int y = (int) player.getWeapons().get(i).getY();
+            				System.out.println(angle);
+            				addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle-Math.PI/2)), 
 																			y+(int)(90*Math.sin(angle-Math.PI/2))));
-    				}
-    			}
+            			}
+            		}
+            	}
+            	
     		}
             
             //UPDATES BULLETS(not needed rn)
