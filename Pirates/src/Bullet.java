@@ -45,9 +45,9 @@ public class Bullet extends Block{
 		super.y+=yV;
 	}
 	
-	public boolean shouldBeDead(Block[] walls) {
+	public boolean shouldBeDead(Block[] walls, float w, float h) {
 		
-		if(super.x>parent.width || super.x+super.width < 0 || super.y>parent.height || super.y+super.height < 0)
+		if(super.x>w || super.x+super.width < 0 || super.y>h || super.y+super.height < 0)
 			return true;
 		
 		for(int i = 0; i < walls.length; i++) {
@@ -58,11 +58,11 @@ public class Bullet extends Block{
 		return false;
 	}
 	
-	public boolean shouldBeDead(ArrayList<Block> blocks) {
+	public boolean shouldBeDead(ArrayList<Block> blocks, float w, float h) {
 		Block[] blockArray = new Block[blocks.size()];
 		for(int i = 0; i < blocks.size(); i++)
 			blockArray[i] = blocks.get(i);
-		return shouldBeDead(blockArray);
+		return shouldBeDead(blockArray,w,h);
 	}
 	
 	public void show() {

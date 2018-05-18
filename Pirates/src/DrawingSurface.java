@@ -317,10 +317,10 @@ public class DrawingSurface extends PApplet {
             	
     		}
             
-            //UPDATES BULLETS(not needed rn)
+            //UPDATES BULLETS
             for (int i = 0; i < playerBullets.size(); i++) {
                 playerBullets.get(i).updateMovement();
-                if (i != 0 && playerBullets.get(i).shouldBeDead(walls)) {
+                if (i != 0 && playerBullets.get(i).shouldBeDead(walls,width,width)) {
                     particles.add(new Particle(this, playerBullets.get(i), 2)); // add a "smoke" particle
                     playerBullets.remove(i);
                     if (i > 0)
@@ -427,7 +427,7 @@ public class DrawingSurface extends PApplet {
             
             popMatrix();
             
-            fill(0); 
+            fill(50); 
             rect(0, 0, width/3, height/20);
             
             fill(255,50,50);
@@ -439,7 +439,7 @@ public class DrawingSurface extends PApplet {
             
             float playerX = player.getX();
             float playerY = player.getY();
-            if(playerX > width || playerX < 0 || playerY > height || playerY < 0) { // slightly damages player if outside game
+            if(playerX > width || playerX < 0 || playerY > width || playerY < 0) { // slightly damages player if outside game
             	if(damageOutsideMapTimer <= 0) {
             		damageOutsideMapTimer = 20;
             		player.changeHealth(-1);
