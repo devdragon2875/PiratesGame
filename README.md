@@ -19,15 +19,15 @@ Type in the Server code in the textbox, and click the CONNECT button to start th
 The boat with a triangle above it is your boat. You can control the rowing speed of the boat with the W/UP and S/DOWN keys. The rudder can be 
 controled by the A/LEFT and D/RIGHT keys. Pressing the 'M' key triggers Map subview, explained later in the README.
 
-At the top-right corner of the screen is the options button. This leads to the Options subview, to be discussed later in this README. 
+When the player interacts with docks, they go into the Trade/Upgrade subview, explained later in the README.
 
-User statistics are displayed at the bottom of the screen. These include rudder position, health, and current position. 
+User health is displayed at the top left of the screen.
 
 #### Map (subview)
-Displays an overlay with the map of the entire world. Other ships are not shown in this view.
+Displays an overlay with the map of the nearby area you are able to see. Other ships are not shown in this view.
 
-#### Options (subview)
-Allows for exiting the game
+#### Trade/Upgrade (subview)
+Allows for trading to get materials and allows the player to upgrade their ship.
 
 ## Feature Summary
 
@@ -90,6 +90,8 @@ Allows for exiting the game
 - TextReader
 - TradePart
 - TradeScreen
+- UpgradePart
+- UpgradeScreen
 - WeaponSection
 
 
