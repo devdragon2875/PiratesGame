@@ -182,8 +182,8 @@ public class Player extends Block{
 	public void update(Block[] b) {	
 		angle += angleVel;
 		angleVel *= 0.9;
-		x += (float) (yV * Math.cos(angle));
-		y += (float) (yV * Math.sin(angle));
+		x += (float) (yV * Math.cos(angle)) * steer.getStat(steer.getLevel())/10f;
+		y += (float) (yV * Math.sin(angle)) * steer.getStat(steer.getLevel())/10f;
 		
 		//System.out.println(xV + " " + yV);
 		
