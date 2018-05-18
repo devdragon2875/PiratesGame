@@ -76,7 +76,7 @@ public class Player extends Block{
 //		steer.upgrade();
 		
 		cargo = new Cargo(100); //DEFAULT can hold 100 cargo
-		cargo.setGold(500);
+		cargo.setGold(100);
 		
 		hitbox = new Polygon();
 		hitbox.addPoint((int)x, (int)y);
