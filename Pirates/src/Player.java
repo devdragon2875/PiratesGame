@@ -76,7 +76,7 @@ public class Player extends Block{
 //		steer.upgrade();
 		
 		cargo = new Cargo(100); //DEFAULT can hold 100 cargo
-		cargo.setGold(100);
+		cargo.setGold(500);
 		
 		hitbox = new Polygon();
 		hitbox.addPoint((int)x, (int)y);
@@ -388,6 +388,14 @@ public class Player extends Block{
 		if(health > maxHealth)
 			health = maxHealth;
 	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public int getMaxHealth() {
+		return maxHealth;
+	}
 
 	public void setAngle(float angle) {
 		// TODO Auto-generated method stub
@@ -452,5 +460,17 @@ public class Player extends Block{
 	}
 	public SteerSection getSteer(){
 		return steer;
+	}
+	
+	public Section getSection(int sectionType) {
+		switch(sectionType) {
+		case UpgradeScreen.WEAPON:
+			return weapons.get(0);
+		case UpgradeScreen.LOOKOUT:
+			return lookout;
+		case UpgradeScreen.STEERING:
+			return steer;
+		}
+		return null;
 	}
 }

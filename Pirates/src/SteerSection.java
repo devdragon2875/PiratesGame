@@ -43,4 +43,16 @@ public class SteerSection extends Section {
 		// TODO Auto-generated method stub
 		this.y =f;
 	}
+	
+	public int getStat(int level) {
+		switch(level) {
+		case 1:
+			return 10;
+		case 2:
+			return 12;
+		case 3:
+			return 15;
+		}
+		return -1;
+	}
 }

@@ -113,4 +113,16 @@ public class WeaponSection extends Section{
 	public float getCenterY() {
 		return centerY;
 	}
+	
+	public int getStat(int level) {
+		switch(level) {
+		case 1:
+			return 5;
+		case 2:
+			return 7;
+		case 3:
+			return 10;
+		}
+		return -1;
+	}
 }

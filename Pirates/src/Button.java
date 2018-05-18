@@ -125,4 +125,7 @@ public class Button{
 	public void setTextColor(Color c) {
 		this.textColor = c;
 	}
+	public void setText(String text) {
+		this.text = text;
+	}
 }

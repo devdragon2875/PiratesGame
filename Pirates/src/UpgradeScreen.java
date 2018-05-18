@@ -21,7 +21,7 @@ public class UpgradeScreen {
 	private UpgradePart weapons;
 	private UpgradePart lookout;
 	private UpgradePart steering;
-	
+
 	public UpgradeScreen(PApplet parent) {
 		this.parent = parent;
 		
@@ -62,16 +62,19 @@ public class UpgradeScreen {
 	}
 	
 	public void update(Player p) {
-		if(weapons.updateButton()) {
+		if(weapons.updateButton(p) && p.getCargo().getGold() > weapons.getCost(p)) {
+			p.getCargo().setGold(p.getCargo().getGold()-weapons.getCost(p));
 			ArrayList<WeaponSection> weapons = p.getWeapons();
 			for(WeaponSection w : weapons) {
 				w.upgrade();
 			}
 		}
-		if(lookout.updateButton()) {
+		if(lookout.updateButton(p) && p.getCargo().getGold() > lookout.getCost(p)) {
+			p.getCargo().setGold(p.getCargo().getGold()-lookout.getCost(p));
 			p.getLookout().upgrade();
 		}
-		if(steering.updateButton()) {
+		if(steering.updateButton(p) && p.getCargo().getGold() > steering.getCost(p)) {
+			p.getCargo().setGold(p.getCargo().getGold()-steering.getCost(p));
 			p.getSteer().upgrade();
 		}
 	}
