@@ -19,6 +19,7 @@ public class Gun {
 	private int width;
 	private int height;
 	private boolean left;
+	private boolean fired;
 	
 //	public Gun() {
 //		this(DEFAULT_DELAY,DEFAULT_DAMAGE,DEFAULT_SPEED,DEFAULT_INACCURACY);
@@ -35,19 +36,19 @@ public class Gun {
 		this.damage = damage;
 		this.speed = speed;
 		this.inaccuracy = inaccuracy;
+		fired = false;
 	}
 	
 	public void update() {
-		if(currentDelay > 0)
+		if(fired && currentDelay > 0)
 			currentDelay--;
+		
+		if(fired && currentDelay <= 0)
+			fired = false;
 	}
 	
 	public boolean canFire() {
-		if(currentDelay == 0) {
-			currentDelay = firingDelay;
-			return true;
-		}else
-			return false;
+		return !fired;
 	}
 	
 	public int getDamage() {
@@ -56,6 +57,8 @@ public class Gun {
 	
 	public Bullet generateBullet(PApplet parent, WeaponSection player, float targetX, float targetY) {
 		//change inaccuracy, more/less accurate with where the target is
+		fired = true;
+		currentDelay = firingDelay;
 		float xDist = Math.abs(player.getX()-targetX);
 		float yDist = Math.abs(player.getY()-targetY);
 		return new Bullet(parent,player,targetX + xDist*(float)(Math.random()*inaccuracy*2-inaccuracy)/100,targetY + yDist*(float)(Math.random()*inaccuracy*2-inaccuracy)/100,speed,damage);

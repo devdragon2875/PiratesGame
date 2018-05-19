@@ -296,14 +296,20 @@ public class DrawingSurface extends PApplet {
     					int x = (int) player.getWeapons().get(i).getCannon().getX();
     					int y = (int) player.getWeapons().get(i).getCannon().getY();
     					System.out.println(angle);
-    					addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle+Math.PI/2)), 
-    																		y+(int)(90*Math.sin(angle+Math.PI/2))));
+    					Bullet bullet = player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle+Math.PI/2)), 
+								y+(int)(90*Math.sin(angle+Math.PI/2)));
+    					if(bullet!=null) {
+    						addBullet(bullet);
+    					}
     				} else {
     					int x = (int) player.getWeapons().get(i).getX();
     					int y = (int) player.getWeapons().get(i).getY();
     					System.out.println(angle);
-    					addBullet(player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle-Math.PI/2)), 
-																			y+(int)(90*Math.sin(angle-Math.PI/2))));
+    					Bullet bullet = player.getWeapons().get(i).generateBullet(x+(int)(90*Math.cos(angle-Math.PI/2)), 
+								y+(int)(90*Math.sin(angle-Math.PI/2)));
+    					if(bullet!=null) {
+    						addBullet(bullet);
+    					}
     				}
     			}
     		}

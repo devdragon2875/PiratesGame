@@ -27,11 +27,11 @@ public class CentralServer {
 		// MAP GENERATOR(creates a new random map and puts into a text file)
 		MapGenerator mg = new MapGenerator();
 		mg.GenerateMap(new DrawingSurface());
-
+		
 		// READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
 		TextReader reader = new TextReader("output.txt");
 		blocks = reader.get2DArray();
-
+		
 		ServerSocket serverSocket = new ServerSocket(port);
 
 		while (true) {

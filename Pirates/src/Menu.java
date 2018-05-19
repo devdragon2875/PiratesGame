@@ -75,7 +75,21 @@ public class Menu {
 
 		// a.display(0, 0, drawer.width, drawer.height);
 		if (normal) {
+			
 			a.display(0, 0, drawer.width, drawer.height);
+			drawer.textSize(120);
+			drawer.fill(0);
+			for(int x = -2; x < 3; x++){
+			//  for(int y = -1; y < 2; y++){
+//			    text("LIKE THIS!", 20+x,20+y);
+			//  }
+			    drawer.text("PIRATES", 220+x,200);
+			    drawer.text("PIRATES", 220,200+x);
+			}
+			
+			drawer.fill(220);
+			
+			drawer.text("PIRATES", 220,200);
 			play.showRounded(50);
 			howToPlay.showRounded(50);
 		} else if (rules) {
