@@ -44,8 +44,10 @@ public class SubServer extends Thread {
 
 		while (true) {
 			try {
-				Boat b = (Boat) inObject.readObject();
-				centralServer.setBoat(UID, b);
+				Object input = inObject.readObject();
+				if(input instanceof Boat)
+					centralServer.setBoat(UID, (Boat) input);
+				
 				Boat[] boats = centralServer.getBoats().clone();
 				if (!showSelfOnNetwork)
 					boats[UID] = null;
@@ -53,6 +55,7 @@ public class SubServer extends Thread {
 				outObject.reset();
 			} catch (IOException | ClassNotFoundException e) {
 				centralServer.removeUser(this);
+				centralServer.setBoat(UID, null);;
 				break;
 			}
 		}

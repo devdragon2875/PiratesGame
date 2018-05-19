@@ -103,7 +103,7 @@ public class DrawingSurface extends PApplet {
 
         //DOCKS AND TRADING
         docks = new ArrayList<Dock>();
-        currentDock = null;
+        setCurrentDock(null);
 
         //READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
         TextReader reader = new TextReader("output.txt");
@@ -203,7 +203,7 @@ public class DrawingSurface extends PApplet {
 		//System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
 
 
-        player = new Player(this, randomI * blockSize, randomJ * blockSize, 10, 20, 100);
+        player = new Player(this, 0, 0, 10, 20, 100);
         player.setColor(255, 100, 10);
         
         
@@ -328,17 +328,6 @@ public class DrawingSurface extends PApplet {
                 }
             }
 
-            if (mousePressed) {
-                //CODE FOR GUN(buggy)
-//				if (player.getGun().canFire()) {
-//					playerBullets.add(player.generateBullet(mouseX, mouseY));
-//					playerBullets.get(playerBullets.size() - 1).setColor(255, 50, 0);
-//				}
-
-                //SIMPLE FILLER FOR SHOOTING
-                System.out.println("Kerchow!");
-            }
-
             //UPDATES PARTICLES(not needed rn)
             for (int i = 0; i < particles.size(); i++) {
                 particles.get(i).update();
@@ -355,7 +344,7 @@ public class DrawingSurface extends PApplet {
                 for (Dock d : docks) {
                     if (player.isTouching(d)) {
                         screen = TRADE;
-                        currentDock = d;
+                        setCurrentDock(d);
                         break;
                     }
                 }
@@ -460,12 +449,12 @@ public class DrawingSurface extends PApplet {
 				screen = GAME;
 			*/
 
-            currentDock.updateCurrentScreen(player);
-            currentDock.showCurrentScreen(player);
-            currentDock.checkCurrentSwitchButton();
-            if (currentDock.checkCurrentExitButton()) {
+            getCurrentDock().updateCurrentScreen(player);
+            getCurrentDock().showCurrentScreen(player);
+            getCurrentDock().checkCurrentSwitchButton();
+            if (getCurrentDock().checkCurrentExitButton()) {
                 screen = GAME;
-                currentDock = null;
+                setCurrentDock(null);
                 dockTimer = 120;
             }
 
@@ -541,4 +530,12 @@ public class DrawingSurface extends PApplet {
     public void addBullet(Bullet b) {
     	playerBullets.add(b);
     }
+
+	public Dock getCurrentDock() {
+		return currentDock;
+	}
+
+	public void setCurrentDock(Dock currentDock) {
+		this.currentDock = currentDock;
+	}
 }

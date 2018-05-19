@@ -20,12 +20,12 @@ import processing.core.PApplet;
 public class CentralServer {
 	public static final int MAX_PLAYERS = 50;
 	private int port;
-	
-	
+
 	private ArrayList<SubServer> users;
 	public volatile Boat[] boats;
 	private int userID;
 	private String[][] blocks;
+	private Dock[] docks;
 
 	public CentralServer(int port) throws IOException {
 		this.setPort(port);
@@ -39,19 +39,24 @@ public class CentralServer {
 		// READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
 		TextReader reader = new TextReader("output.txt");
 		blocks = reader.get2DArray();
-	}
-	
-	public void start() throws IOException {
-		
+
+		int dockCount = 0;
+		// STATS
+		for (String[] row : blocks) {
+			for (String block : row) {
+				dockCount++;
+			}
+		}
+		docks = new Dock[dockCount];
 	}
 
 	public static void main(String[] args) throws IOException {
 		CentralServer server = new CentralServer(4444);
 		System.out.println("SERVER INIT COMPLETE");
-		
+
 		new ServerManager(server).start();
 		System.out.println("SERVER START COMPLETE");
-		
+
 		ServerUI drawing = new ServerUI(server);
 		PApplet.runSketch(new String[] { "Pirates - Server" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -62,7 +67,7 @@ public class CentralServer {
 		window.setMinimumSize(new Dimension(400, 400));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		
+
 		window.setVisible(true);
 		canvas.requestFocus();
 		System.out.println("SERVER UI RUNNING");
@@ -92,8 +97,8 @@ public class CentralServer {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-	
-	public ArrayList<SubServer> getUsers(){
+
+	public ArrayList<SubServer> getUsers() {
 		return users;
 	}
 
@@ -104,14 +109,24 @@ public class CentralServer {
 	public void setPort(int port) {
 		this.port = port;
 	}
+
+	public Dock[] getDocks() {
+		return docks;
+	}
+
+	public void setDocks(Dock[] docks) {
+		this.docks = docks;
+	}
+
 }
 
-class ServerManager extends Thread{
+class ServerManager extends Thread {
 	private CentralServer head;
+
 	public ServerManager(CentralServer head) {
 		this.head = head;
 	}
-	
+
 	public void run() {
 		Socket socket = null;
 
@@ -138,7 +153,7 @@ class ServerManager extends Thread{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				head.setUserID(head.getUserID()+1);
+				head.setUserID(head.getUserID() + 1);
 				head.getUsers().add(temp);
 				temp.start();
 			}

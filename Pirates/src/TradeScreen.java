@@ -11,6 +11,14 @@ import processing.core.PImage;
 public class TradeScreen {
 
 	private TradePart[] parts;
+	public TradePart[] getParts() {
+		return parts;
+	}
+
+	public void setParts(TradePart[] parts) {
+		this.parts = parts;
+	}
+
 	private PApplet parent;
 	private PImage clothImg, spicesImg, jewelryImg, beardsImg;
 	private Button exitButton;

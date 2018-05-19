@@ -2,11 +2,12 @@ import processing.core.PApplet;
 
 /**
  * This class is made to represent a dock on the map which the player can interact and trade at.
- * @author Blake
+ * @author Blake and Anantajit
  *
  */
 public class Dock extends Block{
 
+	private NetworkedDock net;
 	private TradeScreen tradeScreen;
 	private UpgradeScreen upgradeScreen;
 	private int currentScreen;
@@ -19,7 +20,6 @@ public class Dock extends Block{
 		tradeScreen = new TradeScreen(parent);
 		upgradeScreen = new UpgradeScreen(parent);
 		currentScreen = TRADE;
-		
 	}
 	
 	public void showTradeScreen(Player p) {
@@ -86,6 +86,14 @@ public class Dock extends Block{
 				currentScreen = TRADE;
 			}
 		}
+	}
+
+	public NetworkedDock getNet() {
+		return net;
+	}
+
+	public void setNet(NetworkedDock net) {
+		this.net = net;
 	}
 
 }

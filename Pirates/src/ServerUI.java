@@ -11,12 +11,6 @@ public class ServerUI extends PApplet{
 	
 	public ServerUI(CentralServer server) {
 		this.server = server;
-		try {
-			server.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		try {
 			serverStats = InetAddress.getLocalHost();
