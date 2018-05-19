@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * This class is made to represent a dock on the map which the player can interact and trade at.
@@ -14,8 +15,8 @@ public class Dock extends Block{
 	public static final int UPGRADE = 2;
 
 	
-	public Dock(PApplet parent, float x, float y, float width,float height) {
-		super(parent, x, y, width, height);
+	public Dock(PApplet parent, float x, float y, float width,float height,PImage image) {
+		super(parent, x, y, width, height,image);
 		tradeScreen = new TradeScreen(parent);
 		upgradeScreen = new UpgradeScreen(parent);
 		currentScreen = TRADE;

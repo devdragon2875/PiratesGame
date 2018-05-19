@@ -116,12 +116,18 @@ public class DrawingSurface extends PApplet {
         Animation water = new Animation("Water_2/water", 4, this, 10);
 
         //sand(variations)
-        PImage sand = loadImage("sand12.png");
+        /*
+        PImage sand1 = loadImage("sand12.png");
         PImage sand2 = loadImage("sand22.png");
         PImage sand3 = loadImage("sand32.png");
+        */
+        PImage sand = loadImage("Sand.png");
+        
+        PImage dock = loadImage("Dock.png");
+        
 
         //grass
-        PImage grass = loadImage("Grass.png");
+        PImage grass = loadImage("GrassNew.png"); // was "Grass.png"
 
         //SETS UP MAP ON DISPLAY
         for (int i = 0; i < blocks.length; i++) {
@@ -138,23 +144,44 @@ public class DrawingSurface extends PApplet {
                 else if (blocks[j][i].equals("s")) {
 
                     noStroke();
+                    /*
                     double x = Math.random();
                     if (x < 0.33) {
-                        walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand));
+                        walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand1));
                     } else if (x < 0.66) {
                         walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand2));
                     } else {
                         walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand3));
                     }
-
+                     */
+                    walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand));
                     walls.get(walls.size() - 1).setColor(219, 209, 0);
                 }
 
                 //DRAWS A DOCK
                 else if (blocks[j][i].equals("d")) {
                     noStroke();
-                    docks.add(new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize));
+                    //PImage thisImage;
+                    /*
+                    if(i-1 >= 0 && (blocks[i-1][j].equals("s") || blocks[i-1][j].equals("l"))) {
+                    	//sand is up?
+                    	thisImage = dockDown;
+                    } else if(j-1 >= 0 && (blocks[i][j-1].equals("s") || blocks[i][j-1].equals("l"))) {
+                    	//left?
+                    	thisImage = dockLeft;
+                    } else if(i+1 < blocks.length && (blocks[i+1][j].equals("s") || blocks[i+1][j].equals("l"))) {
+                    	//down?
+                    	thisImage = dockUp;
+                    } else {
+                    	//right?
+                    	thisImage = dockRight;
+                    }
+                    */
+                    docks.add(new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize,dock));
                     docks.get(docks.size() - 1).setColor(219, 0, 209);
+                    
+                    waterBlocks.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, water));
+                    waterBlocks.get(waterBlocks.size() - 1).setColor(100, 150, 230);
                 }
 
                 //DRAWS A PLAYER AT FIRST WATER TILE

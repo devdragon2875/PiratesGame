@@ -78,13 +78,14 @@ public class Menu {
 			drawer.textAlign(drawer.CENTER);
 			a.display(0, 0, drawer.width, drawer.height);
 			drawer.textSize(120);
+			
 			drawer.fill(0);
 			for(int x = -2; x < 3; x++){
 			    drawer.text("PIRATES", 625+x,200);
 			    drawer.text("PIRATES", 625,200+x);
 			}
 			
-			drawer.fill(220);
+			drawer.fill(255, 183, 51);
 			
 			drawer.text("PIRATES", 625,200);
 			play.showRounded(50);
