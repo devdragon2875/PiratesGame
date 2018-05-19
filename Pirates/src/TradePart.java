@@ -9,6 +9,7 @@ import processing.core.PImage;
 public class TradePart {
 
 	private float price;
+
 	//private Button buy1, buy10, sell1, sellAll;
 	private Button buy1, sell1;
 	private float x, y, width, height;
@@ -126,5 +127,13 @@ public class TradePart {
 			//price *= factor;
 			price += change;
 		}
+		Dock.push = true;
+	}
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
 	}
 }

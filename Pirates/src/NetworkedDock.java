@@ -10,6 +10,7 @@ public class NetworkedDock implements Serializable{
 	
 	public NetworkedDock(int ID) {
 		this.ID = ID;
+		prices = new float[4];
 	}
 
 	public float[] getPrices() {

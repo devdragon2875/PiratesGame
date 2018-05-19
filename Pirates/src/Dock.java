@@ -96,5 +96,9 @@ public class Dock extends Block{
 	public void setNet(NetworkedDock net) {
 		this.net = net;
 	}
+	
+	public TradeScreen getTradeScreen() {
+		return this.tradeScreen;
+	}
 
 }

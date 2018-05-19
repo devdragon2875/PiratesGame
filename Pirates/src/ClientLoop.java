@@ -21,6 +21,10 @@ public class ClientLoop extends Thread {
         		System.out.println("REQUESTING DOCK");
         	} else if(Dock.push && parent.getCurrentDock() != null) {
         		//Send dock
+        		for(int i = 0; i < 4; i++) {
+        			parent.getCurrentDock().getNet().getPrices()[i] = parent.getCurrentDock().getTradeScreen().getParts()[i].getPrice();
+        		}
+        		
         		client.writeObject(parent.getCurrentDock().getNet());
         		Dock.push = false;
         		System.out.println("SENDING DOCK");
@@ -41,6 +45,18 @@ public class ClientLoop extends Thread {
             	parent.getCurrentDock().setNet((NetworkedDock) input);
             	System.out.println("RECEIVED DOCK");
             	Dock.pull = false;
+            	
+            	if(parent.getCurrentDock() != null) {
+            	//Send dock
+            		for(int i = 0; i < 4; i++) {
+            			Dock d = parent.getCurrentDock();
+            			TradeScreen t = d.getTradeScreen();
+            			TradePart p = t.getParts()[i];
+            			NetworkedDock nd = d.getNet();
+            			float price = nd.getPrices()[i];
+            			p.setPrice(price); 
+        			}
+            	}
             }
         }
     }
