@@ -17,25 +17,49 @@ public class WeaponSection extends Section{
 		this.drawer = drawer;
 		this.left = left;
 		if(left) {
+<<<<<<< HEAD
 			cannon = new Gun(x, y + height/2 - 1, 2, 2, left,  300, 1, 5, (float) 0.1);
+=======
+			cannon = new Gun(x, y + height/2 - 1, 2, 2, left,  30, 5, 1, (float) 0.1);
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 		} else {
+<<<<<<< HEAD
 			cannon = new Gun(x+width, y + height/2 - 1, 2, 2, left,  300, 1, 5, (float) 0.1);
+=======
+			cannon = new Gun(x+width, y + height/2 - 1, 2, 2, left,  30, 5, 1, (float) 0.1);
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 		}
 	}
 	public void upgrade() {
 		super.upgrade();
 		if(super.level == 2) {
 			if(left) {
+<<<<<<< HEAD
 				cannon = new Gun(x, y + height/2 - 1, 4, 2, left,  200, 1, 5, (float) 0.1);
+=======
+				cannon = new Gun(x, y + height/2 - 1, 4, 2, left,  30, 7, 1, (float) 0.1);
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 			} else {
+<<<<<<< HEAD
 				cannon = new Gun(x+width, y + height/2 - 1, 4, 2, left,  200, 1, 5, (float) 0.1);
+=======
+				cannon = new Gun(x+width, y + height/2 - 1, 4, 2, left,  30, 7, 1, (float) 0.1);
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 			}
 		}
 		if(super.level == 3) {
 			if(left) {
+<<<<<<< HEAD
 				cannon = new Gun(x, y + height/2 - 1.5f, 6, 3, left,  100, 1, 5, (float) 0.1);
+=======
+				cannon = new Gun(x, y + height/2 - 1.5f, 6, 3, left,  30, 10, 1, (float) 0.1);
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 			} else {
+<<<<<<< HEAD
 				cannon = new Gun(x+width, y + height/2 - 1.5f, 6, 3, left,  100, 1, 5, (float) 0.1);
+=======
+				cannon = new Gun(x+width, y + height/2 - 1.5f, 6, 3, left,  30, 10, 1, (float) 0.1);
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 			}
 		}
 		
@@ -50,6 +74,9 @@ public class WeaponSection extends Section{
 		
 	}
 
+	public boolean canFire() {
+		return cannon.canFire();
+	}
 
 	public void draw() {
 		
@@ -134,8 +161,12 @@ public class WeaponSection extends Section{
 		}
 		return -1;
 	}
+<<<<<<< HEAD
 	public boolean canFire() {
 		// TODO Auto-generated method stub
 		return cannon.canFire();
 	}
+=======
+	
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 }

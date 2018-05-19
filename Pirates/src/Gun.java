@@ -48,7 +48,15 @@ public class Gun {
 	}
 	
 	public boolean canFire() {
+<<<<<<< HEAD
 		return !fired;
+=======
+		if(currentDelay <= 0) {
+			currentDelay = firingDelay;
+			return true;
+		}else
+			return false;
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 	}
 	
 	public int getDamage() {
@@ -57,8 +65,12 @@ public class Gun {
 	
 	public Bullet generateBullet(PApplet parent, WeaponSection player, float targetX, float targetY) {
 		//change inaccuracy, more/less accurate with where the target is
+<<<<<<< HEAD
 		fired = true;
 		currentDelay = firingDelay;
+=======
+		//System.out.println("Generated Bullet with " + damage + " damage.");
+>>>>>>> branch 'master' of https://github.com/anantajit/Pirates.git
 		float xDist = Math.abs(player.getX()-targetX);
 		float yDist = Math.abs(player.getY()-targetY);
 		return new Bullet(parent,player,targetX + xDist*(float)(Math.random()*inaccuracy*2-inaccuracy)/100,targetY + yDist*(float)(Math.random()*inaccuracy*2-inaccuracy)/100,speed,damage);
@@ -91,5 +103,9 @@ public class Gun {
 	public float getY() {
 		// TODO Auto-generated method stub
 		return y;
+	}
+	
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 }

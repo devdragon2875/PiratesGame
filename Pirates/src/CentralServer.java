@@ -31,17 +31,7 @@ public class CentralServer {
 		// READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
 		TextReader reader = new TextReader("output.txt");
 		blocks = reader.get2DArray();
-		
-		ServerSocket serverSocket = new ServerSocket(port);
 
-		while (true) {
-			if (userID < MAX_PLAYERS) {
-				socket = serverSocket.accept();
-				SubServer temp = new SubServer(socket, this, userID++);
-				users.add(temp);
-				temp.start();
-			}
-		}
 	}
 
 	public static void main(String[] args) throws IOException {

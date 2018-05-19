@@ -49,11 +49,14 @@ public class DrawingSurface extends PApplet {
     private static final int MENU = 0;
     private static final int GAME = 1;
     private static final int TRADE = 2;
+    private static final int DEAD = 3;
 
     //DOCKS AND TRADING
     private ArrayList<Dock> docks;
     private Dock currentDock;
     private int dockTimer; //timer so player doesn't go back into the dock they just exited
+    
+    private int damageOutsideMapTimer;
 
     //Sets window to 1200, 800 and makes smooth animation
     public void settings() {
@@ -184,11 +187,11 @@ public class DrawingSurface extends PApplet {
         		for(int j = -1; j < 2; j++) {
         			if(randomI + i < 0 || randomI + i > blocks.length-1 || randomJ + j < 0 || randomJ + j > blocks[0].length-1) {
         				playerSpawn = false;
-        				System.out.println(randomI + " " + randomJ + " wont work because bounds");
+        				//System.out.println(randomI + " " + randomJ + " wont work because bounds");
         				break;
         			} else if(!blocks[randomI+i][randomI+j].equals("w")) {
         				playerSpawn = false;
-        				System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
+        				//System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
         				break;
         			}
         		}
@@ -197,15 +200,17 @@ public class DrawingSurface extends PApplet {
         	}
         } while(!playerSpawn);
         
-		System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
+		//System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
 
 
-        player = new Player(this, randomI * blockSize / 2, randomJ * blockSize / 2, 10, 20, 20);
+        player = new Player(this, randomI * blockSize, randomJ * blockSize, 10, 20, 100);
         player.setColor(255, 100, 10);
         
         
         clientThread = new ClientLoop(this, client, player);
         clientThread.start();
+        
+        damageOutsideMapTimer = 0;
         //player.setGun(new Gun(100,10,15,10));
     }
 
@@ -424,13 +429,26 @@ public class DrawingSurface extends PApplet {
             
             popMatrix();
             
-            fill(0); 
+            fill(50); 
             rect(0, 0, width/3, height/20);
             
             fill(255,50,50);
             rect(0,0,((float)player.getHealth() / player.getMaxHealth()) * (width/3-10),height/20-10);
             
+            if(player.shouldBeDead()) {
+            	screen = DEAD;
+            }
             
+            float playerX = player.getX();
+            float playerY = player.getY();
+            if(playerX > width || playerX < 0 || playerY > width || playerY < 0) { // slightly damages player if outside game
+            	if(damageOutsideMapTimer <= 0) {
+            		damageOutsideMapTimer = 20;
+            		player.changeHealth(-1);
+            	} else {
+            		damageOutsideMapTimer--;
+            	}
+            }
         }
 
         //IF TRADE SCREEN
@@ -466,6 +484,15 @@ public class DrawingSurface extends PApplet {
         		screen = GAME;
         	}
             menuScreen.draw();
+        } else if(screen == DEAD) {
+        	background(0);
+        	fill(255,50,50);
+        	textAlign(CENTER);
+        	text("You have died\nPress R to restart",width/2,height/2);
+        	if(keyPressed && (key == 'r' || key == 'R')) {
+        		setup();
+        		//screen = MENU;
+        	}
         }
 
 

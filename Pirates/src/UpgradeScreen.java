@@ -67,6 +67,7 @@ public class UpgradeScreen {
 			ArrayList<WeaponSection> weapons = p.getWeapons();
 			for(WeaponSection w : weapons) {
 				w.upgrade();
+				
 			}
 		}
 		if(lookout.updateButton(p) && p.getCargo().getGold() > lookout.getCost(p)) {

@@ -76,7 +76,7 @@ public class Player extends Block{
 //		steer.upgrade();
 		
 		cargo = new Cargo(100); //DEFAULT can hold 100 cargo
-		cargo.setGold(500);
+		cargo.setGold(100);
 		
 		hitbox = new Polygon();
 		hitbox.addPoint((int)x, (int)y);
@@ -182,8 +182,8 @@ public class Player extends Block{
 	public void update(Block[] b) {	
 		angle += angleVel;
 		angleVel *= 0.9;
-		x += (float) (yV * Math.cos(angle));
-		y += (float) (yV * Math.sin(angle));
+		x += (float) (yV * Math.cos(angle)) * steer.getStat(steer.getLevel())/10f;
+		y += (float) (yV * Math.sin(angle)) * steer.getStat(steer.getLevel())/10f;
 		
 		//System.out.println(xV + " " + yV);
 		
@@ -472,5 +472,9 @@ public class Player extends Block{
 			return steer;
 		}
 		return null;
+	}
+	
+	public boolean canFire(int weapon) {
+		return weapons.get(weapon).canFire();
 	}
 }
