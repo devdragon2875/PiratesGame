@@ -5,7 +5,7 @@ import processing.core.PImage;
 
 /**
  * This class is used to represent the trade screen the player will see when at a dock.
- * @author Blake
+ * @author Blake and Anantajit
  *
  */
 public class TradeScreen {

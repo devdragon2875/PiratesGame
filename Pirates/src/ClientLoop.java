@@ -54,7 +54,8 @@ public class ClientLoop extends Thread {
             			TradePart p = t.getParts()[i];
             			NetworkedDock nd = d.getNet();
             			float price = nd.getPrices()[i];
-            			p.setPrice(price); 
+            			if(price > 0)
+            				p.setPrice(price); 
         			}
             	}
             }

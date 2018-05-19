@@ -50,6 +50,9 @@ public class CentralServer {
 		docks = new NetworkedDock[dockCount];
 		for(int i = 0; i < docks.length; i++) {
 			docks[i] = new NetworkedDock(i);
+			for(int i2 = 0; i2 < 4; i2++) {
+				docks[i].getPrices()[i2] = -1;
+			}
 		}
 	}
 

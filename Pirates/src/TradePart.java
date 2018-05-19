@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 /**
  * This class is used to represent one material's part of the trade screen.
- * @author Blake
+ * @author Blake and Anantajit
  *
  */
 public class TradePart {
