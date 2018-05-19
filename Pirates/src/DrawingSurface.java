@@ -322,7 +322,7 @@ public class DrawingSurface extends PApplet {
             //UPDATES BULLETS(not needed rn)
             for (int i = 0; i < playerBullets.size(); i++) {
                 playerBullets.get(i).updateMovement();
-                if (i != 0 && playerBullets.get(i).shouldBeDead(walls)) {
+                if (i != 0 && playerBullets.get(i).shouldBeDead(walls, width, width)) {
                     particles.add(new Particle(this, playerBullets.get(i), 2)); // add a "smoke" particle
                     playerBullets.remove(i);
                     if (i > 0)
@@ -488,6 +488,7 @@ public class DrawingSurface extends PApplet {
         	background(0);
         	fill(255,50,50);
         	textAlign(CENTER);
+        	textSize(100);
         	text("You have died\nPress R to restart",width/2,height/2);
         	if(keyPressed && (key == 'r' || key == 'R')) {
         		setup();
