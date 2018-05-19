@@ -12,4 +12,12 @@ public class Request implements Serializable{
 		this.type = type;
 		this.ID = ID;
 	}
+	
+	public Class getType() {
+		return type;
+	}
+	
+	public int getID() {
+		return ID;
+	}
 }

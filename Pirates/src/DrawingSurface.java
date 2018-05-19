@@ -122,7 +122,8 @@ public class DrawingSurface extends PApplet {
 
         //grass
         PImage grass = loadImage("Grass.png");
-
+        int dockNumber = 0;
+        
         //SETS UP MAP ON DISPLAY
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks[i].length; j++) {
@@ -153,8 +154,10 @@ public class DrawingSurface extends PApplet {
                 //DRAWS A DOCK
                 else if (blocks[j][i].equals("d")) {
                     noStroke();
-                    docks.add(new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize));
-                    docks.get(docks.size() - 1).setColor(219, 0, 209);
+                    Dock dock = new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize);
+                    docks.add(dock);
+                    dock.setColor(219, 0, 209);
+                    dock.setNet(new NetworkedDock(dockNumber++));
                 }
 
                 //DRAWS A PLAYER AT FIRST WATER TILE
@@ -345,6 +348,7 @@ public class DrawingSurface extends PApplet {
                     if (player.isTouching(d)) {
                         screen = TRADE;
                         setCurrentDock(d);
+                        Dock.pull = true;
                         break;
                     }
                 }
@@ -456,6 +460,7 @@ public class DrawingSurface extends PApplet {
                 screen = GAME;
                 setCurrentDock(null);
                 dockTimer = 120;
+                Dock.push = true;
             }
 
         }

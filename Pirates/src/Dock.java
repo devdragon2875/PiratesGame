@@ -6,6 +6,7 @@ import processing.core.PApplet;
  *
  */
 public class Dock extends Block{
+	public static volatile boolean push = false, pull = false;
 
 	private NetworkedDock net;
 	private TradeScreen tradeScreen;

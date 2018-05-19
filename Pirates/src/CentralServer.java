@@ -25,7 +25,7 @@ public class CentralServer {
 	public volatile Boat[] boats;
 	private int userID;
 	private String[][] blocks;
-	private Dock[] docks;
+	private volatile NetworkedDock[] docks;
 
 	public CentralServer(int port) throws IOException {
 		this.setPort(port);
@@ -47,7 +47,10 @@ public class CentralServer {
 				dockCount++;
 			}
 		}
-		docks = new Dock[dockCount];
+		docks = new NetworkedDock[dockCount];
+		for(int i = 0; i < docks.length; i++) {
+			docks[i] = new NetworkedDock(i);
+		}
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -110,11 +113,11 @@ public class CentralServer {
 		this.port = port;
 	}
 
-	public Dock[] getDocks() {
+	public NetworkedDock[] getDocks() {
 		return docks;
 	}
 
-	public void setDocks(Dock[] docks) {
+	public void setDocks(NetworkedDock[] docks) {
 		this.docks = docks;
 	}
 
