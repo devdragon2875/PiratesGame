@@ -488,7 +488,7 @@ public class DrawingSurface extends PApplet {
         	background(0);
         	fill(255,50,50);
         	textAlign(CENTER);
-        	textSize(100);
+        	textSize(50);
         	text("You have died\nPress R to restart",width/2,height/2);
         	if(keyPressed && (key == 'r' || key == 'R')) {
         		setup();

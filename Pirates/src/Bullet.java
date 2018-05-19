@@ -66,6 +66,7 @@ public class Bullet extends Block{
 	}
 	
 	public void show() {
+		parent.fill(0);
 		parent.ellipseMode(parent.CENTER);
 		parent.ellipse(x, y, DEFAULT_BULLET_SIZE, DEFAULT_BULLET_SIZE);
 	}
