@@ -161,9 +161,11 @@ public class DrawingSurface extends PApplet {
                 //DRAWS A DOCK
                 else if (blocks[j][i].equals("d")) {
                     noStroke();
-                    Dock dock = new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize);
-                    docks.get(docks.size() - 1).setColor(204, 102, 0);
-                    dock.setNet(new NetworkedDock(dockNumber++));
+                    Dock dockObj = new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize, dock);
+                    dockObj.setColor(204, 102, 0);
+                    dockObj.setNet(new NetworkedDock(dockNumber++));
+                    docks.add(dockObj);
+                    
                     waterBlocks.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, water));
                     waterBlocks.get(waterBlocks.size() - 1).setColor(100, 150, 230);
                 }
@@ -214,7 +216,7 @@ public class DrawingSurface extends PApplet {
 		//System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
 
 
-        player = new Player(this, 0, 0, 10, 20, 100);
+        player = new Player(this, randomI * blockSize, randomJ * blockSize, 10, 20, 100);
         player.setColor(255, 100, 10);
         
         
