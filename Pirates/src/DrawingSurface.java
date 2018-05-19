@@ -431,8 +431,13 @@ public class DrawingSurface extends PApplet {
             
             fill(50); 
             rect(0, 0, width/3, height/20);
-            
-            fill(255,50,50);
+            if((double)player.getHealth()/player.getMaxHealth() >= 0.65) {
+            	fill(50,255,50);
+            } else if((double)player.getHealth()/player.getMaxHealth() >= 0.25) {
+            	fill(255, 250, 50);
+            } else {
+            	fill(255,50,50);
+            }
             rect(0,0,((float)player.getHealth() / player.getMaxHealth()) * (width/3-10),height/20-10);
             
             if(player.shouldBeDead()) {
