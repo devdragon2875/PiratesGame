@@ -178,7 +178,7 @@ public class DrawingSurface extends PApplet {
                     }
                     */
                     docks.add(new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize,dock));
-                    docks.get(docks.size() - 1).setColor(219, 0, 209);
+                    docks.get(docks.size() - 1).setColor(204, 102, 0);
                     
                     waterBlocks.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, water));
                     waterBlocks.get(waterBlocks.size() - 1).setColor(100, 150, 230);
