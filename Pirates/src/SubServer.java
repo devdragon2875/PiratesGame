@@ -43,16 +43,34 @@ public class SubServer extends Thread {
 		}
 
 		while (true) {
+			boolean sent = false;
 			try {
-				Boat b = (Boat) inObject.readObject();
-				centralServer.setBoat(UID, b);
-				Boat[] boats = centralServer.getBoats().clone();
-				if (!showSelfOnNetwork)
-					boats[UID] = null;
-				outObject.writeObject(boats);
+				Object input = inObject.readObject();
+				if (input instanceof Boat)
+					centralServer.setBoat(UID, (Boat) input);
+				else if (input instanceof Request) {
+					if (((Request) input).getType().equals(NetworkedDock.class)) {
+						outObject.writeObject(centralServer.getDocks()[((Request) input).getID()]);
+						sent = true;
+						System.out.println("SENT CLIENT DOCK...");
+					}
+				}
+				else if(input instanceof NetworkedDock) {
+					centralServer.getDocks()[((NetworkedDock) input).getID()] = (NetworkedDock) input;
+					System.out.println("GOT DOCK");
+				}
+				
+				if (!sent) {
+					Boat[] boats = centralServer.getBoats().clone();
+					if (!showSelfOnNetwork)
+						boats[UID] = null;
+					outObject.writeObject(boats);
+					sent = true;
+				}
 				outObject.reset();
 			} catch (IOException | ClassNotFoundException e) {
 				centralServer.removeUser(this);
+				centralServer.setBoat(UID, null);
 				break;
 			}
 		}
