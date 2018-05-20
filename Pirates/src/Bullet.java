@@ -4,20 +4,23 @@ import processing.core.PApplet;
 
 /**
  * This class is used to represent a bullet, as it can move through the screen and collide with players or enemies.
- * @author Blake
+ * @author Blake and Anantajit
  *
  */
 public class Bullet extends Block{
 	
-	private float xV, yV;
 	public static final int DEFAULT_BULLET_SIZE = 4;
+	private float xV, yV;
 	private int damage;
+	private BulletNet net;
 	
+
 	public Bullet(PApplet parent, float x, float y, float width,float height, float xV, float yV, int damage) {
 		super(parent, x, y, width, height);
 		this.xV = xV;
 		this.yV = yV;
 		this.damage = damage;
+		net = new BulletNet(damage);
 	}
 
 	public Bullet(PApplet parent, float x, float y, float width,float height, int angle, float speed, int damage) {
@@ -25,6 +28,7 @@ public class Bullet extends Block{
 		xV = (float)(speed * Math.cos((angle)));
 		yV = (float)(speed * Math.sin((angle)));
 		this.damage = damage;
+		net = new BulletNet(damage);
 	}
 	
 	public Bullet(PApplet parent, float x, float y, float width,float height,float startX, float startY, float targetX, float targetY, float speed, int damage) {
@@ -33,6 +37,7 @@ public class Bullet extends Block{
 		xV = speed * (targetX - startX)/distance;
 		yV = speed * (targetY - startY)/distance;
 		this.damage = damage;
+		net = new BulletNet(damage);
 	}
 	
 	public Bullet(PApplet parent, WeaponSection player, float targetX, float targetY, float speed, int damage) {
@@ -40,9 +45,23 @@ public class Bullet extends Block{
 		//this(parent, player.getX() + player.getWidth()/2f - DEFAULT_BULLET_SIZE/2f, player.getY() + player.getHeight()/2f - DEFAULT_BULLET_SIZE/2f, DEFAULT_BULLET_SIZE, DEFAULT_BULLET_SIZE, player.getX() + player.getWidth()/2f, player.getY() + player.getHeight()/2f, targetX,targetY,speed,damage);
 	}
 	
+
+	public BulletNet getNet() {
+		return net;
+	}
+
+	public void setNet(BulletNet net) {
+		this.net = net;
+	}
+	
 	public void updateMovement() {
 		super.x+=xV;
 		super.y+=yV;
+		
+		net.setX(x);
+		net.setY(y);
+		net.setxV(xV);
+		net.setyV(yV);
 	}
 	
 	public boolean shouldBeDead(Block[] walls, float w, float h) {

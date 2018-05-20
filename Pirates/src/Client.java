@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 
 /**
@@ -49,22 +50,22 @@ public class Client {
             e.printStackTrace();
         }
     }
-
-    public Boat[] readAllBoats() {
-        if (inObject == null)
+    
+    public Object readObject() {
+    	if (inObject == null)
             return null;
         try {
-            return (Boat[]) inObject.readObject();
+            return inObject.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void writeBoat(Boat boat) {
+    public void writeObject(Serializable object) {
         if (outObject != null) {
             try {
-                outObject.writeObject(boat);
+                outObject.writeObject(object);
                 outObject.reset();
             } catch (IOException e) {
                 e.printStackTrace();

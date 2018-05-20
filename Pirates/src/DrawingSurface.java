@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +31,11 @@ public class DrawingSurface extends PApplet {
 
     //ARRAYLISTS FOR OTHERS
     private ArrayList<Bullet> playerBullets;
+    
+    public ArrayList<Bullet> getPlayerBullets() {
+		return playerBullets;
+	}
+	private volatile ArrayList<BulletNet> otherBullets;
     private ArrayList<Particle> particles;
 
     //SCREEN ADJUSTMENTS
@@ -103,7 +109,7 @@ public class DrawingSurface extends PApplet {
 
         //DOCKS AND TRADING
         docks = new ArrayList<Dock>();
-        currentDock = null;
+        setCurrentDock(null);
 
         //READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
         TextReader reader = new TextReader("output.txt");
@@ -127,8 +133,8 @@ public class DrawingSurface extends PApplet {
         
 
         //grass
+        int dockNumber = 0;
         PImage grass = loadImage("GrassNew.png"); // was "Grass.png"
-
         //SETS UP MAP ON DISPLAY
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks[i].length; j++) {
@@ -161,24 +167,10 @@ public class DrawingSurface extends PApplet {
                 //DRAWS A DOCK
                 else if (blocks[j][i].equals("d")) {
                     noStroke();
-                    //PImage thisImage;
-                    /*
-                    if(i-1 >= 0 && (blocks[i-1][j].equals("s") || blocks[i-1][j].equals("l"))) {
-                    	//sand is up?
-                    	thisImage = dockDown;
-                    } else if(j-1 >= 0 && (blocks[i][j-1].equals("s") || blocks[i][j-1].equals("l"))) {
-                    	//left?
-                    	thisImage = dockLeft;
-                    } else if(i+1 < blocks.length && (blocks[i+1][j].equals("s") || blocks[i+1][j].equals("l"))) {
-                    	//down?
-                    	thisImage = dockUp;
-                    } else {
-                    	//right?
-                    	thisImage = dockRight;
-                    }
-                    */
-                    docks.add(new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize,dock));
-                    docks.get(docks.size() - 1).setColor(219, 0, 209);
+                    Dock dockObj = new Dock(this, i * blockSize, j * blockSize, blockSize, blockSize, dock);
+                    dockObj.setColor(204, 102, 0);
+                    dockObj.setNet(new NetworkedDock(dockNumber++));
+                    docks.add(dockObj);
                     
                     waterBlocks.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, water));
                     waterBlocks.get(waterBlocks.size() - 1).setColor(100, 150, 230);
@@ -212,24 +204,26 @@ public class DrawingSurface extends PApplet {
         	playerSpawn = true;
         	for(int i = -1; i < 2; i++) {
         		for(int j = -1; j < 2; j++) {
+        			System.out.println("here");
+        			
         			if(randomI + i < 0 || randomI + i > blocks.length-1 || randomJ + j < 0 || randomJ + j > blocks[0].length-1) {
         				playerSpawn = false;
-        				//System.out.println(randomI + " " + randomJ + " wont work because bounds");
+        				System.out.println(randomI + " " + randomJ + " wont work because bounds");
         				break;
-        			} else if(!blocks[randomI+i][randomI+j].equals("w")) {
+        			} else if(!blocks[randomJ+j][randomI+i].equals("w")) {
         				playerSpawn = false;
-        				//System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
+        				System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
         				break;
         			}
+        			
         		}
         		if(!playerSpawn)
         			break;
         	}
         } while(!playerSpawn);
         
-		//System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
-
-
+		System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
+		
         player = new Player(this, randomI * blockSize, randomJ * blockSize, 10, 20, 100);
         player.setColor(255, 100, 10);
         
@@ -313,7 +307,7 @@ public class DrawingSurface extends PApplet {
             yCoord -= this.height / 2 - player.getY();
 
             //UPDTAES THE LOCATION OF THE WALLS
-            player.update(walls);
+            player.update(walls, otherBullets);
             
             
             
@@ -357,17 +351,6 @@ public class DrawingSurface extends PApplet {
                 }
             }
 
-            if (mousePressed) {
-                //CODE FOR GUN(buggy)
-//				if (player.getGun().canFire()) {
-//					playerBullets.add(player.generateBullet(mouseX, mouseY));
-//					playerBullets.get(playerBullets.size() - 1).setColor(255, 50, 0);
-//				}
-
-                //SIMPLE FILLER FOR SHOOTING
-                System.out.println("Kerchow!");
-            }
-
             //UPDATES PARTICLES(not needed rn)
             for (int i = 0; i < particles.size(); i++) {
                 particles.get(i).update();
@@ -384,7 +367,8 @@ public class DrawingSurface extends PApplet {
                 for (Dock d : docks) {
                     if (player.isTouching(d)) {
                         screen = TRADE;
-                        currentDock = d;
+                        setCurrentDock(d);
+                        Dock.pull = true;
                         break;
                     }
                 }
@@ -433,6 +417,16 @@ public class DrawingSurface extends PApplet {
             for (Bullet b : playerBullets) {
                 b.show();
             }
+            if (otherBullets != null) {
+                for (BulletNet b : otherBullets) {
+                    if (b != null) {
+            	
+                    	fill(0);
+                    	ellipseMode(CENTER);
+                    	ellipse(b.getX(), b.getY(), Bullet.DEFAULT_BULLET_SIZE, Bullet.DEFAULT_BULLET_SIZE);
+                    }
+                }
+            }
 
             //DISPLAYS PARTICLES(not needed rn)
             for (Particle p : particles)
@@ -444,9 +438,27 @@ public class DrawingSurface extends PApplet {
                     if (b != null) {
                         b.setX((float) (b.getX() + b.getV() * Math.cos(b.getAngle())));
                         b.setY((float) (b.getY() + b.getV() * Math.sin(b.getAngle())));
-                        Block bx = new Block(this, b.getX(), b.getY(), 10, 10);
-                        bx.setColor(0, 0, 0);
-                        bx.show();
+                        //Block bx = new Block(this, b.getX(), b.getY(), player.getWidth(), player.getHeight());
+                        pushMatrix();
+                        pushStyle();
+                        stroke(0);
+                		strokeWeight((float) 0.5);
+                		fill(new Color(139,69,19).getRGB());
+                		float x =b.getX();
+                		float y = b.getY();
+                		float bwidth = player.getWidth();
+                		float bheight = player.getHeight();
+                		translate((float)(x+bwidth/2.0), (float)(y+bheight/2.0));
+                		rotate((float)(b.getAngle() - Math.PI/2.0));
+                		translate((float)(-x-bwidth/2.0), (float)(-y-bheight/2.0));
+                		rect(x, y, bwidth, bheight, 2);
+                		triangle(x+bwidth/40, y+bheight/25, x+bwidth/2, y-bheight/3, x+bwidth-bwidth/40, y+bheight/25);
+                		
+                		noStroke();
+                		
+                		rect(x+bwidth/16, y, bwidth-bwidth/8, bheight/10, 2);
+                        popMatrix();
+                        popStyle();
                     }
                 }
             }
@@ -494,13 +506,14 @@ public class DrawingSurface extends PApplet {
 				screen = GAME;
 			*/
 
-            currentDock.updateCurrentScreen(player);
-            currentDock.showCurrentScreen(player);
-            currentDock.checkCurrentSwitchButton();
-            if (currentDock.checkCurrentExitButton()) {
+            getCurrentDock().updateCurrentScreen(player);
+            getCurrentDock().showCurrentScreen(player);
+            getCurrentDock().checkCurrentSwitchButton();
+            if (getCurrentDock().checkCurrentExitButton()) {
                 screen = GAME;
-                currentDock = null;
+                setCurrentDock(null);
                 dockTimer = 120;
+                Dock.push = true;
             }
 
         }
@@ -576,4 +589,16 @@ public class DrawingSurface extends PApplet {
     public void addBullet(Bullet b) {
     	playerBullets.add(b);
     }
+
+	public Dock getCurrentDock() {
+		return currentDock;
+	}
+
+	public void setCurrentDock(Dock currentDock) {
+		this.currentDock = currentDock;
+	}
+
+	public void setOtherBullets(ArrayList<BulletNet> input) {
+		this.otherBullets = input;
+	}
 }

@@ -179,7 +179,7 @@ public class Player extends Block{
 	}
 	
 	
-	public void update(Block[] b) {	
+	public void update(Block[] b, ArrayList<BulletNet> enemyBullets) {	
 		angle += angleVel;
 		angleVel *= 0.9;
 		x += (float) (yV * Math.cos(angle)) * steer.getStat(steer.getLevel())/10f;
@@ -269,6 +269,14 @@ public class Player extends Block{
 				break;
 			}
 		}
+		for(int i = 0; i < enemyBullets.size(); i++) {
+			if(hitbox.contains(enemyBullets.get(i).getX(), enemyBullets.get(i).getY())) {
+				System.out.println("hit");
+				health -= enemyBullets.remove(i).getDamage();
+				
+				break;
+			}
+		}
 		
 		//friction
 		xV *= friction;
@@ -329,11 +337,11 @@ public class Player extends Block{
 		
 	}
 	
-	public void update(ArrayList<Block> blocks) {
+	public void update(ArrayList<Block> blocks, ArrayList<BulletNet> enemyBullets) {
 		Block[] blockArray = new Block[blocks.size()];
 		for(int i = 0; i < blocks.size(); i++)
 			blockArray[i] = blocks.get(i);
-		update(blockArray);
+		update(blockArray, enemyBullets);
 	}
 	
 	public boolean isOnGround(Block[] b) {
