@@ -16,6 +16,35 @@ public class Treasure {
 		gold = player.getCargo().getGold();
 		x = player.getX()+player.getWidth()/2.0f;
 		y = player.getY()+player.getHeight()/2.0f;
+		
+	}
+
+	public int getCloth() {
+		return cloth;
+	}
+
+	public int getSpices() {
+		return spices;
+	}
+
+	public int getJewelry() {
+		return jewelry;
+	}
+
+	public int getBeards() {
+		return beards;
+	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public float getY() {
+		return y;
 	}
 
 	
