@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -414,6 +415,17 @@ public class DrawingSurface extends PApplet {
             for (Bullet b : playerBullets) {
                 b.show();
             }
+            if (otherBullets != null) {
+                for (BulletNet b : otherBullets) {
+                    if (b != null) {
+            	
+                    	fill(0);
+                    	ellipseMode(CENTER);
+                    	ellipse(b.getX(), b.getY(), Bullet.DEFAULT_BULLET_SIZE, Bullet.DEFAULT_BULLET_SIZE);
+                    	System.out.println("wow bullets found");
+                    }
+                }
+            }
 
             //DISPLAYS PARTICLES(not needed rn)
             for (Particle p : particles)
@@ -425,9 +437,27 @@ public class DrawingSurface extends PApplet {
                     if (b != null) {
                         b.setX((float) (b.getX() + b.getV() * Math.cos(b.getAngle())));
                         b.setY((float) (b.getY() + b.getV() * Math.sin(b.getAngle())));
-                        Block bx = new Block(this, b.getX(), b.getY(), 10, 10);
-                        bx.setColor(0, 0, 0);
-                        bx.show();
+                        //Block bx = new Block(this, b.getX(), b.getY(), player.getWidth(), player.getHeight());
+                        pushMatrix();
+                        pushStyle();
+                        stroke(0);
+                		strokeWeight((float) 0.5);
+                		fill(new Color(139,69,19).getRGB());
+                		float x =b.getX();
+                		float y = b.getY();
+                		float bwidth = player.getWidth();
+                		float bheight = player.getHeight();
+                		translate((float)(x+bwidth/2.0), (float)(y+bheight/2.0));
+                		rotate((float)(b.getAngle() - Math.PI/2.0));
+                		translate((float)(-x-bwidth/2.0), (float)(-y-bheight/2.0));
+                		rect(x, y, bwidth, bheight, 2);
+                		triangle(x+bwidth/40, y+bheight/25, x+bwidth/2, y-bheight/3, x+bwidth-bwidth/40, y+bheight/25);
+                		
+                		noStroke();
+                		
+                		rect(x+bwidth/16, y, bwidth-bwidth/8, bheight/10, 2);
+                        popMatrix();
+                        popStyle();
                     }
                 }
             }
