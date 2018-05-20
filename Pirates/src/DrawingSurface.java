@@ -204,24 +204,26 @@ public class DrawingSurface extends PApplet {
         	playerSpawn = true;
         	for(int i = -1; i < 2; i++) {
         		for(int j = -1; j < 2; j++) {
+        			System.out.println("here");
+        			
         			if(randomI + i < 0 || randomI + i > blocks.length-1 || randomJ + j < 0 || randomJ + j > blocks[0].length-1) {
         				playerSpawn = false;
-        				//System.out.println(randomI + " " + randomJ + " wont work because bounds");
+        				System.out.println(randomI + " " + randomJ + " wont work because bounds");
         				break;
-        			} else if(!blocks[randomI+i][randomI+j].equals("w")) {
+        			} else if(!blocks[randomJ+j][randomI+i].equals("w")) {
         				playerSpawn = false;
-        				//System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
+        				System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
         				break;
         			}
+        			
         		}
         		if(!playerSpawn)
         			break;
         	}
         } while(!playerSpawn);
         
-		//System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
-
-
+		System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
+		
         player = new Player(this, randomI * blockSize, randomJ * blockSize, 10, 20, 100);
         player.setColor(255, 100, 10);
         
