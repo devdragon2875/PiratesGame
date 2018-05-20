@@ -599,6 +599,7 @@ public class DrawingSurface extends PApplet {
         	textAlign(CENTER);
         	textSize(50);
         	text("You have died\nPress R to restart",width/2,height/2);
+        	client.disconnect();
         	if(keyPressed && (key == 'r' || key == 'R')) {
         		setup();
         		//screen = MENU;
