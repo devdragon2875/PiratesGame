@@ -72,6 +72,8 @@ public class ClientLoop extends Thread {
             				p.setPrice(price); 
         			}
             	}
+            }else {
+            	System.out.println(input.getClass() + "UNKNOWN");
             }
         }
     }

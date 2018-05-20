@@ -46,17 +46,17 @@ public class SubServer extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		boolean sendBullets = false;
+		
 		while (true) {
 			boolean sent = false;
-			boolean sendBullets = false;
 			try {
 				Object input = inObject.readObject();
 				if (input instanceof Boat)
 					centralServer.setBoat(UID, (Boat) input);
 				else if(input instanceof ArrayList) {
-					bullets.clear();
-					bullets.addAll((ArrayList<BulletNet>) input);
+					bullets = (ArrayList<BulletNet>) input;
 				}
 				else if (input instanceof Request) {
 					if (((Request) input).getType().equals(NetworkedDock.class)) {
