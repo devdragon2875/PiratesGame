@@ -104,4 +104,13 @@ public class TradeScreen {
 	public boolean checkUpgradeButton() {
 		return upgradeButton.update();
 	}
+	
+	public void shiftPrices() {
+		
+		for(int i = 0; i < parts.length; i++) {
+			System.out.println("was " + parts[i].getPrice());
+			parts[i].setPrice(parts[i].getPrice() + (float)(Math.random() * 4f) - 2f);
+			System.out.println("is now " + parts[i].getPrice());
+		}
+	}
 }
