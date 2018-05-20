@@ -307,7 +307,7 @@ public class DrawingSurface extends PApplet {
             yCoord -= this.height / 2 - player.getY();
 
             //UPDTAES THE LOCATION OF THE WALLS
-            player.update(walls);
+            player.update(walls, otherBullets);
             
             
             
@@ -424,7 +424,6 @@ public class DrawingSurface extends PApplet {
                     	fill(0);
                     	ellipseMode(CENTER);
                     	ellipse(b.getX(), b.getY(), Bullet.DEFAULT_BULLET_SIZE, Bullet.DEFAULT_BULLET_SIZE);
-                    	System.out.println("wow bullets found");
                     }
                 }
             }
