@@ -392,7 +392,8 @@ public class DrawingSurface extends PApplet {
             		for(Bullet b: bullets) {
                 		if(other.getHitbox().contains(b.getX(), b.getY())) {
                 			System.out.println("TARGET HIT");
-                			playerBullets.remove(b);
+                			b.setXV(0);
+                			b.setYV(0);
                 		}
             		}
             	}
