@@ -34,7 +34,7 @@ public class DrawingSurface extends PApplet {
     public ArrayList<Bullet> getPlayerBullets() {
 		return playerBullets;
 	}
-	private ArrayList<BulletNet> otherBullets;
+	private volatile ArrayList<BulletNet> otherBullets;
     private ArrayList<Particle> particles;
 
     //SCREEN ADJUSTMENTS
