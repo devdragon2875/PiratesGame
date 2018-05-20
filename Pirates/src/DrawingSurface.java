@@ -72,7 +72,7 @@ public class DrawingSurface extends PApplet {
 
     public void setup() {
         //SETTING NO STROKE, FRAMERATE, AND FONT TYPE
-        client = new Client("127.0.0.1", 4444);
+        client = new Client("127.0.0.1", 4444); // "127.0.0.1"
         client.connect();
         
         mapRadius = 100;
@@ -307,7 +307,7 @@ public class DrawingSurface extends PApplet {
             yCoord -= this.height / 2 - player.getY();
 
             //UPDTAES THE LOCATION OF THE WALLS
-            player.update(walls, otherBullets);
+            player.update(walls);
             
             
             
@@ -340,15 +340,28 @@ public class DrawingSurface extends PApplet {
     			}
     		}
             
-            //UPDATES BULLETS(not needed rn)
+            //UPDATES BULLETS
             for (int i = 0; i < playerBullets.size(); i++) {
                 playerBullets.get(i).updateMovement();
-                if (i != 0 && playerBullets.get(i).shouldBeDead(walls, width, width)) {
+                if (playerBullets.get(i).shouldBeDead(walls, width, width)) {
                     particles.add(new Particle(this, playerBullets.get(i), 2)); // add a "smoke" particle
                     playerBullets.remove(i);
                     if (i > 0)
                         i--;
-                }
+                } 
+            }
+            
+            //UPDATES ENEMY BULLETS
+            if(otherBullets!=null) {
+            	for(int i = 0; i < otherBullets.size();i++) {
+            		if(otherBullets.get(i) != null && player.getPolyHitbox().contains(otherBullets.get(i).getX(),otherBullets.get(i).getY())) {
+            			System.out.println("hit");
+            			player.changeHealth(-otherBullets.get(i).getDamage());
+            			otherBullets.remove(i);
+            			if(i>0)
+            				i--;
+            		}
+            	}
             }
 
             //UPDATES PARTICLES(not needed rn)
