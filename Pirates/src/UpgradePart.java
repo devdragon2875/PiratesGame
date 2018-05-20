@@ -100,6 +100,6 @@ public class UpgradePart {
 	}
 	
 	public int getCost(Player p) {
-		return p.getSection(sectionType).getLevel()*100+50;
+		return p.getSection(sectionType).getLevel()*25+25;
 	}
 }

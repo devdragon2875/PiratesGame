@@ -638,7 +638,7 @@ public class DrawingSurface extends PApplet {
             keys[2] = true;
         else if (key == 'd' || keyCode == RIGHT || key == 'D')
             keys[3] = true;
-        else if (key == 'm' || key == 'M')
+        else if (key == 'm' || key == 'M' || keyCode == SHIFT)
             zoom = false;
 
     }
@@ -664,7 +664,7 @@ public class DrawingSurface extends PApplet {
             keys[2] = false;
         else if (key == 'd' || keyCode == RIGHT || key == 'D')
             keys[3] = false;
-        else if (key == 'm' || key == 'M')
+        else if (key == 'm' || key == 'M' || keyCode == SHIFT)
             zoom = true;
         
     }
