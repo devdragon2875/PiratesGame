@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -360,6 +361,21 @@ public class DrawingSurface extends PApplet {
 			} else {
 				dockTimer--;
 			}
+            //DISPLAYS BULLETS(not needed rn)
+            for (Bullet b : playerBullets) {
+                b.show();
+            }
+            if (otherBullets != null) {
+                for (BulletNet b : otherBullets) {
+                    if (b != null) {
+            	
+                    	fill(0);
+                    	ellipseMode(CENTER);
+                    	ellipse(b.getX(), b.getY(), Bullet.DEFAULT_BULLET_SIZE, Bullet.DEFAULT_BULLET_SIZE);
+                    	System.out.println("wow bullets found");
+                    }
+                }
+            }
 
 			// DISPLAYS THE BLOCKS
 			for (Block w : walls) {
