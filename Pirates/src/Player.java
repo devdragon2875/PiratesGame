@@ -298,10 +298,11 @@ public class Player extends Block{
 		weapons.get(2).setX(x+weaponWidth);
 		weapons.get(3).setX(x);
 		
-		weapons.get(2).setCenter(x+width/2+4*parent.cos(angle-parent.QUARTER_PI), y+height/2+4*parent.sin(angle-parent.QUARTER_PI));
-		weapons.get(3).setCenter(x+width/2+4*parent.cos(angle+parent.QUARTER_PI), y+height/2+4*parent.sin(angle+parent.QUARTER_PI));
-		weapons.get(0).setCenter(x+width/2+4*parent.cos(angle+3*parent.QUARTER_PI), y+height/2+4*parent.sin(angle+3*parent.QUARTER_PI));
-		weapons.get(1).setCenter(x+width/2+4*parent.cos(angle+5*parent.QUARTER_PI), y+height/2+4*parent.sin(angle+5*parent.QUARTER_PI));
+		float thingVar = 6;
+		weapons.get(2).setCenter(x+width/2+thingVar*parent.cos(angle-parent.QUARTER_PI), y+height/2+thingVar*parent.sin(angle-parent.QUARTER_PI));
+		weapons.get(3).setCenter(x+width/2+thingVar*parent.cos(angle+parent.QUARTER_PI), y+height/2+thingVar*parent.sin(angle+parent.QUARTER_PI));
+		weapons.get(0).setCenter(x+width/2+thingVar*parent.cos(angle+3*parent.QUARTER_PI), y+height/2+thingVar*parent.sin(angle+3*parent.QUARTER_PI));
+		weapons.get(1).setCenter(x+width/2+thingVar*parent.cos(angle+5*parent.QUARTER_PI), y+height/2+thingVar*parent.sin(angle+5*parent.QUARTER_PI));
 		
 		weapons.get(0).setY(y+height/4);
 		weapons.get(1).setY(y+height/4);

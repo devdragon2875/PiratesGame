@@ -18,11 +18,11 @@ public class WeaponSection extends Section{
 		this.left = left;
 		if(left) {
 
-			cannon = new Gun(x, y + height/2 - 1, 2, 2, left,  300, 1, 5, (float) 0.1);
+			cannon = new Gun(x, y + height/2 - 1, 2, 2, left,  300, 1, 2, (float) 0.1);
 
 		} else {
 
-			cannon = new Gun(x+width, y + height/2 - 1, 2, 2, left,  300, 1, 5, (float) 0.1);
+			cannon = new Gun(x+width, y + height/2 - 1, 2, 2, left,  300, 1, 2, (float) 0.1);
 
 		}
 	}
@@ -31,22 +31,22 @@ public class WeaponSection extends Section{
 		if(super.level == 2) {
 			if(left) {
 
-				cannon = new Gun(x, y + height/2 - 1, 4, 2, left,  200, 1, 5, (float) 0.1);
+				cannon = new Gun(x, y + height/2 - 1, 4, 2, left,  200, 1, 2, (float) 0.1);
 
 			} else {
 
-				cannon = new Gun(x+width, y + height/2 - 1, 4, 2, left,  200, 1, 5, (float) 0.1);
+				cannon = new Gun(x+width, y + height/2 - 1, 4, 2, left,  200, 1, 2, (float) 0.1);
 
 			}
 		}
 		if(super.level == 3) {
 			if(left) {
 
-				cannon = new Gun(x, y + height/2 - 1.5f, 6, 3, left,  100, 1, 5, (float) 0.1);
+				cannon = new Gun(x, y + height/2 - 1.5f, 6, 3, left,  100, 1, 2, (float) 0.1);
 
 			} else {
 
-				cannon = new Gun(x+width, y + height/2 - 1.5f, 6, 3, left,  100, 1, 5, (float) 0.1);
+				cannon = new Gun(x+width, y + height/2 - 1.5f, 6, 3, left,  100, 1, 2, (float) 0.1);
 
 			}
 		}
