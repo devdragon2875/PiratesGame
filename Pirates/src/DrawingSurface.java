@@ -374,7 +374,7 @@ public class DrawingSurface extends PApplet {
             	for(int i = 0; i < otherBullets.size();i++) {
             		if(otherBullets.get(i) != null && player.getPolyHitbox().contains(otherBullets.get(i).getX(),otherBullets.get(i).getY())) {
             			System.out.println("hit");
-            			player.changeHealth(-otherBullets.get(i).getDamage());
+            			player.changeHealth(-4*otherBullets.get(i).getDamage());
             			otherBullets.remove(i);
             			if(i>0)
             				i--;
