@@ -378,6 +378,22 @@ public class DrawingSurface extends PApplet {
             			otherBullets.remove(i);
             			if(i>0)
             				i--;
+            		} else {
+            			otherBullets.get(i).setX(otherBullets.get(i).getX() + otherBullets.get(i).getxV());
+            			otherBullets.get(i).setY(otherBullets.get(i).getY() + otherBullets.get(i).getyV());
+            		}
+            	}
+            }
+            
+            for(int i = 0; boats != null && i < boats.length; i++) {
+            	if(boats[i] != null) {
+            		Boat other = boats[i];
+            		ArrayList<Bullet> bullets = (ArrayList<Bullet>) playerBullets.clone();
+            		for(Bullet b: bullets) {
+                		if(other.getHitbox().contains(b.getX(), b.getY())) {
+                			System.out.println("TARGET HIT");
+                			playerBullets.remove(b);
+                		}
             		}
             	}
             }

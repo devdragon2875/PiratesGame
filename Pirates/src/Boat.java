@@ -1,3 +1,4 @@
+import java.awt.Polygon;
 import java.io.Serializable;
 
 /**
@@ -9,6 +10,7 @@ public class Boat implements Serializable {
     private float y;
     private float v;
     private float angle;
+    private Polygon hitbox;
 
     public Boat(float x, float y, float v, float angle) {
         this.x = x;
@@ -53,4 +55,12 @@ public class Boat implements Serializable {
     public void setV(float v) {
         this.v = v;
     }
+
+	public Polygon getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(Polygon hitbox) {
+		this.hitbox = hitbox;
+	}
 }
