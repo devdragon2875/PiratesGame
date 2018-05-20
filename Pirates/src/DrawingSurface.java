@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
+import processing.event.KeyEvent;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -53,11 +54,12 @@ public class DrawingSurface extends PApplet {
     private TradeScreen ts;
     private Menu menuScreen;
     private int screen;
-    private static final int MENU = 0;
-    private static final int GAME = 1;
-    private static final int TRADE = 2;
-    private static final int DEAD = 3;
-
+    private static final int LOADING = -1, MENU = 0, GAME = 1, TRADE = 2, DEAD = 3, SERVER_SELECT = 4;
+	
+	//Server selection
+	private StringBuilder input;
+	private String ip = "127.0.0.1";
+	
     //DOCKS AND TRADING
     private ArrayList<Dock> docks;
     private Dock currentDock;
@@ -72,49 +74,15 @@ public class DrawingSurface extends PApplet {
         size(1200, 800);
         smooth(0);
     }
+    
+    public void initGame() {
+    	screen = LOADING;
 
-    public void setup() {
         //SETTING NO STROKE, FRAMERATE, AND FONT TYPE
         client = new Client("127.0.0.1", 4444); // "127.0.0.1"
         client.connect();
         
-        mapRadius = 100;
-        noStroke();
-        frameRate(60);
-        PFont font = createFont("PressStart2P.ttf", 20);
-        textFont(font);
-
-        //KEYS
-        keys = new boolean[4];// 0 - up, 1 - down, 2 - left, 3 - right
-
-        //MOUSE COORD(adjusted for weird stuff)
-        xCoord = this.mouseX;
-        yCoord = this.mouseY;
-
-        //IF SCREEN ZOOMED IN, BY HOW MUCH, AND ROTATION
-        zoom = true;
-        scaleFactor = 7;
-        angle = (float) (Math.PI / 2.0);
-        angleVel = 0;
-
-        //ARRAYLISTS FOR STUFF
-        playerBullets = new ArrayList<Bullet>();
-        particles = new ArrayList<Particle>();
-
-        //ARRAYLISTS FOR BLOCKS
-        walls = new ArrayList<Block>();
-        waterBlocks = new ArrayList<Block>();
-
-        //SCREEN VAR
-        screen = MENU;
-        menuScreen = new Menu(this);
-        ts = new TradeScreen(this);
-
-        //DOCKS AND TRADING
-        docks = new ArrayList<Dock>();
-        setCurrentDock(null);
-
-        //READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
+      //READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
         TextReader reader = new TextReader("output.txt");
         String[][] blocks = client.readArray();
         int blockSize = width / blocks.length;
@@ -236,7 +204,46 @@ public class DrawingSurface extends PApplet {
         
         damageOutsideMapTimer = 0;
         priceRandomizeTimer = 3600;
-        //player.setGun(new Gun(100,10,15,10));
+    }
+
+    public void setup() {
+        
+        mapRadius = 100;
+        noStroke();
+        frameRate(60);
+        PFont font = createFont("PressStart2P.ttf", 20);
+        textFont(font);
+
+        //KEYS
+        keys = new boolean[4];// 0 - up, 1 - down, 2 - left, 3 - right
+
+        //MOUSE COORD(adjusted for weird stuff)
+        xCoord = this.mouseX;
+        yCoord = this.mouseY;
+
+        //IF SCREEN ZOOMED IN, BY HOW MUCH, AND ROTATION
+        zoom = true;
+        scaleFactor = 7;
+        angle = (float) (Math.PI / 2.0);
+        angleVel = 0;
+
+        //ARRAYLISTS FOR STUFF
+        playerBullets = new ArrayList<Bullet>();
+        particles = new ArrayList<Particle>();
+
+        //ARRAYLISTS FOR BLOCKS
+        walls = new ArrayList<Block>();
+        waterBlocks = new ArrayList<Block>();
+
+        //SCREEN VAR
+        screen = MENU;
+        menuScreen = new Menu(this);
+        ts = new TradeScreen(this);
+
+        //DOCKS AND TRADING
+        docks = new ArrayList<Dock>();
+        setCurrentDock(null);
+
     }
 
 
@@ -246,7 +253,14 @@ public class DrawingSurface extends PApplet {
         yCoord = mouseY;
 
         //If GAME SCREEN
-        if (screen == GAME) {
+        if(screen == LOADING) {
+        	fill((float)Math.random()*255f, (float)Math.random()*255f, (float)Math.random()*255f);
+        	rect((float)Math.random()*width, (float)Math.random()*height, 100, 100);
+        	textSize(100);
+        	fill(0);
+        	text("LOADING", width/2, height/2);
+        }
+        else if (screen == GAME) {
         	pushMatrix(); // pushing matrix so it can pop to draw ui
         	
             //SETS BACKGROUND TO A BLUE COLOR
@@ -553,8 +567,8 @@ public class DrawingSurface extends PApplet {
             //menu
         	menuScreen.update();
         	if(menuScreen.getSwitchScreen()) {
-        		
-        		screen = GAME;
+        		screen = SERVER_SELECT;
+        		input = new StringBuilder();
         	}
             menuScreen.draw();
         } else if(screen == DEAD) {
@@ -569,6 +583,17 @@ public class DrawingSurface extends PApplet {
         		
         	}
         	
+        } else if(screen == SERVER_SELECT) {
+    		clear();
+    		background(135,206,250);
+    		//BOX
+    		fill(255);
+    		stroke(0);
+    		rect(-1, height/2 - 60, width + 2, 120);
+    		//text
+    		fill(200);
+    		textSize(50);
+    		text(input.toString(), width/2, height/2 + 50);
         }
 
 
@@ -597,6 +622,16 @@ public class DrawingSurface extends PApplet {
     }
 
     public void keyReleased() {
+    	if(screen == SERVER_SELECT) {
+    		if(key == RETURN || key == ENTER) {
+    			ip = input.toString();
+    			initGame();
+    	    	screen = GAME;
+    		} else {
+        		this.input.append(key);
+    		}
+    	}
+    	
         if (key == 'w' || keyCode == UP || key == 'W')
             keys[0] = false;
         else if (key == 's' || keyCode == DOWN || key == 'S')
@@ -607,7 +642,9 @@ public class DrawingSurface extends PApplet {
             keys[3] = false;
         else if (key == 'm' || key == 'M')
             zoom = true;
+        
     }
+    
 
     public Player getPlayer() {
         return player;

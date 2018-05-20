@@ -1,5 +1,11 @@
+import java.io.Serializable;
 
-public class Treasure {
+/**
+ * Represents a treasure that is located at a random position in the ocean
+ * @author Anantajit and Devansh
+ *
+ */
+public class Treasure implements Serializable{
 	private int cloth;
 	private int spices;
 	private int jewelry;
