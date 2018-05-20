@@ -123,7 +123,16 @@ public class CentralServer {
 	public void setDocks(NetworkedDock[] docks) {
 		this.docks = docks;
 	}
-
+	
+	public synchronized ArrayList<BulletNet> otherBullets(int UID){
+		ArrayList<BulletNet> out = new ArrayList<>();
+		for(int i = 0; i < users.size(); i++) {
+			if(i != UID && users.get(i) != null && users.get(i).getBullets() != null) {
+				out.addAll(users.get(i).getBullets());
+			}
+		}
+		return out;
+	}
 }
 
 class ServerManager extends Thread {

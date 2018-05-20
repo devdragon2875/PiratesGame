@@ -30,6 +30,11 @@ public class DrawingSurface extends PApplet {
 
     //ARRAYLISTS FOR OTHERS
     private ArrayList<Bullet> playerBullets;
+    
+    public ArrayList<Bullet> getPlayerBullets() {
+		return playerBullets;
+	}
+	private ArrayList<BulletNet> otherBullets;
     private ArrayList<Particle> particles;
 
     //SCREEN ADJUSTMENTS
@@ -560,5 +565,9 @@ public class DrawingSurface extends PApplet {
 
 	public void setCurrentDock(Dock currentDock) {
 		this.currentDock = currentDock;
+	}
+
+	public void setOtherBullets(ArrayList<BulletNet> input) {
+		this.otherBullets = input;
 	}
 }

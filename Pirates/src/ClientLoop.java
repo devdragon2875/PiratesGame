@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * A looping thread that updates data in the DrawingSurface class
  * @author Anantajit
@@ -14,6 +16,8 @@ public class ClientLoop extends Thread {
     }
 
     public void run() {
+    	boolean sendBullets = false;
+    	
         while (true) {
         	if(Dock.pull && parent.getCurrentDock() != null) {
         		//Ask for a dock
@@ -30,14 +34,24 @@ public class ClientLoop extends Thread {
         		System.out.println("SENDING DOCK");
         	}
         	else{
-        		Boat b = player.getBoat();
-        		client.writeObject(b);
+        		if(sendBullets) {
+        			ArrayList<BulletNet> networked = new ArrayList<>();
+        			for(Bullet bullet: parent.getPlayerBullets()) {
+        				networked.add(bullet.getNet());
+        			}
+        			client.writeObject(networked);
+        			sendBullets = false;
+        		} else {
+            		Boat b = player.getBoat();
+            		client.writeObject(b);
+            		sendBullets = true;
+        		}
         	}
             
             Object input = client.readObject();
-            if(input instanceof Request) {
+            if(input instanceof ArrayList) {
             	//TODO: Add code here
-            	
+            	parent.setOtherBullets((ArrayList<BulletNet>) input);
             } else if(input instanceof Boat[])
             	parent.setBoats((Boat[]) input);
             //If we get a networked dock, we update it no matter what
