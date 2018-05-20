@@ -551,7 +551,9 @@ public class DrawingSurface extends PApplet {
         	if(keyPressed && (key == 'r' || key == 'R')) {
         		setup();
         		//screen = MENU;
+        		
         	}
+        	
         }
 
 

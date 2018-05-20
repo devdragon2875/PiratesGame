@@ -74,7 +74,6 @@ public class Player extends Block{
 //		}
 //		steer.upgrade();
 //		steer.upgrade();
-		
 		cargo = new Cargo(100); //DEFAULT can hold 100 cargo
 		cargo.setGold(100);
 		
@@ -317,6 +316,7 @@ public class Player extends Block{
 		lookout.setY(y);
 		
 		
+		
 	}
 	
 	private void draw() {
@@ -486,4 +486,6 @@ public class Player extends Block{
 	public boolean canFire(int weapon) {
 		return weapons.get(weapon).canFire();
 	}
+
+	
 }
