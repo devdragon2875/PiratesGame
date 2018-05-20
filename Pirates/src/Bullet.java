@@ -13,7 +13,7 @@ public class Bullet extends Block{
 	private float xV, yV;
 	private int damage;
 	private BulletNet net;
-	private boolean remove = false;
+	public int deathTimer = 3;
 	
 
 	public Bullet(PApplet parent, float x, float y, float width,float height, float xV, float yV, int damage) {
@@ -113,14 +113,5 @@ public class Bullet extends Block{
 	
 	public int getDamage() {
 		return damage;
-	}
-
-	public boolean markedForRemove() {
-		return remove;
-	}
-
-	public void remove(boolean remove) {
-		this.remove = remove;
-		net.remove();
 	}
 }

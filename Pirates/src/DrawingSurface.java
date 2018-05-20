@@ -394,6 +394,11 @@ public class DrawingSurface extends PApplet {
                 			System.out.println("TARGET HIT");
                 			b.setXV(0);
                 			b.setYV(0);
+                			if(b.deathTimer < 0) {
+                				playerBullets.remove(b);
+                			} else {
+                				b.deathTimer--;
+                			}
                 		}
             		}
             	}
