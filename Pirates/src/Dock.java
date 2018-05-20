@@ -101,5 +101,9 @@ public class Dock extends Block{
 	public TradeScreen getTradeScreen() {
 		return this.tradeScreen;
 	}
+	
+	public void shiftPrices() {
+		tradeScreen.shiftPrices();
+	}
 
 }

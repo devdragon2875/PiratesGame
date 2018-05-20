@@ -63,6 +63,8 @@ public class DrawingSurface extends PApplet {
     private int dockTimer; //timer so player doesn't go back into the dock they just exited
     
     private int damageOutsideMapTimer;
+    
+    private int priceRandomizeTimer;
 
     //Sets window to 1200, 800 and makes smooth animation
     public void settings() {
@@ -232,6 +234,7 @@ public class DrawingSurface extends PApplet {
         clientThread.start();
         
         damageOutsideMapTimer = 0;
+        priceRandomizeTimer = 3600;
         //player.setGun(new Gun(100,10,15,10));
     }
 
@@ -506,6 +509,17 @@ public class DrawingSurface extends PApplet {
             		damageOutsideMapTimer--;
             	}
             }
+            
+            if(priceRandomizeTimer <= 0) {
+            	priceRandomizeTimer = 3600;
+            	System.out.println("Shifting prices of all docks");
+            	for(Dock d : docks) {
+            		d.shiftPrices();
+            	}
+            } else {
+            	priceRandomizeTimer--;
+            }
+            
         }
 
         //IF TRADE SCREEN
