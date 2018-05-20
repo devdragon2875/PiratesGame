@@ -79,7 +79,7 @@ public class DrawingSurface extends PApplet {
     	screen = LOADING;
 
         //SETTING NO STROKE, FRAMERATE, AND FONT TYPE
-        client = new Client("127.0.0.1", 4444); // "127.0.0.1"
+        client = new Client(ip, 4444); // "127.0.0.1"
         client.connect();
         
       //READS BLOCK FROM TEXTFILE AND ADJUSTS SIZE OF BLOCKS
@@ -649,6 +649,8 @@ public class DrawingSurface extends PApplet {
     			ip = input.toString();
     			initGame();
     	    	screen = GAME;
+    		} else if(key == BACKSPACE){
+    			input.deleteCharAt(input.length()-1);
     		} else {
         		this.input.append(key);
     		}
