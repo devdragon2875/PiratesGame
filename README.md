@@ -94,7 +94,3 @@ Allows for trading to get materials and allows the player to upgrade their ship.
 - UpgradePart
 - UpgradeScreen
 - WeaponSection
-
-
-### Comments
-1) Networking isn't in the UML diamgram.  You should figure that out if you want to have it be a main part of the game.
