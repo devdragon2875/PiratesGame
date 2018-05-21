@@ -375,16 +375,10 @@ public class DrawingSurface extends PApplet {
             //UPDATES ENEMY BULLETS
             if(otherBullets!=null) {
             	for(int i = 0; i < otherBullets.size();i++) {
-            		if(otherBullets.get(i) != null && player.getPolyHitbox().contains(otherBullets.get(i).getX(),otherBullets.get(i).getY())) {
-            			System.out.println("hit");
-            			player.changeHealth(-4*otherBullets.get(i).getDamage());
-            			otherBullets.remove(i);
-            			if(i>0)
-            				i--;
-            		} else {
+            		
             			otherBullets.get(i).setX(otherBullets.get(i).getX() + otherBullets.get(i).getxV());
             			otherBullets.get(i).setY(otherBullets.get(i).getY() + otherBullets.get(i).getyV());
-            		}
+            		
             	}
             }
             
@@ -412,7 +406,7 @@ public class DrawingSurface extends PApplet {
             		}
             	}
             }
-            player.changeHealth(-damageTaken);
+            player.changeHealth(-(damageTaken)*4);
             damageTaken = 0;
             //UPDATES PARTICLES(not needed rn)
             for (int i = 0; i < particles.size(); i++) {
