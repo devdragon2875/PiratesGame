@@ -4,6 +4,7 @@ import processing.core.PImage;
 import processing.event.KeyEvent;
 
 import java.awt.Color;
+import java.awt.Polygon;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -252,18 +253,12 @@ public class DrawingSurface extends PApplet {
 			}
 			if (keys[1]) {
 				player.changeYV((float) 0.05);
-			} else {
-				// player.setYV(0);
 			}
 			if (keys[2]) {
-				// player.changeXV(-1);
 				player.setAngleVel(player.getAngleVel() - Math.PI / 1000);
-				// angleVel -= Math.PI/1000;
 			}
 			if (keys[3]) {
-				// player.changeXV(1);
 				player.setAngleVel(player.getAngleVel() + Math.PI / 1000);
-				// angleVel += Math.PI/1000;
 			}
 
 			// ZOOMS WORLD TO PLAYER BY ZOOM FACTOR
@@ -272,8 +267,6 @@ public class DrawingSurface extends PApplet {
 				xCoord -= this.width / 2 + player.getWidth() / 2;
 				yCoord -= this.height / 2 + player.getHeight() / 2;
 
-				// angle += angleVel;
-				// angleVel *= 0.9;
 				angle = player.getAngle();
 				// SCALES MAP BASED ON PLAYER LOCATION
 				translate(this.width / 2 + player.getWidth() / 2, this.height / 2 + player.getHeight() / 2);
@@ -360,7 +353,11 @@ public class DrawingSurface extends PApplet {
 					Boat other = boats[i];
 					ArrayList<Bullet> bullets = (ArrayList<Bullet>) playerBullets.clone();
 					for (int j = 0; j < playerBullets.size(); j++) {
-						if (other.getHitbox().contains(playerBullets.get(j).getX(), playerBullets.get(j).getY())) {
+						Polygon hitbox = new Polygon();
+						for(int a = 0; a < other.getHitbox().length; a++) {
+							hitbox.addPoint(other.getHitbox()[a][0], other.getHitbox()[a][1]);
+						}
+						if (hitbox.contains(playerBullets.get(j).getX(), playerBullets.get(j).getY())) {
 							System.out.println("TARGET HIT");
 
 							damagedEnemies[i] += playerBullets.get(j).getDamage();
@@ -368,20 +365,11 @@ public class DrawingSurface extends PApplet {
 							playerBullets.remove(j);
 							if (j > 0)
 								j--;
-							// b.setXV(0);
-							// b.setYV(0);
-							// if(b.deathTimer < 0) {
-							// playerBullets.remove(b);
-							// } else {
-							// b.deathTimer--;
-							// }
 						}
 					}
 				}
 			}
-			// if(damageTaken!=0) {
-			// System.out.println("I am taking " + (damageTaken*4) + " damage");
-			// }
+			
 			player.changeHealth(-(damageTaken) * 4);
 			damageTaken = 0;
 			// UPDATES PARTICLES(not needed rn)
@@ -443,12 +431,6 @@ public class DrawingSurface extends PApplet {
 				} else {
 					d.showNoImage();
 				}
-				/*
-				 * else if (!zoom) { double distance =
-				 * Math.sqrt(Math.pow(d.getX()-(player.getX()+player.getWidth()/2),
-				 * 2)+Math.pow(d.getY()-(player.getY()+player.getHeight()/2), 2)); if(distance
-				 * <= mapRadius) { w.showNoImage(); } }
-				 */
 			}
 
 			// UPDATES ANIMATION
@@ -551,11 +533,6 @@ public class DrawingSurface extends PApplet {
 		// IF TRADE SCREEN
 		else if (screen == TRADE) {
 			background(255);
-			/*
-			 * ts.update(player); ts.show(player);
-			 * 
-			 * if(ts.checkExitButton()) screen = GAME;
-			 */
 
 			getCurrentDock().updateCurrentScreen(player);
 			getCurrentDock().showCurrentScreen(player);
@@ -571,7 +548,6 @@ public class DrawingSurface extends PApplet {
 
 		// IF MENU SCREEN
 		else if (screen == MENU) {
-			// SLOWS DOWN FRAMERATE FOR COOL GIF(can be changed)
 
 			// menu
 			menuScreen.update();
@@ -586,7 +562,7 @@ public class DrawingSurface extends PApplet {
 			textAlign(CENTER);
 			textSize(50);
 			text("You have died\nPress R to restart", width / 2, height / 2);
-			client.disconnect();
+			this.clientThread.kill();
 			if (keyPressed && (key == 'r' || key == 'R')) {
 				setup();
 				// screen = MENU;

@@ -95,7 +95,14 @@ public class Player extends Block {
 		boat.setY(y);
 		boat.setAngle(angle);
 		boat.setV(yV);
-		boat.setHitbox(this.hitbox);
+		
+		int[][] hitPoints = new int[hitbox.npoints][2];
+		for(int i = 0; i < hitbox.npoints; i++) {
+			hitPoints[i][0] = hitbox.xpoints[i];
+			hitPoints[i][1] = hitbox.ypoints[i];
+		}
+		
+		boat.setHitbox(hitPoints);
 
 		parent.translate((float) (this.getX() + this.getWidth() / 2.0), (float) (this.getY() + this.getHeight() / 2.0));
 		parent.rotate((float) (angle - Math.PI / 2.0));

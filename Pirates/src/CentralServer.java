@@ -139,12 +139,10 @@ public class CentralServer {
 		int total = 0;
 		for (int i = 0; i < users.size(); i++) {
 			if (i != UID && users.get(i) != null && users.get(i).getDamagedEnemies() != null) {
-				System.out.println("INDIV USERS: " + users.get(i).getDamagedEnemies()[UID]);
 				total += users.get(i).getDamagedEnemies()[UID];
 				users.get(i).getDamagedEnemies()[UID] = 0;
 			}
 		}
-		System.out.println("TOTAL: " + total);
 		return total;
 	}
 }

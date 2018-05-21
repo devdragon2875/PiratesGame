@@ -12,7 +12,7 @@ public class Boat implements Serializable {
 	private float y;
 	private float v;
 	private float angle;
-	private Polygon hitbox;
+	private int[][] hitbox;
 
 	public Boat(float x, float y, float v, float angle) {
 		this.x = x;
@@ -58,11 +58,11 @@ public class Boat implements Serializable {
 		this.v = v;
 	}
 
-	public Polygon getHitbox() {
+	public int[][] getHitbox() {
 		return hitbox;
 	}
 
-	public void setHitbox(Polygon hitbox) {
+	public void setHitbox(int[][] hitbox) {
 		this.hitbox = hitbox;
 	}
 }

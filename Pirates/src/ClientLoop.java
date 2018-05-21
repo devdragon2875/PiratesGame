@@ -9,6 +9,7 @@ public class ClientLoop extends Thread {
 	private DrawingSurface parent;
 	private Client client;
 	private Player player;
+	private boolean alive = true;
 
 	public ClientLoop(DrawingSurface parent, Client client, Player player) {
 		this.parent = parent;
@@ -19,7 +20,7 @@ public class ClientLoop extends Thread {
 	public void run() {
 		boolean sendBullets = false;
 		boolean sendDamage = false;
-		while (true) {
+		while (alive) {
 			if (Dock.pull && parent.getCurrentDock() != null) {
 				// Ask for a dock
 				client.writeObject(new Request(NetworkedDock.class, parent.getCurrentDock().getNet().getID()));
@@ -80,11 +81,15 @@ public class ClientLoop extends Thread {
 					}
 				}
 			} else if (input instanceof Integer) {
-
 				parent.setDamageTaken((Integer) input);
 			} else {
-				// System.out.println(input.getClass() + "UNKNOWN");
+				System.err.println(input.getClass() + " UNKNOWN ACTION");
 			}
 		}
+		client.disconnect();
+	}
+
+	public void kill() {
+		alive = false;
 	}
 }
