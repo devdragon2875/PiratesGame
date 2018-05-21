@@ -81,7 +81,7 @@ public class DrawingSurface extends PApplet {
 
 	public void initGame() {
 		screen = LOADING;
-		damagedEnemies = new int[50];
+		damagedEnemies = new int[CentralServer.MAX_PLAYERS];
 		damageTaken = 0;
 		// SETTING NO STROKE, FRAMERATE, AND FONT TYPE
 		client = new Client(ip, 4444); // "127.0.0.1"

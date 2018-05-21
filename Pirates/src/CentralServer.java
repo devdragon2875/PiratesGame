@@ -18,7 +18,7 @@ import processing.core.PApplet;
  * @author Anantajit
  */
 public class CentralServer {
-	public static final int MAX_PLAYERS = 50;
+	public static final int MAX_PLAYERS = 5;
 	private int port;
 
 	private ArrayList<SubServer> users;
@@ -103,6 +103,21 @@ public class CentralServer {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+	
+	public void setUserID() {
+		boolean updated = false;
+		
+		for(int i = 0; i < boats.length; i++) {
+			if(this.boats[i] == null) {
+				this.userID = i;
+				updated = true;
+			}
+		}
+		
+		if(!updated) {
+			this.userID = CentralServer.MAX_PLAYERS + 1;
+		}
+	}
 
 	public ArrayList<SubServer> getUsers() {
 		return users;
@@ -180,9 +195,13 @@ class ServerManager extends Thread {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				head.setUserID(head.getUserID() + 1);
+
+				head.setUserID();
+				
 				head.getUsers().add(temp);
 				temp.start();
+			} else {
+				head.setUserID();
 			}
 		}
 	}
