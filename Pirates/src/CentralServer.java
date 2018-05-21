@@ -133,6 +133,17 @@ public class CentralServer {
 		}
 		return out;
 	}
+
+	public synchronized Integer getDamage(int UID) {
+		// TODO Auto-generated method stub
+		int total = 0;
+		for(int i = 0; i < users.size(); i++) {
+			if(i != UID && users.get(i) != null && users.get(i).getDamagedEnemies() != null) {
+				total += users.get(i).getDamagedEnemies()[UID];
+			}
+		}
+		return total;
+	}
 }
 
 class ServerManager extends Thread {

@@ -17,7 +17,7 @@ public class ClientLoop extends Thread {
 
     public void run() {
     	boolean sendBullets = false;
-    	
+    	boolean sendDamage = false;
         while (true) {
         	if(Dock.pull && parent.getCurrentDock() != null) {
         		//Ask for a dock
@@ -32,8 +32,9 @@ public class ClientLoop extends Thread {
         		client.writeObject(parent.getCurrentDock().getNet());
         		Dock.push = false;
         		System.out.println("SENDING DOCK");
-        	}
+        	} 
         	else{
+        		
         		if(sendBullets) {
         			ArrayList<BulletNet> networked = new ArrayList<>();
         			for(Bullet bullet: parent.getPlayerBullets()) {
@@ -41,10 +42,15 @@ public class ClientLoop extends Thread {
         			}
         			client.writeObject(networked);
         			sendBullets = false;
+        		} else if(sendDamage){
+        			client.writeObject(parent.getDamagedEnemies());
+        			parent.resetDamagedEnemies();
+        			sendDamage = false;
         		} else {
             		Boat b = player.getBoat();
             		client.writeObject(b);
             		sendBullets = true;
+            		sendDamage = true;
         		}
         	}
             
@@ -52,10 +58,10 @@ public class ClientLoop extends Thread {
             if(input instanceof ArrayList) {
             	//TODO: Add code here
             	parent.setOtherBullets((ArrayList<BulletNet>) input);
-            } else if(input instanceof Boat[])
+            } else if(input instanceof Boat[]) {
             	parent.setBoats((Boat[]) input);
             //If we get a networked dock, we update it no matter what
-            else if(input instanceof NetworkedDock) {
+            } else if(input instanceof NetworkedDock) {
             	parent.getCurrentDock().setNet((NetworkedDock) input);
             	System.out.println("RECEIVED DOCK");
             	Dock.pull = false;
@@ -72,6 +78,9 @@ public class ClientLoop extends Thread {
             				p.setPrice(price); 
         			}
             	}
+            } else if(input instanceof Integer) {
+            	
+            	parent.setDamageTaken((Integer) input);
             }else {
             	System.out.println(input.getClass() + "UNKNOWN");
             }

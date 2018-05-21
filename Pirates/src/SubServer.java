@@ -16,7 +16,7 @@ public class SubServer extends Thread {
 	public static final boolean showSelfOnNetwork = true;
 
 	private volatile ArrayList<BulletNet> bullets;
-	
+	private volatile int[] damagedEnemies;
 	private CentralServer centralServer;
 	private int UID;
 
@@ -30,7 +30,7 @@ public class SubServer extends Thread {
 		this.UID = UID;
 		
 		bullets = new ArrayList<>();
-
+		damagedEnemies = new int[centralServer.MAX_PLAYERS];
 		try {
 			inObject = new ObjectInputStream(socket.getInputStream());
 			outObject = new ObjectOutputStream(socket.getOutputStream());
@@ -48,7 +48,7 @@ public class SubServer extends Thread {
 		}
 		
 		boolean sendBullets = false;
-		
+		boolean sendDamage = false;
 		while (true) {
 			boolean sent = false;
 			try {
@@ -67,18 +67,24 @@ public class SubServer extends Thread {
 				} else if(input instanceof NetworkedDock) {
 					centralServer.getDocks()[((NetworkedDock) input).getID()] = (NetworkedDock) input;
 					System.out.println("GOT DOCK");
+				} else if(input instanceof int[]) {
+					damagedEnemies = (int[])input;
 				}
 				
 				if (!sent) {
 					if(sendBullets) {
 						outObject.writeObject(centralServer.otherBullets(UID));
 						sendBullets = false;
+					} else if(sendDamage){
+						outObject.writeObject(centralServer.getDamage(UID));
+						sendDamage = false;
 					} else {
 						Boat[] boats = centralServer.getBoats().clone();
 						if (!showSelfOnNetwork)
 							boats[UID] = null;
 						outObject.writeObject(boats);
 						sendBullets = true;
+						sendDamage = true;
 					}
 					sent = true;
 				}
@@ -105,5 +111,10 @@ public class SubServer extends Thread {
 
 	public void setBullets(ArrayList<BulletNet> bullets) {
 		this.bullets = bullets;
+	}
+
+	public int[] getDamagedEnemies() {
+		// TODO Auto-generated method stub
+		return damagedEnemies;
 	}
 }

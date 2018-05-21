@@ -4,6 +4,7 @@ import processing.core.PImage;
 import processing.event.KeyEvent;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,8 @@ import java.util.ArrayList;
  */
 public class DrawingSurface extends PApplet {
     private volatile Boat[] boats;
-    
+    private volatile int[] damagedEnemies;
+    private volatile int damageTaken;
     private int mapRadius;
     //KEYS
     private boolean[] keys; // 0 - up, 1 - down, 2 - left, 3 - right
@@ -77,7 +79,8 @@ public class DrawingSurface extends PApplet {
     
     public void initGame() {
     	screen = LOADING;
-
+    	damagedEnemies = new int[50];
+    	damageTaken = 0;
         //SETTING NO STROKE, FRAMERATE, AND FONT TYPE
         client = new Client(ip, 4444); // "127.0.0.1"
         client.connect();
@@ -389,21 +392,28 @@ public class DrawingSurface extends PApplet {
             	if(boats[i] != null) {
             		Boat other = boats[i];
             		ArrayList<Bullet> bullets = (ArrayList<Bullet>) playerBullets.clone();
-            		for(Bullet b: bullets) {
-                		if(other.getHitbox().contains(b.getX(), b.getY())) {
+            		for(int j = 0; j < playerBullets.size(); j++) {
+                		if(other.getHitbox().contains(playerBullets.get(j).getX(), playerBullets.get(j).getY())) {
                 			System.out.println("TARGET HIT");
-                			b.setXV(0);
-                			b.setYV(0);
-                			if(b.deathTimer < 0) {
-                				playerBullets.remove(b);
-                			} else {
-                				b.deathTimer--;
-                			}
+                			
+                			damagedEnemies[i] += playerBullets.get(j).getDamage();
+                			
+                			playerBullets.remove(j);
+                			if(j>0)
+                				j--;
+//                			b.setXV(0);
+//                			b.setYV(0);
+//                			if(b.deathTimer < 0) {
+//                				playerBullets.remove(b);
+//                			} else {
+//                				b.deathTimer--;
+//                			}
                 		}
             		}
             	}
             }
-
+            player.changeHealth(-damageTaken);
+            damageTaken = 0;
             //UPDATES PARTICLES(not needed rn)
             for (int i = 0; i < particles.size(); i++) {
                 particles.get(i).update();
@@ -692,5 +702,27 @@ public class DrawingSurface extends PApplet {
 
 	public void setOtherBullets(ArrayList<BulletNet> input) {
 		this.otherBullets = input;
+	}
+
+	public void setDamagedEnemies(int[] input2) {
+		// TODO Auto-generated method stub
+		this.damagedEnemies = input2;
+	}
+
+	public int[] getDamagedEnemies() {
+		// TODO Auto-generated method stub
+		return damagedEnemies;
+	}
+
+	public void resetDamagedEnemies() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < damagedEnemies.length; i++) {
+			damagedEnemies[i] = 0;
+		}
+	}
+
+	public void setDamageTaken(int in) {
+		// TODO Auto-generated method stub
+		damageTaken += in;
 	}
 }
