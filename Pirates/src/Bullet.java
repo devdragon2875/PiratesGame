@@ -13,7 +13,6 @@ public class Bullet extends Block{
 	private float xV, yV;
 	private int damage;
 	private BulletNet net;
-	public int deathTimer = 3;
 	
 
 	public Bullet(PApplet parent, float x, float y, float width,float height, float xV, float yV, int damage) {
