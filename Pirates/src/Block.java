@@ -17,8 +17,6 @@ public class Block {
 	protected PImage image;
 	protected Animation gif;
 	private Rectangle hitbox;
-	
-	//private boolean imbad;
 
 	public Block(PApplet parent, float x, float y, float width, float height, Animation gif) {
 		this.parent = parent;
@@ -29,9 +27,6 @@ public class Block {
 		alpha = 255;
 		this.gif = gif;
 		image = null;
-		
-		//imbad = false;
-		
 		hitbox = new Rectangle((int)x,(int)y,(int)width,(int)height);
 	}
 
@@ -44,9 +39,6 @@ public class Block {
 		alpha = 255;
 		this.image = image;
 		gif = null;
-		
-		//imbad = false;
-		
 		hitbox = new Rectangle((int)x,(int)y,(int)width,(int)height);
 		
 	}
@@ -55,24 +47,13 @@ public class Block {
 	}
 	
 	public void show() {
-		//if(imbad)
-		//	showNoImage();
-		//else {
 		parent.fill(r,g,b,alpha);
-		//System.out.println(x + " " + y);
-		
-//		PImage img;
-//		img = parent.loadImage("sand.jpg");
-//		parent.image(img, x, y, size, size);
 		if(this.image != null)
 			parent.image(image, x, y,width,height);
 		else if(this.gif != null)
 			gif.display(x, y, width, height);
 		else
 			parent.rect(x, y, width, height);
-		
-		//parent.rect((float)hitbox.getX(), (float)hitbox.getY(), (float)hitbox.getWidth(), (float)hitbox.getHeight());
-	//	}
 		
 	}
 	

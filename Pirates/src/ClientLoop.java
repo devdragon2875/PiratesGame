@@ -22,7 +22,7 @@ public class ClientLoop extends Thread {
         	if(Dock.pull && parent.getCurrentDock() != null) {
         		//Ask for a dock
         		client.writeObject(new Request(NetworkedDock.class, parent.getCurrentDock().getNet().getID()));
-        		System.out.println("REQUESTING DOCK");
+        		//System.out.println("REQUESTING DOCK");
         	} else if(Dock.push && parent.getCurrentDock() != null) {
         		//Send dock
         		for(int i = 0; i < 4; i++) {
@@ -31,7 +31,7 @@ public class ClientLoop extends Thread {
         		
         		client.writeObject(parent.getCurrentDock().getNet());
         		Dock.push = false;
-        		System.out.println("SENDING DOCK");
+        		//System.out.println("SENDING DOCK");
         	} 
         	else{
         		
@@ -63,7 +63,7 @@ public class ClientLoop extends Thread {
             //If we get a networked dock, we update it no matter what
             } else if(input instanceof NetworkedDock) {
             	parent.getCurrentDock().setNet((NetworkedDock) input);
-            	System.out.println("RECEIVED DOCK");
+            	//System.out.println("RECEIVED DOCK");
             	Dock.pull = false;
             	
             	if(parent.getCurrentDock() != null) {
@@ -82,7 +82,7 @@ public class ClientLoop extends Thread {
             	
             	parent.setDamageTaken((Integer) input);
             }else {
-            	System.out.println(input.getClass() + "UNKNOWN");
+            	//System.out.println(input.getClass() + "UNKNOWN");
             }
         }
     }

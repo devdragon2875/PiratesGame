@@ -43,7 +43,7 @@ public class Bullet extends Block{
 	
 	public Bullet(PApplet parent, WeaponSection player, float targetX, float targetY, float speed, int damage) {
 		this(parent, player.getCenterX(), player.getCenterY(), DEFAULT_BULLET_SIZE, DEFAULT_BULLET_SIZE, player.getX() + player.getWidth()/2f, player.getY() + player.getHeight()/2f, targetX,targetY,speed,damage);
-		//this(parent, player.getX() + player.getWidth()/2f - DEFAULT_BULLET_SIZE/2f, player.getY() + player.getHeight()/2f - DEFAULT_BULLET_SIZE/2f, DEFAULT_BULLET_SIZE, DEFAULT_BULLET_SIZE, player.getX() + player.getWidth()/2f, player.getY() + player.getHeight()/2f, targetX,targetY,speed,damage);
+		
 	}
 	
 
