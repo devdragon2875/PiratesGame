@@ -23,7 +23,8 @@ public class Menu {
 	private boolean tipB;
 	private Button tips;
 	private Button exitButton;
-
+	private PImage dockImage;
+	
 	public Menu(PApplet drawer) {
 		this.drawer = drawer;
 		a = new Animation("menuanim/", 11, drawer, 6, ".gif");
@@ -54,6 +55,8 @@ public class Menu {
 		exitButton = new Button(drawer, drawer.width - 45, 0, 40, 40, "X");
 		exitButton.setHoverColor(new Color(255, 100, 100));
 		exitButton.setDefaultColor(new Color(200, 0, 0));
+		
+		dockImage = drawer.loadImage("Dock.png");
 	}
 
 	public void update() {
@@ -117,24 +120,37 @@ public class Menu {
 			tips.showRounded(50);
 		} else if (rules) {
 			drawer.background(0, 0, 0);
-			wasd.display(200, 200, 400, 300);
+			wasd.display(200, 120, 400, 300);
 			drawer.textSize(50);
 			drawer.fill(255);
-			drawer.text("Controls/Gameplay", 500, 100);
+			drawer.text("Controls", 500, 100);
 			drawer.textSize(30);
 			drawer.textAlign(drawer.LEFT);
-			drawer.text("Press W to move forward", 150, 600);
-			drawer.text("Press S to move back", 150, 650);
-			drawer.text("Press A to rotate left", 150, 700);
-			drawer.text("Press D to move right", 150, 750);
+			drawer.text("Press W to move forward", 150, 450);
+			drawer.text("Press S to move backward", 150, 500);
+			drawer.text("Press A to rotate left", 150, 550);
+			drawer.text("Press D to rotate right", 150, 600);
+			drawer.text("Press M or SHIFT to open the map", 150, 650);
+			drawer.text("Click on the green sections of\nyour ship to fire the cannons", 150, 700);
 			drawer.textAlign(drawer.CENTER);
 			
 			exitButton.show();
 		} else if (tipB) {
 			drawer.textSize(50);
-			drawer.fill(255);
-			drawer.text("Get Good", 500, 100);
 			drawer.background(0, 0, 0);
+			drawer.fill(255);
+			drawer.text("Tips", 500, 100);
+			drawer.image(dockImage, 100, 200,100,100);
+			
+			drawer.textSize(30);
+			drawer.textAlign(drawer.LEFT);
+			
+			drawer.text("Visit docks to trade items\nand upgrade your ship.", 250, 250);
+			
+			drawer.text("Try to buy materials when they are cheap <11G and sell them when they are expensive >13G to make a profit.\n\nOnly upgrade your ship when you have enough money left over to continue trading materials.", 100, 350,1000,400);
+			
+			drawer.textAlign(drawer.CENTER);
+
 			exitButton.show();
 		}
 	}
