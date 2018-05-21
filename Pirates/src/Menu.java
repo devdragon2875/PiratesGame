@@ -135,7 +135,7 @@ public class Menu {
 			drawer.textAlign(drawer.CENTER);
 			
 			exitButton.show();
-		} else if (tipB) {
+		} else if (tipB) { 
 			drawer.textSize(50);
 			drawer.background(0, 0, 0);
 			drawer.fill(255);
