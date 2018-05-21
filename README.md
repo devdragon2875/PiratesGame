@@ -60,6 +60,11 @@ Allows for trading to get materials and allows the player to upgrade their ship.
 - Blake Randle
     - Trading and Cargo
 - Feedback given by Jose Amador and Ben Leistiko
+- Shelby
+    - Text Reader
+- Sebastian Lague
+    - Used his C++/Unity map generator algorithm, link to first episode in the series: https://www.youtube.com/watch?v=wbpMiKiSKm8.
+- Processing Reference: https://processing.org/reference/
 
 ### Class List
 - Animation
