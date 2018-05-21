@@ -2,10 +2,11 @@ import java.io.Serializable;
 
 /**
  * Represents a treasure that is located at a random position in the ocean
+ * 
  * @author Anantajit and Devansh
  *
  */
-public class Treasure implements Serializable{
+public class Treasure implements Serializable {
 	private int cloth;
 	private int spices;
 	private int jewelry;
@@ -13,16 +14,16 @@ public class Treasure implements Serializable{
 	private int gold;
 	private float x;
 	private float y;
-	
+
 	public Treasure(Player player) {
 		cloth = player.getCargo().getMaterial(1);
 		spices = player.getCargo().getMaterial(2);
 		jewelry = player.getCargo().getMaterial(3);
 		beards = player.getCargo().getMaterial(4);
 		gold = player.getCargo().getGold();
-		x = player.getX()+player.getWidth()/2.0f;
-		y = player.getY()+player.getHeight()/2.0f;
-		
+		x = player.getX() + player.getWidth() / 2.0f;
+		y = player.getY() + player.getHeight() / 2.0f;
+
 	}
 
 	public int getCloth() {
@@ -53,7 +54,4 @@ public class Treasure implements Serializable{
 		return y;
 	}
 
-	
-	
-	
 }

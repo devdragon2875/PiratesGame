@@ -28,7 +28,7 @@ public class SubServer extends Thread {
 		Socket socket = clientSocket;
 		this.centralServer = centralServer;
 		this.UID = UID;
-		
+
 		bullets = new ArrayList<>();
 		damagedEnemies = new int[centralServer.MAX_PLAYERS];
 		try {
@@ -46,7 +46,7 @@ public class SubServer extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		boolean sendBullets = false;
 		boolean sendDamage = false;
 		while (true) {
@@ -55,27 +55,26 @@ public class SubServer extends Thread {
 				Object input = inObject.readObject();
 				if (input instanceof Boat)
 					centralServer.setBoat(UID, (Boat) input);
-				else if(input instanceof ArrayList) {
+				else if (input instanceof ArrayList) {
 					bullets = (ArrayList<BulletNet>) input;
-				}
-				else if (input instanceof Request) {
+				} else if (input instanceof Request) {
 					if (((Request) input).getType().equals(NetworkedDock.class)) {
 						outObject.writeObject(centralServer.getDocks()[((Request) input).getID()]);
 						sent = true;
 						System.out.println("SENT CLIENT DOCK...");
 					}
-				} else if(input instanceof NetworkedDock) {
+				} else if (input instanceof NetworkedDock) {
 					centralServer.getDocks()[((NetworkedDock) input).getID()] = (NetworkedDock) input;
 					System.out.println("GOT DOCK");
-				} else if(input instanceof int[]) {
-					damagedEnemies = (int[])input;
+				} else if (input instanceof int[]) {
+					damagedEnemies = (int[]) input;
 				}
-				
+
 				if (!sent) {
-					if(sendBullets) {
+					if (sendBullets) {
 						outObject.writeObject(centralServer.otherBullets(UID));
 						sendBullets = false;
-					} else if(sendDamage){
+					} else if (sendDamage) {
 						outObject.writeObject(centralServer.getDamage(UID));
 						sendDamage = false;
 					} else {

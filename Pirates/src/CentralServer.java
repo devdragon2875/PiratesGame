@@ -48,9 +48,9 @@ public class CentralServer {
 			}
 		}
 		docks = new NetworkedDock[dockCount];
-		for(int i = 0; i < docks.length; i++) {
+		for (int i = 0; i < docks.length; i++) {
 			docks[i] = new NetworkedDock(i);
-			for(int i2 = 0; i2 < 4; i2++) {
+			for (int i2 = 0; i2 < 4; i2++) {
 				docks[i].getPrices()[i2] = -1;
 			}
 		}
@@ -123,11 +123,11 @@ public class CentralServer {
 	public void setDocks(NetworkedDock[] docks) {
 		this.docks = docks;
 	}
-	
-	public synchronized ArrayList<BulletNet> otherBullets(int UID){
+
+	public synchronized ArrayList<BulletNet> otherBullets(int UID) {
 		ArrayList<BulletNet> out = new ArrayList<>();
-		for(int i = 0; i < users.size(); i++) {
-			if(i != UID && users.get(i) != null && users.get(i).getBullets() != null) {
+		for (int i = 0; i < users.size(); i++) {
+			if (i != UID && users.get(i) != null && users.get(i).getBullets() != null) {
 				out.addAll(users.get(i).getBullets());
 			}
 		}
@@ -137,9 +137,10 @@ public class CentralServer {
 	public synchronized Integer getDamage(int UID) {
 		// TODO Auto-generated method stub
 		int total = 0;
-		for(int i = 0; i < users.size(); i++) {
-			if(i != UID && users.get(i) != null && users.get(i).getDamagedEnemies() != null) {
+		for (int i = 0; i < users.size(); i++) {
+			if (i != UID && users.get(i) != null && users.get(i).getDamagedEnemies() != null) {
 				total += users.get(i).getDamagedEnemies()[UID];
+				users.get(i).getDamagedEnemies()[UID] = 0;
 			}
 		}
 		return total;
@@ -185,6 +186,5 @@ class ServerManager extends Thread {
 			}
 		}
 	}
-	
-	
+
 }

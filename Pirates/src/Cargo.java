@@ -1,6 +1,8 @@
 
 /**
- * This class is used to store statistics about what the player is currently carrying and the player's gold.
+ * This class is used to store statistics about what the player is currently
+ * carrying and the player's gold.
+ * 
  * @author Blake
  *
  */
@@ -14,7 +16,6 @@ public class Cargo {
 	public static final int JEWELRY = 3;
 	public static final int BEARDS = 4;
 
-	
 	public Cargo(int maxSpace) {
 		this.maxSpace = maxSpace;
 		gold = 0;
@@ -23,9 +24,9 @@ public class Cargo {
 		numJewelry = 0;
 		numBeards = 0;
 	}
-	
+
 	public void setMaterial(int type, int newAmount) {
-		switch(type) {
+		switch (type) {
 		case CLOTH:
 			numCloth = newAmount;
 			break;
@@ -40,9 +41,9 @@ public class Cargo {
 			break;
 		}
 	}
-	
+
 	public int getMaterial(int type) {
-		switch(type) {
+		switch (type) {
 		case CLOTH:
 			return numCloth;
 		case SPICES:
@@ -55,9 +56,9 @@ public class Cargo {
 			return -1;
 		}
 	}
-	
+
 	public void changeMaterial(int type, int changeBy) {
-		switch(type) {
+		switch (type) {
 		case CLOTH:
 			numCloth += changeBy;
 			break;
@@ -72,11 +73,11 @@ public class Cargo {
 			break;
 		}
 	}
-	
+
 	public int getEmptySpace() {
 		return maxSpace - getSpaceUsed();
 	}
-	
+
 	public int getSpaceUsed() {
 		return numCloth + numSpices + numJewelry + numBeards;
 	}
@@ -128,7 +129,5 @@ public class Cargo {
 	public void setNumBeards(int numBeards) {
 		this.numBeards = numBeards;
 	}
-	
-	
-	
+
 }

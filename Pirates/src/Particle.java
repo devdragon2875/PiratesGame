@@ -1,16 +1,18 @@
 import processing.core.PApplet;
 
 /**
- * This class is used to represent small particle effects which do not affect the game but look nice.
+ * This class is used to represent small particle effects which do not affect
+ * the game but look nice.
+ * 
  * @author Blake
  *
  */
-public class Particle extends Block{
-	
-	private int timeLeft;
-	private float sizeChange, rChange, gChange, bChange, xChange, yChange,aChange;
+public class Particle extends Block {
 
-	public Particle(PApplet parent, float x, float y, float width,float height, int timeLeft) {
+	private int timeLeft;
+	private float sizeChange, rChange, gChange, bChange, xChange, yChange, aChange;
+
+	public Particle(PApplet parent, float x, float y, float width, float height, int timeLeft) {
 		super(parent, x, y, width, height);
 		this.timeLeft = timeLeft;
 		sizeChange = 0;
@@ -21,10 +23,10 @@ public class Particle extends Block{
 		yChange = 0;
 		aChange = 0;
 	}
-	
-	//generates "smoke" for the bullet
+
+	// generates "smoke" for the bullet
 	public Particle(PApplet parent, Bullet b, int timeLeft) {
-		this(parent, b.getX(), b.getY(),b.getWidth(), b.getHeight(), timeLeft);
+		this(parent, b.getX(), b.getY(), b.getWidth(), b.getHeight(), timeLeft);
 		super.setColor(b.getR(), b.getG(), b.getB());
 		setSizeChange(1);
 		setAlphaChange(-10);
@@ -36,12 +38,12 @@ public class Particle extends Block{
 		r += rChange;
 		g += gChange;
 		b += bChange;
-		x += xChange - sizeChange/2f;
-		y += yChange - sizeChange/2f;
+		x += xChange - sizeChange / 2f;
+		y += yChange - sizeChange / 2f;
 		alpha += aChange;
 		timeLeft--;
 	}
-	
+
 	public boolean shouldBeDead() {
 		return timeLeft < 1;
 	}
@@ -101,5 +103,5 @@ public class Particle extends Block{
 	public void setAlphaChange(float aChange) {
 		this.aChange = aChange;
 	}
-	
+
 }

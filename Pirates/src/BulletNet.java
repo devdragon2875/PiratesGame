@@ -2,19 +2,20 @@ import java.io.Serializable;
 
 /**
  * Represents Bullet with minimum information
+ * 
  * @author Anantajit
  *
  */
-public class BulletNet implements Serializable{
+public class BulletNet implements Serializable {
 	private float x, y;
 	private float xV, yV;
 	private int damage;
 	private boolean dead = false;
-	
+
 	public BulletNet(int damage) {
 		this.damage = damage;
 	}
-	
+
 	public float getX() {
 		return x;
 	}
@@ -30,30 +31,35 @@ public class BulletNet implements Serializable{
 	public void setY(float y) {
 		this.y = y;
 	}
-	
+
 	public float getxV() {
 		return xV;
 	}
+
 	public void setxV(float xV) {
 		this.xV = xV;
 	}
+
 	public float getyV() {
 		return yV;
 	}
+
 	public void setyV(float yV) {
 		this.yV = yV;
 	}
+
 	public int getDamage() {
 		return damage;
 	}
+
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
-	
+
 	public void remove() {
 		dead = true;
 	}
-	
+
 	public boolean shouldBeDead() {
 		return dead;
 	}

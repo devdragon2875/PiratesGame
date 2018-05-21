@@ -7,10 +7,11 @@ import processing.core.PApplet;
 
 /**
  * This class is used to launch the program.
+ * 
  * @author Blake
  *
  */
-public class Main { 
+public class Main {
 
 	public static void main(String[] args) {
 		DrawingSurface drawing = new DrawingSurface();
@@ -23,7 +24,7 @@ public class Main {
 		window.setMinimumSize(new Dimension(400, 400));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		
+
 		window.setVisible(true);
 		canvas.requestFocus();
 	}

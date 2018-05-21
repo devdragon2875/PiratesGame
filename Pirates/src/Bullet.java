@@ -13,7 +13,6 @@ public class Bullet extends Block{
 	private float xV, yV;
 	private int damage;
 	private BulletNet net;
-	public int deathTimer = 3;
 	
 
 	public Bullet(PApplet parent, float x, float y, float width,float height, float xV, float yV, int damage) {
@@ -43,7 +42,7 @@ public class Bullet extends Block{
 	
 	public Bullet(PApplet parent, WeaponSection player, float targetX, float targetY, float speed, int damage) {
 		this(parent, player.getCenterX(), player.getCenterY(), DEFAULT_BULLET_SIZE, DEFAULT_BULLET_SIZE, player.getX() + player.getWidth()/2f, player.getY() + player.getHeight()/2f, targetX,targetY,speed,damage);
-		//this(parent, player.getX() + player.getWidth()/2f - DEFAULT_BULLET_SIZE/2f, player.getY() + player.getHeight()/2f - DEFAULT_BULLET_SIZE/2f, DEFAULT_BULLET_SIZE, DEFAULT_BULLET_SIZE, player.getX() + player.getWidth()/2f, player.getY() + player.getHeight()/2f, targetX,targetY,speed,damage);
+		
 	}
 	
 

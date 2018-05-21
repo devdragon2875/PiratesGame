@@ -8,23 +8,24 @@ Do you enjoy games that make you filthy rich, but have no effect on the real wor
 
 ### Start
 
-Click the START button or press ENTER to continue
+Click the START button on the menu screen and enter the ip of the server you want to connect to.
 
 ### Setup 
 
-Type in the Server code in the textbox, and click the CONNECT button to start the game. An overview of the game play is provided in the panel below the game.
+Type in the Server code in the textbox, and press the enter button to start the game. An overview of the game play is provided in the panel below the game.
 
 ### Gameplay
 
 The boat with a triangle above it is your boat. You can control the rowing speed of the boat with the W/UP and S/DOWN keys. The rudder can be 
-controled by the A/LEFT and D/RIGHT keys. Pressing the 'M' key triggers Map subview, explained later in the README.
+controled by the A/LEFT and D/RIGHT keys. Pressing the 'M' or SHIFT key triggers Map subview, explained later in the README.
+Clicking on the green sections of the boat will fire the cannons. You cannot fire sections that are red (reloading).
 
 When the player interacts with docks, they go into the Trade/Upgrade subview, explained later in the README.
 
 User health is displayed at the top left of the screen.
 
 #### Map (subview)
-Displays an overlay with the map of the nearby area you are able to see. Other ships are not shown in this view.
+Displays an overlay with the map of the nearby area you are able to see.
 
 #### Trade/Upgrade (subview)
 Allows for trading to get materials and allows the player to upgrade their ship.
@@ -72,19 +73,19 @@ Allows for trading to get materials and allows the player to upgrade their ship.
 - Client
 - ClientLoop
 - Dock
-- DockNet
 - DrawingSurface
-- Enemy
 - Gun
 - LookoutSection
 - Main
 - MapDrawer
 - MapGenerator
 - Menu
+- NetworkedDock
 - Noise
 - Particle
 - Player
 - Section
+- ServerUI
 - SteerSection
 - SubServer
 - TextReader
@@ -93,7 +94,3 @@ Allows for trading to get materials and allows the player to upgrade their ship.
 - UpgradePart
 - UpgradeScreen
 - WeaponSection
-
-
-### Comments
-1) Networking isn't in the UML diamgram.  You should figure that out if you want to have it be a main part of the game.
