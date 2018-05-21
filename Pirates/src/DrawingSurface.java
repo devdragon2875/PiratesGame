@@ -685,24 +685,23 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void setDamagedEnemies(int[] input2) {
-		// TODO Auto-generated method stub
+		
 		this.damagedEnemies = input2;
 	}
 
 	public int[] getDamagedEnemies() {
-		// TODO Auto-generated method stub
+		
 		return damagedEnemies;
 	}
 
 	public void resetDamagedEnemies() {
-		// TODO Auto-generated method stub
 		for(int i = 0; i < damagedEnemies.length; i++) {
 			damagedEnemies[i] = 0;
 		}
 	}
 
 	public void setDamageTaken(int in) {
-		// TODO Auto-generated method stub
+		
 		damageTaken += in;
 	}
 }
