@@ -7,8 +7,8 @@ import java.io.Serializable;
  *
  */
 public class Request implements Serializable {
-	Class type;
-	int ID;
+	private Class type;
+	private int ID;
 
 	public Request(Class type, int ID) {
 		this.type = type;
