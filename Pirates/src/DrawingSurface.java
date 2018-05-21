@@ -203,7 +203,7 @@ public class DrawingSurface extends PApplet {
         clientThread.start();
         
         damageOutsideMapTimer = 0;
-        priceRandomizeTimer = 3600;
+        priceRandomizeTimer = 7200;
     }
 
     public void setup() {
@@ -548,7 +548,7 @@ public class DrawingSurface extends PApplet {
             }
             
             if(priceRandomizeTimer <= 0) {
-            	priceRandomizeTimer = 3600;
+            	priceRandomizeTimer = 7200;
             	System.out.println("Shifting prices of all docks");
             	for(Dock d : docks) {
             		d.shiftPrices();
