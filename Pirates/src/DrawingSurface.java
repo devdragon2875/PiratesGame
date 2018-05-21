@@ -373,14 +373,14 @@ public class DrawingSurface extends PApplet {
             }
             
             //UPDATES ENEMY BULLETS
-            if(otherBullets!=null) {
-            	for(int i = 0; i < otherBullets.size();i++) {
-            		
-            			otherBullets.get(i).setX(otherBullets.get(i).getX() + otherBullets.get(i).getxV());
-            			otherBullets.get(i).setY(otherBullets.get(i).getY() + otherBullets.get(i).getyV());
-            		
-            	}
-            }
+//            if(otherBullets!=null) {
+//            	for(int i = 0; i < otherBullets.size();i++) {
+//            		
+//            			otherBullets.get(i).setX(otherBullets.get(i).getX() + otherBullets.get(i).getxV());
+//            			otherBullets.get(i).setY(otherBullets.get(i).getY() + otherBullets.get(i).getyV());
+//            		
+//            	}
+//            }
             
             for(int i = 0; boats != null && i < boats.length; i++) {
             	if(boats[i] != null) {
