@@ -4,6 +4,11 @@ import java.net.UnknownHostException;
 
 import processing.core.PApplet;
 
+/**
+ * User interface for the server
+ * @author Anantajit
+ *
+ */
 public class ServerUI extends PApplet{
 	private CentralServer server;
 	private InetAddress serverStats;
