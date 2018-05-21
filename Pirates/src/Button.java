@@ -49,7 +49,6 @@ public class Button{
 		if(isMouseHovering() && parent.mousePressed) {
 			if(!clicked) {
 				clicked = true;
-				//System.out.println("clicked");
 				return true;
 			}
 		} else {
@@ -68,7 +67,6 @@ public class Button{
 		parent.fill(textColor.getRed(),textColor.getGreen(),textColor.getBlue());
 		parent.textAlign(parent.CENTER);
 		parent.textSize(textSize);
-		//parent.text(text, x+width/8, y+height/4,width*3/4,height);
 		
 		parent.text(text, x, y+height/4,width,height);
 		parent.popStyle();
@@ -85,7 +83,6 @@ public class Button{
 		parent.fill(textColor.getRed(),textColor.getGreen(),textColor.getBlue());
 		parent.textAlign(parent.CENTER);
 		parent.textSize(textSize);
-		//parent.text(text, x+width/8, y+height/4,width*3/4,height);
 		
 		parent.text(text, x, y+height/4,width,height);
 		parent.popStyle();

@@ -16,6 +16,7 @@ public class DrawingSurface extends PApplet {
     private volatile Boat[] boats;
     private volatile int[] damagedEnemies;
     private volatile int damageTaken;
+    
     private int mapRadius;
     //KEYS
     private boolean[] keys; // 0 - up, 1 - down, 2 - left, 3 - right
@@ -94,18 +95,9 @@ public class DrawingSurface extends PApplet {
 
         //water
         Animation water = new Animation("Water_2/water", 4, this, 10);
-
-        //sand(variations)
-        /*
-        PImage sand1 = loadImage("sand12.png");
-        PImage sand2 = loadImage("sand22.png");
-        PImage sand3 = loadImage("sand32.png");
-        */
         PImage sand = loadImage("Sand.png");
         
         PImage dock = loadImage("Dock.png");
-        
-
         //grass
         int dockNumber = 0;
         PImage grass = loadImage("GrassNew.png"); // was "Grass.png"
@@ -124,16 +116,6 @@ public class DrawingSurface extends PApplet {
                 else if (blocks[j][i].equals("s")) {
 
                     noStroke();
-                    /*
-                    double x = Math.random();
-                    if (x < 0.33) {
-                        walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand1));
-                    } else if (x < 0.66) {
-                        walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand2));
-                    } else {
-                        walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand3));
-                    }
-                     */
                     walls.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, sand));
                     walls.get(walls.size() - 1).setColor(219, 209, 0);
                 }
@@ -178,15 +160,12 @@ public class DrawingSurface extends PApplet {
         	playerSpawn = true;
         	for(int i = -1; i < 2; i++) {
         		for(int j = -1; j < 2; j++) {
-        			System.out.println("here");
         			
         			if(randomI + i < 0 || randomI + i > blocks.length-1 || randomJ + j < 0 || randomJ + j > blocks[0].length-1) {
         				playerSpawn = false;
-        				System.out.println(randomI + " " + randomJ + " wont work because bounds");
         				break;
         			} else if(!blocks[randomJ+j][randomI+i].equals("w")) {
         				playerSpawn = false;
-        				System.out.println(randomI + " " + randomJ + " wont work because " + randomI+i + " " + randomJ+j + " is a " + blocks[randomI+i][randomI+j]);
         				break;
         			}
         			
@@ -195,8 +174,6 @@ public class DrawingSurface extends PApplet {
         			break;
         	}
         } while(!playerSpawn);
-        
-		System.out.println(randomI + " " + randomJ + " should work because " + randomI + " " + randomJ + " is a " + blocks[randomI][randomI]);
 		
         player = new Player(this, randomI * blockSize, randomJ * blockSize, 10, 20, 100);
         player.setColor(255, 100, 10);
@@ -388,7 +365,7 @@ public class DrawingSurface extends PApplet {
             		ArrayList<Bullet> bullets = (ArrayList<Bullet>) playerBullets.clone();
             		for(int j = 0; j < playerBullets.size(); j++) {
                 		if(other.getHitbox().contains(playerBullets.get(j).getX(), playerBullets.get(j).getY())) {
-                			System.out.println("TARGET HIT");
+                			//System.out.println("TARGET HIT");
                 			
                 			damagedEnemies[i] += playerBullets.get(j).getDamage();
                 			
@@ -406,7 +383,9 @@ public class DrawingSurface extends PApplet {
             		}
             	}
             }
-            //System.out.println("I am taking " + (damageTaken*4) + " damage");
+//            if(damageTaken!=0) {
+//            	System.out.println("I am taking " + (damageTaken*4) + " damage");
+//            }
             player.changeHealth(-(damageTaken)*4);
             damageTaken = 0;
             //UPDATES PARTICLES(not needed rn)
@@ -436,7 +415,7 @@ public class DrawingSurface extends PApplet {
 
             //DISPLAYS THE BLOCKS
             for (Block w : walls) {
-                if (zoom/* && w.isTouching(player.getX()-700/scaleFactor, player.getY()-500/scaleFactor, 1500/scaleFactor, 1050/scaleFactor)*/) {
+                if (zoom) {
                     w.show();
                 } else if (!zoom) {
                 	double distance = Math.sqrt(Math.pow(w.getX()-(player.getX()+player.getWidth()/2), 2)+Math.pow(w.getY()-(player.getY()+player.getHeight()/2), 2));
@@ -449,7 +428,7 @@ public class DrawingSurface extends PApplet {
 
             //DISPLAYS THE WATER TILES
             for (Block w : waterBlocks) {
-                if (zoom/* && w.isTouching(player.getX()-(this.width+200)/(2*scaleFactor), player.getY()-(this.height+200)/(2*scaleFactor), (this.width+200)/scaleFactor, (this.height+200)/scaleFactor)*/) {
+                if (zoom) {
                     w.show();
                 } else if (!zoom) {
                 	double distance = Math.sqrt(Math.pow(w.getX()-(player.getX()+player.getWidth()/2), 2)+Math.pow(w.getY()-(player.getY()+player.getHeight()/2), 2));
@@ -462,10 +441,17 @@ public class DrawingSurface extends PApplet {
 
             //DISPLAYS THE DOCKS
             for (Dock d : docks) {
-                if (zoom)
+                if (zoom) {
                     d.show();
-                else
+                } else {
                     d.showNoImage();
+                }
+                /*else if (!zoom) {
+                	double distance = Math.sqrt(Math.pow(d.getX()-(player.getX()+player.getWidth()/2), 2)+Math.pow(d.getY()-(player.getY()+player.getHeight()/2), 2));
+                	if(distance <= mapRadius) {
+                		w.showNoImage();
+                	}
+                }*/
             }
 
             //UPDATES ANIMATION
@@ -554,7 +540,6 @@ public class DrawingSurface extends PApplet {
             
             if(priceRandomizeTimer <= 0) {
             	priceRandomizeTimer = 7200;
-            	System.out.println("Shifting prices of all docks");
             	for(Dock d : docks) {
             		d.shiftPrices();
             	}
@@ -700,24 +685,23 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void setDamagedEnemies(int[] input2) {
-		// TODO Auto-generated method stub
+		
 		this.damagedEnemies = input2;
 	}
 
 	public int[] getDamagedEnemies() {
-		// TODO Auto-generated method stub
+		
 		return damagedEnemies;
 	}
 
 	public void resetDamagedEnemies() {
-		// TODO Auto-generated method stub
 		for(int i = 0; i < damagedEnemies.length; i++) {
 			damagedEnemies[i] = 0;
 		}
 	}
 
 	public void setDamageTaken(int in) {
-		// TODO Auto-generated method stub
+		
 		damageTaken += in;
 	}
 }
