@@ -406,6 +406,7 @@ public class DrawingSurface extends PApplet {
             		}
             	}
             }
+            //System.out.println("I am taking " + (damageTaken*4) + " damage");
             player.changeHealth(-(damageTaken)*4);
             damageTaken = 0;
             //UPDATES PARTICLES(not needed rn)
