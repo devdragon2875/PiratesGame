@@ -44,5 +44,8 @@ public class ServerUI extends PApplet {
 		rect(width / 2 - boxWidth / 2 - 10, height / 2 - 60, boxWidth + 20, 120, 20);
 		fill(100);
 		text(ip, width / 2 - boxWidth / 2, height / 2 + 50);
+		fill(125);
+		textSize(50);
+		text("CLIENTS CONNECTED: " + server.getUsers().size() + "/" + CentralServer.MAX_PLAYERS, 10, height - 60);
 	}
 }
