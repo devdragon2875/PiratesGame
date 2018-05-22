@@ -13,7 +13,7 @@ import java.util.Collection;
  * @author Anantajit
  */
 public class SubServer extends Thread {
-	public static final boolean showSelfOnNetwork = true;
+	public static final boolean showSelfOnNetwork = false;
 
 	private volatile ArrayList<BulletNet> bullets;
 	private volatile int[] damagedEnemies;

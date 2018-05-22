@@ -422,7 +422,11 @@ public class DrawingSurface extends PApplet {
 				if (zoom) {
 					d.show();
 				} else {
-					d.showNoImage();
+					double distance = Math.sqrt(Math.pow(d.getX() - (player.getX() + player.getWidth() / 2), 2)
+							+ Math.pow(d.getY() - (player.getY() + player.getHeight() / 2), 2));
+					if (distance <= mapRadius) {
+						d.showNoImage();
+					}
 				}
 			}
 
