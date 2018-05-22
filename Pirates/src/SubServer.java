@@ -22,7 +22,7 @@ public class SubServer extends Thread {
 
 	private ObjectInputStream inObject;
 	private ObjectOutputStream outObject;
-	
+
 	private boolean init = false;
 
 	public SubServer(Socket clientSocket, CentralServer centralServer, int UID) throws IOException {
@@ -57,10 +57,9 @@ public class SubServer extends Thread {
 				Object input = inObject.readObject();
 				if (input instanceof Boat) {
 					centralServer.setBoat(UID, (Boat) input);
-					if(!init)
+					if (!init)
 						centralServer.setUserID();
-				}
-				else if (input instanceof ArrayList) {
+				} else if (input instanceof ArrayList) {
 					bullets = (ArrayList<BulletNet>) input;
 				} else if (input instanceof Request) {
 					if (((Request) input).getType().equals(NetworkedDock.class)) {
@@ -118,7 +117,7 @@ public class SubServer extends Thread {
 	}
 
 	public int[] getDamagedEnemies() {
-		// TODO Auto-generated method stub
+
 		return damagedEnemies;
 	}
 }

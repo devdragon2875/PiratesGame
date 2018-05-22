@@ -13,8 +13,6 @@ public class UpgradePart {
 	private int sectionType;
 	private float x, y, width, height;
 	private PApplet parent;
-	// private int upgradeCost;
-	// private int currentLevel;
 
 	public UpgradePart(PApplet parent, float x, float y, float width, float height, int sectionType) {
 		this.sectionType = sectionType;
@@ -23,10 +21,9 @@ public class UpgradePart {
 		this.width = width;
 		this.height = height;
 		this.parent = parent;
-		// currentLevel = 1;
 
 		upgrade = new Button(parent, x + width - height, y + height * 3 / 8, height, height / 2, "Upgrade");
-		// upgradeCost = 150;
+
 	}
 
 	public void show(Player p) {

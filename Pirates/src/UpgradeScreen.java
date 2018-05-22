@@ -32,8 +32,6 @@ public class UpgradeScreen {
 
 		tradeButton = new Button(parent, parent.width * 4 / 5, 0, parent.width / 5 - 45, 40, "Trade");
 
-		// (PApplet parent, float x, float y, float width, float height, int
-		// sectionType)
 		weapons = new UpgradePart(parent, 0, 0, parent.width * 4 / 5, parent.height / 3, WEAPON);
 		lookout = new UpgradePart(parent, 0, parent.height / 3, parent.width * 4 / 5, parent.height / 3, LOOKOUT);
 		steering = new UpgradePart(parent, 0, parent.height * 2 / 3, parent.width * 4 / 5, parent.height / 3, STEERING);
@@ -42,10 +40,6 @@ public class UpgradeScreen {
 
 	public void show(Player p) {
 
-		/*
-		 * Player dummy = new Player(parent,parent.width/6, parent.height/2,100,200,1);
-		 * dummy.show();
-		 */
 		p.showNoRotation(parent.width - 125, parent.height * 3 / 4, 10);
 
 		weapons.show(p);

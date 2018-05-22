@@ -40,12 +40,12 @@ public class SteerSection extends Section {
 	}
 
 	public void setX(float f) {
-		// TODO Auto-generated method stub
+
 		this.x = f;
 	}
 
 	public void setY(float f) {
-		// TODO Auto-generated method stub
+
 		this.y = f;
 	}
 

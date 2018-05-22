@@ -28,17 +28,13 @@ public class Client {
 		socket = null;
 		try {
 			socket = new Socket(serverAddress, port);
-			// System.out.println("SOCKET CONNECTED");
 			outObject = new ObjectOutputStream(socket.getOutputStream());
-			// System.out.println("OUTPUT STREAM CONNECTED");
 			inObject = new ObjectInputStream(socket.getInputStream());
-			// System.out.println("INPUT STREAM CONNECTED");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return -1;
 		}
 
-		// System.out.println("CONNECTED TO SERVER");
 		return 0;
 
 	}
@@ -70,8 +66,6 @@ public class Client {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else {
-			// System.out.println("PUSH TO SERVER FAILED - NO OUTPUT STREAM");
 		}
 	}
 

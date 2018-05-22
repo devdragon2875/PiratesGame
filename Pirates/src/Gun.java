@@ -13,7 +13,6 @@ public class Gun {
 	public static final int DEFAULT_DAMAGE = 1;
 	public static final float DEFAULT_SPEED = 10;
 	public static final float DEFAULT_INACCURACY = 50;
-	// public static final int DEFAULT_BULLETS = 3;
 	private int firingDelay, currentDelay, damage;
 	private float speed, inaccuracy;
 	private float x;
@@ -22,10 +21,6 @@ public class Gun {
 	private int height;
 	private boolean left;
 	private boolean fired;
-
-	// public Gun() {
-	// this(DEFAULT_DELAY,DEFAULT_DAMAGE,DEFAULT_SPEED,DEFAULT_INACCURACY);
-	// }
 
 	public Gun(float x, float y, int width, int height, boolean left, int firingDelay, int damage, float speed,
 			float inaccuracy) {
@@ -82,22 +77,22 @@ public class Gun {
 	}
 
 	public void setX(float f) {
-		// TODO Auto-generated method stub
+
 		this.x = f;
 	}
 
 	public void setY(float f) {
-		// TODO Auto-generated method stub
+
 		this.y = f;
 	}
 
 	public float getX() {
-		// TODO Auto-generated method stub
+
 		return x;
 	}
 
 	public float getY() {
-		// TODO Auto-generated method stub
+
 		return y;
 	}
 

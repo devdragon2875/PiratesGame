@@ -95,12 +95,12 @@ public class WeaponSection extends Section {
 	}
 
 	public float getWidth() {
-		// TODO Auto-generated method stub
+
 		return width;
 	}
 
 	public float getHeight() {
-		// TODO Auto-generated method stub
+
 		return height;
 	}
 
@@ -127,12 +127,12 @@ public class WeaponSection extends Section {
 	}
 
 	public boolean isLeft() {
-		// TODO Auto-generated method stub
+
 		return left;
 	}
 
 	public Gun getCannon() {
-		// TODO Auto-generated method stub
+
 		return cannon;
 	}
 

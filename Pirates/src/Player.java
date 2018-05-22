@@ -48,9 +48,6 @@ public class Player extends Block {
 		maxXV = DEFAULT_MAX_VELOCITY;
 		maxYV = DEFAULT_MAX_VELOCITY;
 		friction = DEFAULT_FRICTION;
-		// x-=width/2;
-		// y-=height/2;
-		// splash = new Animation("Splash/splash_",4,parent,5);
 		angle = (float) (Math.PI / 2.0);
 		this.maxHealth = maxHealth;
 		health = maxHealth;
@@ -68,16 +65,6 @@ public class Player extends Block {
 
 		steer = new SteerSection(parent, x + width / 2 - width / 6, y + height / 4 + height, width / 3, width / 3);
 		lookout = new LookoutSection(parent, x + width / 6, y, width / 3, width / 3);
-		// image = parent.loadImage("playerStill.png");
-		// movingImage = parent.loadImage("playerMoving.gif"); // doesnt work with gifs
-		// for(int i = 0; i < weapons.size(); i++) {
-		// weapons.get(i).upgrade();
-		// }
-		// for(int i = 0; i < weapons.size(); i++) {
-		// weapons.get(i).upgrade();
-		// }
-		// steer.upgrade();
-		// steer.upgrade();
 		cargo = new Cargo(100); // DEFAULT can hold 100 cargo
 		cargo.setGold(100);
 
@@ -95,13 +82,13 @@ public class Player extends Block {
 		boat.setY(y);
 		boat.setAngle(angle);
 		boat.setV(yV);
-		
+
 		int[][] hitPoints = new int[hitbox.npoints][2];
-		for(int i = 0; i < hitbox.npoints; i++) {
+		for (int i = 0; i < hitbox.npoints; i++) {
 			hitPoints[i][0] = hitbox.xpoints[i];
 			hitPoints[i][1] = hitbox.ypoints[i];
 		}
-		
+
 		boat.setHitbox(hitPoints);
 
 		parent.translate((float) (this.getX() + this.getWidth() / 2.0), (float) (this.getY() + this.getHeight() / 2.0));
@@ -114,11 +101,6 @@ public class Player extends Block {
 		}
 		steer.draw();
 		lookout.draw();
-
-		// splash.update();
-		// super.show();
-		// parent.image(image, x, y,size,size);
-
 	}
 
 	public void showNoRotation(float x, float y, float scale) {
@@ -186,10 +168,6 @@ public class Player extends Block {
 		x += (float) (yV * Math.cos(angle)) * steer.getStat(steer.getLevel()) / 10f;
 		y += (float) (yV * Math.sin(angle)) * steer.getStat(steer.getLevel()) / 10f;
 
-		// System.out.println(xV + " " + yV);
-
-		// hitbox.translate(0, (int)(yV * Math.sin(angle)));
-
 		hitbox = new Polygon();
 		Point2D[] originalPoints = new Point2D[4];
 
@@ -216,27 +194,6 @@ public class Player extends Block {
 			yV = -1 * maxYV;
 		}
 
-		// moving x
-
-		/*
-		 * for(int i = 0; i < b.length; i++) { if(hitbox.intersects(b[i].getHitbox())) {
-		 * //this.isTouching(b[i]) if(xV > 0) x = b[i].getX()-super.getWidth(); else x =
-		 * b[i].getX()+b[i].getWidth(); xV = 0; break; }
-		 * 
-		 * }
-		 * 
-		 * 
-		 * //moving y
-		 * 
-		 * 
-		 * 
-		 * for(int i = 0; i < b.length; i++) { if(hitbox.intersects(b[i].getHitbox())) {
-		 * //this.isTouching(b[i]) if(yV > 0) y = b[i].getY()-super.getHeight(); else y
-		 * = b[i].getY()+b[i].getHeight(); yV = 0; break; }
-		 * 
-		 * }
-		 */
-
 		boolean forward = yV > 0;
 		boolean left = angleVel > 0;
 
@@ -258,13 +215,6 @@ public class Player extends Block {
 				break;
 			}
 		}
-		/*
-		 * for(int i = 0; i < enemyBullets.size(); i++) {
-		 * if(hitbox.contains(enemyBullets.get(i).getX(), enemyBullets.get(i).getY())) {
-		 * System.out.println("hit"); health -= enemyBullets.remove(i).getDamage();
-		 * 
-		 * break; } }
-		 */
 		// friction
 		xV *= friction;
 
@@ -273,10 +223,6 @@ public class Player extends Block {
 		for (int i = 0; i < weapons.size(); i++) {
 			weapons.get(i).update();
 		}
-
-		// for(int i = 0; i < buttonsW.size(); i++) {
-		// buttonsW.get(i).update();
-		// }
 
 		weapons.get(0).setX(x);
 		weapons.get(1).setX(x + weaponWidth);
@@ -307,10 +253,6 @@ public class Player extends Block {
 	}
 
 	private void draw() {
-
-		// for(int i = 0; i < buttonsW.size(); i++) {
-		// buttonsW.get(i).show();
-		// }
 
 		parent.stroke(0);
 		parent.strokeWeight((float) 0.5);
@@ -395,31 +337,26 @@ public class Player extends Block {
 	}
 
 	public void setAngle(float angle) {
-		// TODO Auto-generated method stub
+
 		this.angle = angle;
 	}
-
-	// public void setYV(int i) {
-	// // TODO Auto-generated method stub
-	// yV = i;
-	// }
 
 	public Cargo getCargo() {
 		return cargo;
 	}
 
 	public double getAngleVel() {
-		// TODO Auto-generated method stub
+
 		return angleVel;
 	}
 
 	public float getAngle() {
-		// TODO Auto-generated method stub
+
 		return angle;
 	}
 
 	public void setAngleVel(double d) {
-		// TODO Auto-generated method stub
+
 		angleVel = d;
 	}
 
@@ -435,12 +372,6 @@ public class Player extends Block {
 		return hitbox;
 	}
 
-	/*
-	 * public int[] getLevels() { // weapon, weapon, weapon, weapon, steer, lookout
-	 * int[] levels = new int[6]; for(int i = 0; i < weapons.size();i++) { levels[i]
-	 * = weapons.get(i).getLevel(); } levels[4] = steer.getLevel(); levels[5] =
-	 * lookout.getLevel(); return levels; }
-	 */
 	public ArrayList<WeaponSection> getWeapons() {
 		return weapons;
 	}
