@@ -6,6 +6,7 @@ import processing.core.PApplet;
 
 /**
  * User interface for the server
+ * 
  * @author Anantajit
  *
  */

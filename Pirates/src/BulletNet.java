@@ -10,7 +10,6 @@ public class BulletNet implements Serializable {
 	private float x, y;
 	private float xV, yV;
 	private int damage;
-	private boolean dead = false;
 
 	public BulletNet(int damage) {
 		this.damage = damage;
@@ -56,11 +55,4 @@ public class BulletNet implements Serializable {
 		this.damage = damage;
 	}
 
-	public void remove() {
-		dead = true;
-	}
-
-	public boolean shouldBeDead() {
-		return dead;
-	}
 }

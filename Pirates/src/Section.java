@@ -41,9 +41,7 @@ public class Section {
 			drawer.rect(x, y, width, height);
 
 		}
-		/*
-		 * if(isClicked()) { this.upgrade(); }
-		 */
+
 	}
 
 	public boolean isPointInside(float x, float y) {

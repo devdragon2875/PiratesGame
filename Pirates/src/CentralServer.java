@@ -58,10 +58,8 @@ public class CentralServer {
 
 	public static void main(String[] args) throws IOException {
 		CentralServer server = new CentralServer(4444);
-		System.out.println("SERVER INIT COMPLETE");
 
 		new ServerManager(server).start();
-		System.out.println("SERVER START COMPLETE");
 
 		ServerUI drawing = new ServerUI(server);
 		PApplet.runSketch(new String[] { "Pirates - Server" }, drawing);
@@ -76,7 +74,6 @@ public class CentralServer {
 
 		window.setVisible(true);
 		canvas.requestFocus();
-		System.out.println("SERVER UI RUNNING");
 	}
 
 	public synchronized Boat[] getBoats() {
@@ -103,18 +100,18 @@ public class CentralServer {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-	
+
 	public void setUserID() {
 		boolean updated = false;
-		
-		for(int i = 0; i < boats.length; i++) {
-			if(this.boats[i] == null) {
+
+		for (int i = 0; i < boats.length; i++) {
+			if (this.boats[i] == null) {
 				this.userID = i;
 				updated = true;
 			}
 		}
-		
-		if(!updated) {
+
+		if (!updated) {
 			this.userID = CentralServer.MAX_PLAYERS + 1;
 		}
 	}
@@ -150,7 +147,6 @@ public class CentralServer {
 	}
 
 	public synchronized Integer getDamage(int UID) {
-		// TODO Auto-generated method stub
 		int total = 0;
 		for (int i = 0; i < users.size(); i++) {
 			if (i != UID && users.get(i) != null && users.get(i).getDamagedEnemies() != null) {
@@ -176,7 +172,6 @@ class ServerManager extends Thread {
 		try {
 			serverSocket = new ServerSocket(head.getPort());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -185,17 +180,15 @@ class ServerManager extends Thread {
 				try {
 					socket = serverSocket.accept();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				SubServer temp = null;
 				try {
 					temp = new SubServer(socket, head, head.getUserID());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				head.getUsers().add(temp);
 				temp.start();
 			} else {

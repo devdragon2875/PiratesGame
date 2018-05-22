@@ -31,8 +31,6 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Block> walls;
 	private ArrayList<Block> waterBlocks;
 
-	// private Block[] walls;
-
 	// ARRAYLISTS FOR OTHERS
 	private ArrayList<Bullet> playerBullets;
 
@@ -41,7 +39,6 @@ public class DrawingSurface extends PApplet {
 	}
 
 	private volatile ArrayList<BulletNet> otherBullets;
-	private volatile ArrayList<Treasure> treasures;
 	private ArrayList<Particle> particles;
 
 	// SCREEN ADJUSTMENTS
@@ -96,6 +93,8 @@ public class DrawingSurface extends PApplet {
 
 		// water
 		Animation water = new Animation("Water_2/water", 4, this, 10);
+
+		// sand
 		PImage sand = loadImage("Sand.png");
 
 		PImage dock = loadImage("Dock.png");
@@ -137,10 +136,6 @@ public class DrawingSurface extends PApplet {
 				else if (blocks[j][i].equals("p")) {
 					waterBlocks.add(new Block(this, i * blockSize, j * blockSize, blockSize, blockSize, water));
 					waterBlocks.get(waterBlocks.size() - 1).setColor(100, 150, 230);
-					/*
-					 * player = new Player(this, i * blockSize / 2, j * blockSize / 2, 10, 20, 20);
-					 * player.setColor(255, 100, 10);
-					 */
 				}
 
 				// DRAWS A WATER TILE
@@ -248,8 +243,6 @@ public class DrawingSurface extends PApplet {
 			// CHECK FOR INPUT AND CHANGES PLAYER VALUES
 			if (keys[0]) {
 				player.changeYV((float) -0.05);
-			} else {
-				// player.setYV(0);
 			}
 			if (keys[1]) {
 				player.changeYV((float) 0.05);
@@ -354,7 +347,7 @@ public class DrawingSurface extends PApplet {
 					ArrayList<Bullet> bullets = (ArrayList<Bullet>) playerBullets.clone();
 					for (int j = 0; j < playerBullets.size(); j++) {
 						Polygon hitbox = new Polygon();
-						for(int a = 0; a < other.getHitbox().length; a++) {
+						for (int a = 0; a < other.getHitbox().length; a++) {
 							hitbox.addPoint(other.getHitbox()[a][0], other.getHitbox()[a][1]);
 						}
 						if (hitbox.contains(playerBullets.get(j).getX(), playerBullets.get(j).getY())) {
@@ -369,7 +362,7 @@ public class DrawingSurface extends PApplet {
 					}
 				}
 			}
-			
+
 			player.changeHealth(-(damageTaken) * 4);
 			damageTaken = 0;
 			// UPDATES PARTICLES(not needed rn)
@@ -460,8 +453,6 @@ public class DrawingSurface extends PApplet {
 					if (b != null) {
 						b.setX((float) (b.getX() + b.getV() * Math.cos(b.getAngle())));
 						b.setY((float) (b.getY() + b.getV() * Math.sin(b.getAngle())));
-						// Block bx = new Block(this, b.getX(), b.getY(), player.getWidth(),
-						// player.getHeight());
 						pushMatrix();
 						pushStyle();
 						stroke(0);

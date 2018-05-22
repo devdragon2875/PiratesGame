@@ -100,7 +100,6 @@ public class Menu {
 
 	public void draw() {
 
-		// a.display(0, 0, drawer.width, drawer.height);
 		if (normal) {
 			drawer.textAlign(drawer.CENTER);
 			a.display(0, 0, drawer.width, drawer.height);
@@ -158,7 +157,6 @@ public class Menu {
 	}
 
 	public boolean getSwitchScreen() {
-		// TODO Auto-generated method stub
 		return switchScreen;
 	}
 }

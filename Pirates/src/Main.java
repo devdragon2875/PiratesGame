@@ -8,7 +8,7 @@ import processing.core.PApplet;
 /**
  * This class is used to launch the program.
  * 
- * @author Blake
+ * @author Devansh
  *
  */
 public class Main {

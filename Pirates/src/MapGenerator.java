@@ -66,9 +66,6 @@ public class MapGenerator {
 				if (y != mapHeight - 1)
 					writer.write(lineSep);
 			}
-			// MapDrawer display = new MapDrawer();
-			// display.drawNoiseMap(noiseMap, drawer);
-			// display.drawColorMap(colorMap, drawer);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -76,7 +73,6 @@ public class MapGenerator {
 				try {
 					writer.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

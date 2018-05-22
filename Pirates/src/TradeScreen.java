@@ -7,7 +7,7 @@ import processing.core.PImage;
  * This class is used to represent the trade screen the player will see when at
  * a dock.
  * 
- * @author Blake and Anantajit
+ * @author Blake
  *
  */
 public class TradeScreen {
@@ -26,7 +26,6 @@ public class TradeScreen {
 	private PImage clothImg, spicesImg, jewelryImg, beardsImg;
 	private Button exitButton;
 	private Button upgradeButton; // button to take user to upgrade screen
-	// private Player player;
 
 	public TradeScreen(PApplet parent) {
 		this(parent, (float) (Math.random() * 5 + 10), (float) (Math.random() * 5 + 10),
@@ -65,8 +64,7 @@ public class TradeScreen {
 		parent.rect(parent.width * 4 / 5, 0, parent.width / 5, parent.height);
 
 		float offset = parent.width * 4 / 5;
-		// parent.rect(offset+parent.width/100, parent.height*3/8, parent.width/15,
-		// parent.width/15);
+
 		parent.image(clothImg, offset + parent.width / 100, parent.height * 3 / 8, parent.width / 15,
 				parent.width / 15);
 		parent.image(spicesImg, offset + parent.width / 100, parent.height / 2, parent.width / 15, parent.width / 15);
@@ -99,14 +97,10 @@ public class TradeScreen {
 	public void update(Player player) {
 
 		for (TradePart p : parts) {
-			// p.update();
+
 			p.updateTrade(player.getCargo());
 		}
-		/*
-		 * String s = ""; for(int i = 1; i <= 4; i++) s +=
-		 * player.getCargo().getMaterial(i) + "|"; s += ", Gold : " +
-		 * player.getCargo().getGold(); System.out.println(s);
-		 */
+
 	}
 
 	public boolean checkExitButton() {
@@ -120,9 +114,9 @@ public class TradeScreen {
 	public void shiftPrices() {
 
 		for (int i = 0; i < parts.length; i++) {
-			System.out.println("was " + parts[i].getPrice());
+
 			parts[i].setPrice(parts[i].getPrice() + (float) (Math.random() * 4f) - 2f);
-			System.out.println("is now " + parts[i].getPrice());
+
 		}
 	}
 }
