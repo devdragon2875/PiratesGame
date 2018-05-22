@@ -4,7 +4,7 @@ import processing.core.PApplet;
 
 /**
  * This class is used to represent a bullet, as it can move through the screen and collide with players or enemies.
- * @author Blake and Anantajit
+ * @author Blake and Devansh
  *
  */
 public class Bullet extends Block{

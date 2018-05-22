@@ -5,7 +5,7 @@ import processing.core.PImage;
  * This class is made to represent a dock on the map which the player can
  * interact and trade at.
  * 
- * @author Blake and Anantajit
+ * @author Blake
  *
  */
 public class Dock extends Block {

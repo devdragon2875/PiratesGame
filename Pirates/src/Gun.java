@@ -4,7 +4,7 @@ import processing.core.PApplet;
  * This class is used to store statistics about a gun and is used to generate
  * bullets.
  * 
- * @author Blake
+ * @author Devansh
  *
  */
 public class Gun {
