@@ -574,7 +574,7 @@ public class DrawingSurface extends PApplet {
 			// instructions
 			fill(100);
 			textSize(50);
-			text("ENTER SERVER IP:", width/2, height/2 - 60);
+			text("ENTER SERVER IP:", width / 2, height / 2 - 60);
 		}
 
 	}
@@ -609,7 +609,7 @@ public class DrawingSurface extends PApplet {
 				screen = GAME;
 			} else if (key == BACKSPACE && input.length() > 0) {
 				input.deleteCharAt(input.length() - 1);
-			} else if(Character.isDefined(key)){
+			} else if (Character.isDefined(key)) {
 				this.input.append(key);
 			}
 		}
