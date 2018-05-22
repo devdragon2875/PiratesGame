@@ -184,7 +184,6 @@ class ServerManager extends Thread {
 			if (head.getUserID() < CentralServer.MAX_PLAYERS) {
 				try {
 					socket = serverSocket.accept();
-					head.setUserID();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -22,6 +22,8 @@ public class SubServer extends Thread {
 
 	private ObjectInputStream inObject;
 	private ObjectOutputStream outObject;
+	
+	private boolean init = false;
 
 	public SubServer(Socket clientSocket, CentralServer centralServer, int UID) throws IOException {
 
@@ -53,8 +55,11 @@ public class SubServer extends Thread {
 			boolean sent = false;
 			try {
 				Object input = inObject.readObject();
-				if (input instanceof Boat)
+				if (input instanceof Boat) {
 					centralServer.setBoat(UID, (Boat) input);
+					if(!init)
+						centralServer.setUserID();
+				}
 				else if (input instanceof ArrayList) {
 					bullets = (ArrayList<BulletNet>) input;
 				} else if (input instanceof Request) {
